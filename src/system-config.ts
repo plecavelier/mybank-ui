@@ -9,11 +9,40 @@
  **********************************************************************************************/
 /** Map relative paths to URLs. */
 const map: any = {
+  '@ng-bootstrap': 'vendor/@ng-bootstrap'
 };
 
 /** User packages configuration. */
 const packages: any = {
+  '@ng-bootstrap/ng-bootstrap': {
+    main: 'index.js',
+    defaultExtension: 'js'
+  }
 };
+
+const ngBootstrapPackages:string[] = [
+  'accordion',
+  'alert',
+  'buttons',
+  'carousel',
+  'collapse',
+  'dropdown',
+  'pagination',
+  'popover',
+  'progressbar',
+  'rating',
+  'tabset',
+  'timepicker',
+  'tooltip',
+  'typeahead'
+];
+
+ngBootstrapPackages.forEach((pkg) => {
+  packages[`@ng-bootstrap/ng-bootstrap/${pkg}`] = {
+    main: 'index.js',
+    defaultExtension: 'js'
+  };
+});
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 /***********************************************************************************************
