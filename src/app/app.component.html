@@ -1,9 +1,72 @@
-<h1>
-  {{title}}
-</h1>
-<div>
-<button type="button" class="btn btn-primary">Test Bootstrap 4 CSS</button>
+<nav class="navbar navbar-default">
+  <ul class="nav navbar-nav">
+    <li>
+      <a href="#">Opérations</a>
+    </li>
+    <li>
+      <a href="#">Statistiques</a>
+    </li>
+  </ul>
+  <ul class="nav navbar-nav navbar-right">
+    <li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Déconnexion</a></li>
+  </ul>
+</nav>
+
+<div class="panel panel-default">
+  <div class="panel-heading clearfix">
+    <h3 class="panel-title pull-left">Comptes bancaires</h3>
+    <button type="button" class="btn btn-default pull-right">Créer compte</button>
+  </div>
+  <ul class="list-group">
+    <a href="#" class="list-group-item">
+      <div class="pull-right">
+        <span class="badge">-200 €</span>
+        <a href="#"><span class="glyphicon glyphicon-option-vertical"></span></a>
+      </div>
+      <h4 class="list-group-item-heading">PEL CA</h4>
+      <p class="list-group-item-text">123456789</p>
+    </a>
+    <a href="#" class="list-group-item">
+      <div class="pull-right">
+        <span class="badge">-200 €</span>
+        <a href="#"><span class="glyphicon glyphicon-option-vertical"></span></a>
+      </div>
+      <h4 class="list-group-item-heading">PEL CA</h4>
+      <p class="list-group-item-text">123456789</p>
+    </a>
+  </ul>
+  <div class="panel-heading clearfix">
+    <h3 class="panel-title pull-left">Catégorie</h3>
+    <button type="button" class="btn btn-default pull-right">Créer catégorie</button>
+  </div>
+  <ul class="list-group">
+    <a href="#" class="list-group-item">
+      Frais bancaires
+      <span class="pull-right">
+        <a href="#"><span class="glyphicon glyphicon-option-vertical"></span></a>
+      </span>
+    </a>
+    <a href="#" class="list-group-item">
+      Jeux vidéos
+      <span class="pull-right">
+        <a href="#"><span class="glyphicon glyphicon-option-vertical"></span></a>
+      </span>
+    </a>
+    <a href="#" class="list-group-item">
+      Logement
+      <span class="pull-right">
+        <a href="#"><span class="glyphicon glyphicon-option-vertical"></span></a>
+      </span>
+    </a>
+    <a href="#" class="list-group-item">
+      Voiture
+      <span class="pull-right">
+        <a href="#"><span class="glyphicon glyphicon-option-vertical"></span></a>
+      </span>
+    </a>
+  </ul>
 </div>
-<div>
-  <ngb-alert>Test ng-bootstrap</ngb-alert>
-</div>
+
+<main>
+Contenu
+</main>
