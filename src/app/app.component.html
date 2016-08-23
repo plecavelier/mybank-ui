@@ -19,38 +19,7 @@
     <h3 class="panel-title pull-left">Comptes bancaires</h3>
     <a routerLink="/account-form" class="btn btn-default pull-right"><span class="glyphicon glyphicon-plus"></span> Créer compte</a>
   </div>
-  <ul class="list-group">
-    <a class="list-group-item">
-      <div class="pull-right">
-        <span class="badge">-200 €</span>
-        <span ngbDropdown>
-          <a href="javascript:void(0)" ngbDropdownToggle><span class="glyphicon glyphicon-option-vertical"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#"><span class="glyphicon glyphicon-pencil"></span> Modifier compte</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#"><span class="glyphicon glyphicon-trash"></span> Supprimer compte</a></li>
-          </ul>
-        </span>
-      </div>
-      <h4 class="list-group-item-heading">PEL CA</h4>
-      <p class="list-group-item-text">123456789</p>
-    </a>
-    <a class="list-group-item">
-      <div class="pull-right">
-        <span class="badge">-200 €</span>
-        <span ngbDropdown>
-          <a href="javascript:void(0)" ngbDropdownToggle><span class="glyphicon glyphicon-option-vertical"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#"><span class="glyphicon glyphicon-pencil"></span> Modifier compte</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#"><span class="glyphicon glyphicon-trash"></span> Supprimer compte</a></li>
-          </ul>
-        </span>
-      </div>
-      <h4 class="list-group-item-heading">PEL CA</h4>
-      <p class="list-group-item-text">123456789</p>
-    </a>
-  </ul>
+  <ul class="list-group" app-account-list></ul>
   <div class="panel-heading clearfix">
     <h3 class="panel-title pull-left">Catégorie</h3>
     <button type="button" class="btn btn-default pull-right"><span class="glyphicon glyphicon-plus"></span> Créer catégorie</button>

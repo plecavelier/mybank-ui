@@ -3,11 +3,11 @@
 import { By }           from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 import { addProviders, async, inject } from '@angular/core/testing';
-import { AccountFormComponent } from './account-form.component';
+import { AccountListComponent } from './account-list.component';
 
-describe('Component: AccountForm', () => {
+describe('Component: AccountList', () => {
   it('should create an instance', () => {
-    let component = new AccountFormComponent(null, null, null);
+    let component = new AccountListComponent(null);
     expect(component).toBeTruthy();
   });
 });

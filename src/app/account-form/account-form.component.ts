@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { REACTIVE_FORM_DIRECTIVES, FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { ActivatedRoute } from '@angular/router';
 import { FormErrorComponent } from '../form-error/form-error.component';
 import 'rxjs/add/operator/toPromise';
 
@@ -19,7 +20,7 @@ export class AccountFormComponent implements OnInit {
   public balance: FormControl;
   public details: FormControl;
 
-  constructor(private _fb: FormBuilder, private _http: Http) { }
+  constructor(private _fb: FormBuilder, private _http: Http, private _route: ActivatedRoute) { }
 
   ngOnInit() {
     this.name = this._fb.control("", Validators.required);
@@ -32,15 +33,25 @@ export class AccountFormComponent implements OnInit {
       "balance" : this.balance,
       "details" : this.details
     });
+
+    this._route.params
+      .map(params => params['id'])
+      .subscribe((id) => {
+        if (id) {
+          this._http.get('http://127.0.0.1:8000/accounts/' + id, {})
+            .map(response => response.json())
+            .toPromise()
+            .then(response => {
+              this.name.setValue(response.name);
+              this.number.setValue(response.number);
+            })
+            .catch(error => console.error(error));
+        }
+      });
   }
 
   ngSubmit() {
-    console.log(this.accountForm.value);
-    let body = JSON.stringify(this.accountForm.value);
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-    // php.ini must be contains option always_populate_raw_post_data = -1
-    this._http.post('http://127.0.0.1:8000/accounts', body, options)
+    this._http.post('http://127.0.0.1:8000/accounts', this.accountForm.value)
       .toPromise()
       .then(response => console.log(response))
       .catch(error => console.error(error));

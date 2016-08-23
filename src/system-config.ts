@@ -70,6 +70,7 @@ const barrels: string[] = [
   'app/account-form',
   'app/form-error',
   'app/account-form2',
+  'app/account-list',
   /** @cli-barrel */
 ];
 

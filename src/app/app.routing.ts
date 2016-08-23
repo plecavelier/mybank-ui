@@ -7,7 +7,8 @@ const appRoutes: Routes = [
   { path: '', component: OperationsComponent },
   { path: 'operations', component: OperationsComponent },
   { path: 'statistics', component: StatisticsComponent },
-  { path: 'account-form', component: AccountFormComponent }
+  { path: 'account-form', component: AccountFormComponent },
+  { path: 'account-form/:id', component: AccountFormComponent }
 ];
 
 export const appRoutingProviders: any[] = [

@@ -1,0 +1,15 @@
+<a class="list-group-item" *ngFor="let account of accounts">
+  <div class="pull-right">
+    <span class="badge">-200 €</span>
+    <span ngbDropdown>
+      <a href="javascript:void(0)" ngbDropdownToggle><span class="glyphicon glyphicon-option-vertical"></span></a>
+      <ul class="dropdown-menu">
+        <li><a routerLink="/account-form/{{ account.id }}"><span class="glyphicon glyphicon-pencil"></span> Modifier compte</a></li>
+        <li role="separator" class="divider"></li>
+        <li><a href="#"><span class="glyphicon glyphicon-trash"></span> Supprimer compte</a></li>
+      </ul>
+    </span>
+  </div>
+  <h4 class="list-group-item-heading">{{ account.name }}</h4>
+  <p class="list-group-item-text">{{ account.number }}</p>
+</a>
