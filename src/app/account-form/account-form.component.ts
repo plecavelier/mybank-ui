@@ -34,6 +34,7 @@ export class AccountFormComponent implements OnInit {
       "details" : this.details
     });
 
+    // TODO : use resolver to load datas before view : http://stackoverflow.com/questions/34731869/wait-for-angular-2-to-load-resolve-model-before-rendering-view-template
     this._route.params
       .map(params => params['id'])
       .subscribe((id) => {
@@ -51,6 +52,8 @@ export class AccountFormComponent implements OnInit {
   }
 
   ngSubmit() {
+    // TODO : use observables
+    // TODO : migrate to service with account model
     this._http.post('http://127.0.0.1:8000/accounts', this.accountForm.value)
       .toPromise()
       .then(response => console.log(response))
