@@ -1,17 +1,17 @@
 <div class="container">
     <h1>Account Form</h1>
     <form [formGroup]="accountForm" (ngSubmit)="ngSubmit()">
-      <div class="form-group" [class.has-error]="name.dirty && !name.valid">
+      <div class="form-group" [class.has-error]="nameControl.dirty && !nameControl.valid">
         <label for="name">Name</label>
         <input id="name" type="text" class="form-control" formControlName="name" />
         <app-form-error control="name" error="required">Le nom du compte est obligatoire</app-form-error>
       </div>
-      <div class="form-group" [class.has-error]="number.dirty && !number.valid">
+      <div class="form-group" [class.has-error]="numberControl.dirty && !numberControl.valid">
         <label for="number">Numéro de compte</label>
         <input id="number" type="text" class="form-control" formControlName="number" />
         <app-form-error control="number" error="required">Le numéro de compte est obligatoire</app-form-error>
       </div>
-      <div class="form-group" [class.has-error]="balance.dirty && !balance.valid">
+      <div class="form-group" [class.has-error]="balanceControl.dirty && !balanceControl.valid">
         <label for="balance">Solde initial</label>
         <div class="input-group">
           <input id="balance" type="text" class="form-control" formControlName="balance" />
@@ -20,7 +20,7 @@
         <app-form-error control="balance" error="required">Le solde initial du compte est obligatoire</app-form-error>
         <app-form-error control="balance" error="pattern">Le solde doit être un montant</app-form-error>
       </div>
-      <div class="form-group" [class.has-error]="details.dirty && !details.valid">
+      <div class="form-group" [class.has-error]="detailsControl.dirty && !detailsControl.valid">
         <label for="details">Détails</label>
         <input id="details" type="text" class="form-control" formControlName="details" />
       </div>

@@ -1,30 +1,38 @@
-import { Component, OnInit } from '@angular/core';
-import { Http } from '@angular/http';
-import 'rxjs/add/operator/map';
+import { Component, OnInit, EventEmitter } from '@angular/core';
+import { AccountService } from '../account.service'
+import { Account } from '../account'
 
 @Component({
   moduleId: module.id,
   selector: 'ul[app-account-list]',
   templateUrl: 'account-list.component.html',
-  styleUrls: ['account-list.component.css']
+  styleUrls: ['account-list.component.css'],
+  providers: [AccountService],
+  outputs: ['alertEvent']
 })
 export class AccountListComponent implements OnInit {
 
   public accounts: Array<any>;
+  alertEvent: EventEmitter<string> = new EventEmitter<string>();
 
-  constructor(private _http: Http) { }
+  constructor(private accountService: AccountService) { }
 
   ngOnInit() {
-    this._http.get('http://127.0.0.1:8000/accounts', {})
-      .map(response => response.json()['hydra:member'])
-      .toPromise()
-      .then(response => {
-        response.forEach(account => {
-          account.id = account['@id'].replace('/accounts/', '');
-        });
-        console.log(response);
-        this.accounts = response;
-      })
-      .catch(error => console.error(error));
+    this.accountService.getAll().subscribe(
+      accounts => this.accounts = accounts,
+      error =>  console.error(error)
+    );
+  }
+
+  deleteAccount(account: Account) {
+    if (confirm('Souhaitez-vous vraiment supprimer ce compte bancaire ?')) {
+      this.accountService.delete(account).subscribe(
+        response => {
+          console.log('emit event');
+          this.alertEvent.emit('Succès');
+        },
+        error =>  console.error(error)
+      );
+    }
   }
 }

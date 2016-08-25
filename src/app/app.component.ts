@@ -9,5 +9,19 @@ import { AccountListComponent } from './account-list/account-list.component'
   directives: [ AccountListComponent ]
 })
 export class AppComponent {
-  title = 'app works, yeah !';
+  
+  public alerts: Array<any> = [];
+
+  displayAlert(message: string) {
+    let alert = {
+      type: 'success',
+      message: message
+    };
+    this.alerts.push(alert);
+  }
+
+  public closeAlert(alert: any) {
+    let index: number = this.alerts.indexOf(alert);
+    this.alerts.splice(index, 1);
+  }
 }

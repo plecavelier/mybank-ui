@@ -6,7 +6,7 @@
       <ul class="dropdown-menu">
         <li><a routerLink="/account-form/{{ account.id }}"><span class="glyphicon glyphicon-pencil"></span> Modifier compte</a></li>
         <li role="separator" class="divider"></li>
-        <li><a href="#"><span class="glyphicon glyphicon-trash"></span> Supprimer compte</a></li>
+        <li><a href="javascript:void(0)" (click)="deleteAccount(account)"><span class="glyphicon glyphicon-trash"></span> Supprimer compte</a></li>
       </ul>
     </span>
   </div>

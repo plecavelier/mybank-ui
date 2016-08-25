@@ -19,7 +19,7 @@
     <h3 class="panel-title pull-left">Comptes bancaires</h3>
     <a routerLink="/account-form" class="btn btn-default pull-right"><span class="glyphicon glyphicon-plus"></span> Créer compte</a>
   </div>
-  <ul class="list-group" app-account-list></ul>
+  <ul class="list-group" app-account-list (alertEvent)="displayAlert($event)"></ul>
   <div class="panel-heading clearfix">
     <h3 class="panel-title pull-left">Catégorie</h3>
     <button type="button" class="btn btn-default pull-right"><span class="glyphicon glyphicon-plus"></span> Créer catégorie</button>
@@ -73,5 +73,6 @@
 </div>
 
 <main class="app-content">
+  <ngb-alert *ngFor="let alert of alerts" [type]="alert.type" (close)="closeAlert(alert)">{{ alert.message }}</ngb-alert>
   <router-outlet></router-outlet>
 </main>

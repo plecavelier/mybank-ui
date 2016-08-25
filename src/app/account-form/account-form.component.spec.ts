@@ -7,7 +7,7 @@ import { AccountFormComponent } from './account-form.component';
 
 describe('Component: AccountForm', () => {
   it('should create an instance', () => {
-    let component = new AccountFormComponent(null, null, null);
+    let component = new AccountFormComponent(null, null, null, null);
     expect(component).toBeTruthy();
   });
 });
