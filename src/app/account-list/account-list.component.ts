@@ -1,6 +1,7 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
 import { AccountService } from '../account.service'
 import { Account } from '../account'
+import { Alert } from '../alert'
 
 @Component({
   moduleId: module.id,
@@ -8,12 +9,12 @@ import { Account } from '../account'
   templateUrl: 'account-list.component.html',
   styleUrls: ['account-list.component.css'],
   providers: [AccountService],
-  outputs: ['alertEvent']
+  outputs: ['alertEventEmitter']
 })
 export class AccountListComponent implements OnInit {
 
-  public accounts: Array<any>;
-  alertEvent: EventEmitter<string> = new EventEmitter<string>();
+  public accounts: Array<Account>;
+  private alertEventEmitter: EventEmitter<Alert> = new EventEmitter<Alert>();
 
   constructor(private accountService: AccountService) { }
 
@@ -26,12 +27,10 @@ export class AccountListComponent implements OnInit {
 
   deleteAccount(account: Account) {
     if (confirm('Souhaitez-vous vraiment supprimer ce compte bancaire ?')) {
+      console.log(new Alert('success', 'Le compte bancaire a bien été supprimé'));
       this.accountService.delete(account).subscribe(
-        response => {
-          console.log('emit event');
-          this.alertEvent.emit('Succès');
-        },
-        error =>  console.error(error)
+        response => this.alertEventEmitter.emit(new Alert('success', 'Le compte bancaire a bien été supprimé')),
+        error =>  this.alertEventEmitter.emit(new Alert('error', 'Une alerte est survenue durant la suppression du compte bancaire'))
       );
     }
   }

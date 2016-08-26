@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AccountListComponent } from './account-list/account-list.component'
+import { Alert } from './alert';
 
 @Component({
   moduleId: module.id,
@@ -10,17 +11,13 @@ import { AccountListComponent } from './account-list/account-list.component'
 })
 export class AppComponent {
   
-  public alerts: Array<any> = [];
+  public alerts: Array<Alert> = [];
 
-  displayAlert(message: string) {
-    let alert = {
-      type: 'success',
-      message: message
-    };
+  displayAlert(alert: Alert) {
     this.alerts.push(alert);
   }
 
-  public closeAlert(alert: any) {
+  public closeAlert(alert: Alert) {
     let index: number = this.alerts.indexOf(alert);
     this.alerts.splice(index, 1);
   }
