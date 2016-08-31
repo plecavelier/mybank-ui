@@ -7,7 +7,7 @@ import { AccountListComponent } from './account-list.component';
 
 describe('Component: AccountList', () => {
   it('should create an instance', () => {
-    let component = new AccountListComponent(null);
+    let component = new AccountListComponent(null, null);
     expect(component).toBeTruthy();
   });
 });

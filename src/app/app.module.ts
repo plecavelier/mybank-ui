@@ -6,6 +6,8 @@ import { HttpModule, JsonpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { AccountFormComponent } from './account-form/account-form.component';
 import { routing, appRoutingProviders } from './app.routing';
+import { AccountService } from './account.service';
+import { AlertService } from './alert.service';
 
 @NgModule({
   imports: [
@@ -21,7 +23,9 @@ import { routing, appRoutingProviders } from './app.routing';
   	AccountFormComponent
   ],
   providers: [
-    appRoutingProviders
+    appRoutingProviders,
+    AccountService,
+    AlertService
   ],
   bootstrap:    [ AppComponent ]
 })

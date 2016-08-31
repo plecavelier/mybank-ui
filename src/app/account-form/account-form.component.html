@@ -1,6 +1,6 @@
 <div class="container">
     <h1>Account Form</h1>
-    <form [formGroup]="accountForm" (ngSubmit)="ngSubmit()">
+    <form [formGroup]="accountForm" (ngSubmit)="saveAccount()">
       <div class="form-group" [class.has-error]="nameControl.dirty && !nameControl.valid">
         <label for="name">Name</label>
         <input id="name" type="text" class="form-control" formControlName="name" />

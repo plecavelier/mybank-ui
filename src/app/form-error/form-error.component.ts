@@ -19,7 +19,7 @@ export class FormErrorComponent implements OnInit {
     this.control = this.formGroupDirective.form.find(this.controlName);
   }
 
-  isDisplayed() {
+  isDisplayed(): boolean {
     return this.control.dirty && this.control.hasError(this.error);
   }
 }

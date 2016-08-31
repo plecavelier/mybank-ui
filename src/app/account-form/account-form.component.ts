@@ -1,31 +1,35 @@
 import { Component, OnInit } from '@angular/core';
 import { REACTIVE_FORM_DIRECTIVES, FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { ActivatedRoute } from '@angular/router';
 import { FormErrorComponent } from '../form-error/form-error.component';
-import 'rxjs/add/operator/toPromise';
-import { AccountService } from '../account.service'
-import { Account } from '../account'
+import { AccountService } from '../account.service';
+import { AlertService } from '../alert.service';
+import { Account } from '../account';
+import { Alert } from '../alert';
 
 @Component({
   moduleId: module.id,
   selector: 'app-account-form',
   templateUrl: 'account-form.component.html',
   styleUrls: ['account-form.component.css'],
-  directives: [ REACTIVE_FORM_DIRECTIVES, FormErrorComponent ],
-  providers: [AccountService]
+  directives: [ REACTIVE_FORM_DIRECTIVES, FormErrorComponent ]
 })
 export class AccountFormComponent implements OnInit {
 
-  public accountForm: FormGroup;
-  public nameControl: FormControl;
-  public numberControl: FormControl;
-  public balanceControl: FormControl;
-  public detailsControl: FormControl;
+  accountForm: FormGroup;
+  nameControl: FormControl;
+  numberControl: FormControl;
+  balanceControl: FormControl;
+  detailsControl: FormControl;
 
   private account: Account;
 
-  constructor(private _fb: FormBuilder, private _http: Http, private _route: ActivatedRoute, private accountService: AccountService) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private activatedRoute: ActivatedRoute,
+    private accountService: AccountService,
+    private alertService: AlertService) {
+  }
 
   ngOnInit() {
 
@@ -35,11 +39,11 @@ export class AccountFormComponent implements OnInit {
     this.account.balance = 0;
     this.account.details = "";
 
-    this.nameControl = this._fb.control(this.account.name, Validators.required);
-    this.numberControl = this._fb.control(this.account.number, Validators.required);
-    this.balanceControl = this._fb.control(this.account.balance, [ Validators.required, Validators.pattern('^[0-9]+([.][0-9]{0,2})?$') ]);
-    this.detailsControl = this._fb.control(this.account.details);
-    this.accountForm = this._fb.group({
+    this.nameControl = this.formBuilder.control(this.account.name, Validators.required);
+    this.numberControl = this.formBuilder.control(this.account.number, Validators.required);
+    this.balanceControl = this.formBuilder.control(this.account.balance, [ Validators.required, Validators.pattern('^[0-9]+([.][0-9]{0,2})?$') ]);
+    this.detailsControl = this.formBuilder.control(this.account.details);
+    this.accountForm = this.formBuilder.group({
       name : this.nameControl,
       number : this.numberControl,
       balance : this.balanceControl,
@@ -54,7 +58,7 @@ export class AccountFormComponent implements OnInit {
     });
 
     // TODO : use resolver to load datas before view : http://stackoverflow.com/questions/34731869/wait-for-angular-2-to-load-resolve-model-before-rendering-view-template
-    this._route.params
+    this.activatedRoute.params
       .map(params => params['id'])
       .subscribe((id) => {
         if (id) {
@@ -71,13 +75,11 @@ export class AccountFormComponent implements OnInit {
       });
   }
 
-  ngSubmit() {
+  saveAccount() {
     this.accountService.save(this.account)
       .subscribe(
-        response => {
-          console.log(response);
-        },
-        error => console.error(error)
+        response => this.alertService.emit(new Alert('success', 'Le compte bancaire a bien été créé/modifié')),
+        error =>  this.alertService.emit(new Alert('danger', 'Une alerte est survenue durant la création/modification du compte bancaire'))
       );
   }
 }
