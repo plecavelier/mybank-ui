@@ -1,8 +1,9 @@
 export class Account {
 
   id: number;
-  name: string;
-  number: string;
-  balance: number;
-  details: string;
+  name: string = '';
+  number: string = '';
+  balance: number = 0;
+  details: string  = '';
+  
 }

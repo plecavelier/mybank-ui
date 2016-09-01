@@ -23,7 +23,7 @@ export class AccountService {
   get(id): Observable<Account> {
     return this.http.get(this.accountsUrl + '/' + id)
       .map(response => <Account> response.json())
-      .do(account => account.id = account['@id'].replace('/accounts/', ''))
+      .do(account => { account.id = account['@id'].replace('/accounts/', '') })
       .catch(this.handleError);
   }
 
@@ -35,6 +35,12 @@ export class AccountService {
           account.id = account['@id'].replace('/accounts/', '');
         });
       })
+      .catch(this.handleError);
+  }
+
+  update(account: Account) {
+    return this.http.put(this.accountsUrl + '/' + account.id, JSON.stringify(account))
+      .do(() => this.accountChangedSubject.next(account))
       .catch(this.handleError);
   }
 

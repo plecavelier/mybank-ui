@@ -37,7 +37,7 @@ export class AccountListComponent implements OnInit {
     if (confirm('Souhaitez-vous vraiment supprimer ce compte bancaire ?')) {
       this.accountService.delete(account).subscribe(
         response => this.alertService.emit(new Alert('success', 'Le compte bancaire a bien été supprimé')),
-        error =>  this.alertService.emit(new Alert('danger', 'Une alerte est survenue durant la suppression du compte bancaire'))
+        error =>  this.alertService.emit(new Alert('danger', 'Une erreur est survenue durant la suppression du compte bancaire'))
       );
     }
   }

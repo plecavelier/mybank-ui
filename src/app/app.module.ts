@@ -8,6 +8,7 @@ import { AccountFormComponent } from './account-form/account-form.component';
 import { routing, appRoutingProviders } from './app.routing';
 import { AccountService } from './account.service';
 import { AlertService } from './alert.service';
+import { AccountFormResolveService } from './account-form-resolve.service';
 
 @NgModule({
   imports: [
@@ -25,7 +26,8 @@ import { AlertService } from './alert.service';
   providers: [
     appRoutingProviders,
     AccountService,
-    AlertService
+    AlertService,
+    AccountFormResolveService
   ],
   bootstrap:    [ AppComponent ]
 })

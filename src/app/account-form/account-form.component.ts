@@ -23,63 +23,74 @@ export class AccountFormComponent implements OnInit {
   detailsControl: FormControl;
 
   private account: Account;
+  private newAccount: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
-    private activatedRoute: ActivatedRoute,
+    private route: ActivatedRoute,
     private accountService: AccountService,
     private alertService: AlertService) {
   }
 
   ngOnInit() {
 
-    this.account = new Account();
-    this.account.name = "";
-    this.account.number = "";
-    this.account.balance = 0;
-    this.account.details = "";
+    if (this.route.snapshot.data['account']) {
+      this.account = this.route.snapshot.data['account'];
+    } else {
+      this.account = new Account();
+    }
 
     this.nameControl = this.formBuilder.control(this.account.name, Validators.required);
     this.numberControl = this.formBuilder.control(this.account.number, Validators.required);
     this.balanceControl = this.formBuilder.control(this.account.balance, [ Validators.required, Validators.pattern('^[0-9]+([.][0-9]{0,2})?$') ]);
     this.detailsControl = this.formBuilder.control(this.account.details);
-    this.accountForm = this.formBuilder.group({
+    let controls = {
       name : this.nameControl,
       number : this.numberControl,
-      balance : this.balanceControl,
       details : this.detailsControl
-    });
+    }
+    if (this.isNew()) {
+      controls['balance'] = this.balanceControl;
+    }
+    this.accountForm = this.formBuilder.group(controls);
 
     this.accountForm.valueChanges.subscribe(value => {
       this.account.name = value.name;
       this.account.number = value.number;
-      this.account.balance = value.balance;
+      if (this.isNew()) {
+        this.account.balance = value.balance;
+      }
       this.account.details = value.details;
     });
-
-    // TODO : use resolver to load datas before view : http://stackoverflow.com/questions/34731869/wait-for-angular-2-to-load-resolve-model-before-rendering-view-template
-    this.activatedRoute.params
-      .map(params => params['id'])
-      .subscribe((id) => {
-        if (id) {
-          this.accountService.get(id).subscribe(
-            account => {
-              this.account = account;
-              this.accountForm.patchValue(account);
-            },
-            error => {
-              console.error(error)
-            }
-          );
-        }
-      });
   }
 
   saveAccount() {
-    this.accountService.save(this.account)
-      .subscribe(
-        response => this.alertService.emit(new Alert('success', 'Le compte bancaire a bien été créé/modifié')),
-        error =>  this.alertService.emit(new Alert('danger', 'Une alerte est survenue durant la création/modification du compte bancaire'))
-      );
+    console.log(this.isNew());
+    if (this.isNew()) {
+      this.accountService.save(this.account)
+        .subscribe(
+          response => {
+            this.alertService.emit(new Alert('success', 'Le compte bancaire a bien été créé'));
+            this.clearForm();
+          },
+          error => this.alertService.emit(new Alert('danger', 'Une erreur est survenue durant la création du compte bancaire'))
+        );
+    } else {
+      this.accountService.update(this.account)
+        .subscribe(
+          response => this.alertService.emit(new Alert('success', 'Le compte bancaire a bien été modifié')),
+          error =>  this.alertService.emit(new Alert('danger', 'Une erreur est survenue durant la modification du compte bancaire'))
+        );
+    }
+  }
+
+  isNew(): boolean {
+    return this.account.id === undefined;
+  }
+
+  private clearForm() {
+    this.accountForm.reset();
+    this.account = new Account();
+    this.accountForm.patchValue(this.account);
   }
 }
