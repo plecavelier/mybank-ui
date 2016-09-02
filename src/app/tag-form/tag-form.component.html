@@ -1,0 +1,26 @@
+<div class="container">
+    <h1>Tag Form</h1>
+    <form [formGroup]="tagForm" (ngSubmit)="saveTag()">
+      <div class="form-group" [class.has-error]="nameControl.dirty && !nameControl.valid">
+        <label for="name">Nom</label>
+        <input id="name" type="text" class="form-control" formControlName="name" />
+        <app-form-error control="name" error="required">Le nom de la catégorie est obligatoire</app-form-error>
+      </div>
+      <div class="form-group" [class.has-error]="descriptionControl.dirty && !descriptionControl.valid">
+        <label for="description">Description</label>
+        <input id="description" type="text" class="form-control" formControlName="description" />
+        <app-form-error control="description" error="required">La description est obligatoire</app-form-error>
+      </div>
+      <div class="form-group" [class.has-error]="iconControl.dirty && !iconControl.valid">
+        <label for="icon">Icône</label>
+        <input id="icon" type="text" class="form-control" formControlName="icon" />
+        <app-form-error control="icon" error="required">L'icône est obligatoire</app-form-error>
+      </div>
+      <div class="form-group" [class.has-error]="colorControl.dirty && !colorControl.valid">
+        <label for="color">Couleur</label>
+        <input id="color" type="text" class="form-control" formControlName="color" />
+        <app-form-error control="color" error="required">La couleur est obligatoire</app-form-error>
+      </div>
+      <button type="submit" class="btn btn-default" [disabled]="!tagForm.valid">Submit</button>
+    </form>
+</div>

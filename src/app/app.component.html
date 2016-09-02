@@ -21,55 +21,10 @@
   </div>
   <ul class="list-group" app-account-list (alertEventEmitter)="displayAlert($event)"></ul>
   <div class="panel-heading clearfix">
-    <h3 class="panel-title pull-left">Catégorie</h3>
-    <button type="button" class="btn btn-default pull-right"><span class="glyphicon glyphicon-plus"></span> Créer catégorie</button>
+    <h3 class="panel-title pull-left">Catégories</h3>
+    <a routerLink="/tag-form" class="btn btn-default pull-right"><span class="glyphicon glyphicon-plus"></span> Créer catégorie</a>
   </div>
-  <ul class="list-group">
-    <a href="#" class="list-group-item">
-      Frais bancaires
-      <span class="pull-right" ngbDropdown>
-        <a href="#" ngbDropdownToggle><span class="glyphicon glyphicon-option-vertical"></span></a>
-        <ul class="dropdown-menu">
-          <li><a href="#"><span class="glyphicon glyphicon-pencil"></span> Modifier catégorie</a></li>
-          <li role="separator" class="divider"></li>
-          <li><a href="#"><span class="glyphicon glyphicon-trash"></span> Supprimer catégorie</a></li>
-        </ul>
-      </span>
-    </a>
-    <a href="#" class="list-group-item">
-      Jeux vidéos
-      <span class="pull-right" ngbDropdown>
-        <a href="#" ngbDropdownToggle><span class="glyphicon glyphicon-option-vertical"></span></a>
-        <ul class="dropdown-menu">
-          <li><a href="#"><span class="glyphicon glyphicon-pencil"></span> Modifier catégorie</a></li>
-          <li role="separator" class="divider"></li>
-          <li><a href="#"><span class="glyphicon glyphicon-trash"></span> Supprimer catégorie</a></li>
-        </ul>
-      </span>
-    </a>
-    <a href="#" class="list-group-item">
-      Logement
-      <span class="pull-right" ngbDropdown>
-        <a href="#" ngbDropdownToggle><span class="glyphicon glyphicon-option-vertical"></span></a>
-        <ul class="dropdown-menu">
-          <li><a href="#"><span class="glyphicon glyphicon-pencil"></span> Modifier catégorie</a></li>
-          <li role="separator" class="divider"></li>
-          <li><a href="#"><span class="glyphicon glyphicon-trash"></span> Supprimer catégorie</a></li>
-        </ul>
-      </span>
-    </a>
-    <a href="#" class="list-group-item">
-      Voiture
-      <span class="pull-right" ngbDropdown>
-        <a href="#" ngbDropdownToggle><span class="glyphicon glyphicon-option-vertical"></span></a>
-        <ul class="dropdown-menu">
-          <li><a href="#"><span class="glyphicon glyphicon-pencil"></span> Modifier catégorie</a></li>
-          <li role="separator" class="divider"></li>
-          <li><a href="#"><span class="glyphicon glyphicon-trash"></span> Supprimer catégorie</a></li>
-        </ul>
-      </span>
-    </a>
-  </ul>
+  <ul class="list-group" app-tag-list></ul>
 </div>
 
 <main class="app-content">

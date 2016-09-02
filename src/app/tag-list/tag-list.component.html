@@ -1,0 +1,11 @@
+<a href="#" class="list-group-item" *ngFor="let tag of tags">
+  {{ tag.name }}
+  <span class="pull-right" ngbDropdown>
+    <a href="javascript:void(0)" ngbDropdownToggle><span class="glyphicon glyphicon-option-vertical"></span></a>
+    <ul class="dropdown-menu">
+      <li><a routerLink="/tag-form/{{ tag.id }}"><span class="glyphicon glyphicon-pencil"></span> Modifier catégorie</a></li>
+      <li role="separator" class="divider"></li>
+      <li><a href="javascript:void(0)" (click)="deleteTag(tag)"><span class="glyphicon glyphicon-trash"></span> Supprimer catégorie</a></li>
+    </ul>
+  </span>
+</a>

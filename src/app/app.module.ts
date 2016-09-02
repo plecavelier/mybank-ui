@@ -4,31 +4,41 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule }   from '@angular/forms';
 import { HttpModule, JsonpModule } from '@angular/http';
 import { AppComponent } from './app.component';
+import { OperationsComponent } from './operations/operations.component';
+import { StatisticsComponent } from './statistics/statistics.component';
 import { AccountFormComponent } from './account-form/account-form.component';
+import { TagFormComponent } from './tag-form/tag-form.component';
 import { routing, appRoutingProviders } from './app.routing';
 import { AccountService } from './account.service';
+import { TagService } from './tag.service';
 import { AlertService } from './alert.service';
 import { AccountFormResolveService } from './account-form-resolve.service';
+import { TagFormResolveService } from './tag-form-resolve.service';
 
 @NgModule({
   imports: [
-  	BrowserModule,
-  	ReactiveFormsModule,
-  	NgbModule,
+    BrowserModule,
+    ReactiveFormsModule,
+    NgbModule,
     HttpModule,
     JsonpModule,
-  	routing
+    routing
   ],
   declarations: [
-  	AppComponent,
-  	AccountFormComponent
+    AppComponent,
+    OperationsComponent,
+    StatisticsComponent,
+    AccountFormComponent,
+    TagFormComponent
   ],
   providers: [
     appRoutingProviders,
     AccountService,
+    TagService,
     AlertService,
-    AccountFormResolveService
+    AccountFormResolveService,
+    TagFormResolveService
   ],
-  bootstrap:    [ AppComponent ]
+  bootstrap: [ AppComponent ]
 })
 export class AppModule { }

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AccountListComponent } from './account-list/account-list.component';
+import { TagListComponent } from './tag-list/tag-list.component';
 import { AlertService } from './alert.service';
 import { Alert } from './alert';
 
@@ -8,7 +9,7 @@ import { Alert } from './alert';
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.css'],
-  directives: [ AccountListComponent ]
+  directives: [ AccountListComponent, TagListComponent ]
 })
 export class AppComponent {
   
