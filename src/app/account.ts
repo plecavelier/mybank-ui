@@ -4,6 +4,6 @@ export class Account {
   name: string = '';
   number: string = '';
   balance: number = 0;
-  details: string  = '';
+  description: string  = '';
   
 }

@@ -20,7 +20,10 @@ export class AccountFormComponent implements OnInit {
   nameControl: FormControl;
   numberControl: FormControl;
   balanceControl: FormControl;
-  detailsControl: FormControl;
+  descriptionControl: FormControl;
+
+  title: string;
+  buttonLabel: string;
 
   private account: Account;
   private newAccount: boolean;
@@ -34,20 +37,22 @@ export class AccountFormComponent implements OnInit {
 
   ngOnInit() {
 
+    // Init account
     if (this.route.snapshot.data['account']) {
       this.account = this.route.snapshot.data['account'];
     } else {
       this.account = new Account();
     }
 
-    this.nameControl = this.formBuilder.control(this.account.name, Validators.required);
-    this.numberControl = this.formBuilder.control(this.account.number, Validators.required);
+    // Create form
+    this.nameControl = this.formBuilder.control(this.account.name, [ Validators.required, Validators.maxLength(50) ]);
+    this.numberControl = this.formBuilder.control(this.account.number, [ Validators.required, Validators.maxLength(50) ]);
     this.balanceControl = this.formBuilder.control(this.account.balance, [ Validators.required, Validators.pattern('^[0-9]+([.][0-9]{0,2})?$') ]);
-    this.detailsControl = this.formBuilder.control(this.account.details);
+    this.descriptionControl = this.formBuilder.control(this.account.description, [ Validators.maxLength(250) ]);
     let controls = {
       name : this.nameControl,
       number : this.numberControl,
-      details : this.detailsControl
+      description : this.descriptionControl
     }
     if (this.isNew()) {
       controls['balance'] = this.balanceControl;
@@ -60,12 +65,20 @@ export class AccountFormComponent implements OnInit {
       if (this.isNew()) {
         this.account.balance = value.balance;
       }
-      this.account.details = value.details;
+      this.account.description = value.description;
     });
+
+    // Set title & button label
+    if (this.isNew()) {
+      this.title = 'Création d\'un compte bancaire';
+      this.buttonLabel = 'Créer';
+    } else {
+      this.title = 'Modification du compte bancaire';
+      this.buttonLabel = 'Modifier';
+    }
   }
 
   saveAccount() {
-    console.log(this.isNew());
     if (this.isNew()) {
       this.accountService.save(this.account)
         .subscribe(
