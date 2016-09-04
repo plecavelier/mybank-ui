@@ -22,6 +22,65 @@ export class TagFormComponent implements OnInit {
   iconControl: FormControl;
   colorControl: FormControl;
 
+  title: string;
+  buttonLabel: string;
+
+  colors: Array<string> = [
+    '#576E99',
+    '#206CFF',
+    '#0000CC',
+    '#5229A3',
+    '#854F61',
+    '#B5074C',
+    '#CC0000',
+    '#D85349',
+    '#FF4B14',
+    '#EC7000',
+    '#B36D00',
+    '#AB8B00',
+    '#636330',
+    '#64992C',
+    '#03BC06',
+    '#006633'
+  ];
+
+  icons: Array<string> = [
+    'euro',
+    'glass',
+    'music',
+    'film',
+    'home',
+    'road',
+    'earphone',
+    'book',
+    'camera',
+    'facetime-video',
+    'gift',
+    'plane',
+    'shopping-cart',
+    'hdd',
+    'globe',
+    'wrench',
+    'paperclip',
+    'phone',
+    'flash',
+    'cutlery',
+    'tower',
+    'tree-conifer',
+    'tree-deciduous',
+    'cd',
+    'baby-formula',
+    'tent',
+    'blackboard',
+    'bed',
+    'lamp',
+    'piggy-bank',
+    'scale',
+    'education',
+    'oil',
+    'sunglasses'
+  ];
+
   private tag: Tag;
   private newTag: boolean;
 
@@ -34,14 +93,16 @@ export class TagFormComponent implements OnInit {
 
   ngOnInit() {
 
+    // Init tag
     if (this.route.snapshot.data['tag']) {
       this.tag = this.route.snapshot.data['tag'];
     } else {
       this.tag = new Tag();
     }
 
-    this.nameControl = this.formBuilder.control(this.tag.name, Validators.required);
-    this.descriptionControl = this.formBuilder.control(this.tag.description, Validators.required);
+    // Create form
+    this.nameControl = this.formBuilder.control(this.tag.name, [ Validators.required, Validators.maxLength(50) ]);
+    this.descriptionControl = this.formBuilder.control(this.tag.description, [ Validators.required, Validators.maxLength(250) ]);
     this.iconControl = this.formBuilder.control(this.tag.icon, Validators.required);
     this.colorControl = this.formBuilder.control(this.tag.color, Validators.required);
     let controls = {
@@ -58,6 +119,15 @@ export class TagFormComponent implements OnInit {
       this.tag.icon = value.icon;
       this.tag.color = value.color;
     });
+
+    // Set title & button label
+    if (this.isNew()) {
+      this.title = 'Création d\'une catégorie';
+      this.buttonLabel = 'Créer';
+    } else {
+      this.title = 'Modification de la catégorie';
+      this.buttonLabel = 'Modifier';
+    }
   }
 
   saveTag() {

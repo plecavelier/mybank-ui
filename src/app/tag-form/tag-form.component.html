@@ -1,26 +1,45 @@
-<div class="container">
-    <h1>Tag Form</h1>
-    <form [formGroup]="tagForm" (ngSubmit)="saveTag()">
-      <div class="form-group" [class.has-error]="nameControl.dirty && !nameControl.valid">
-        <label for="name">Nom</label>
-        <input id="name" type="text" class="form-control" formControlName="name" />
-        <app-form-error control="name" error="required">Le nom de la catégorie est obligatoire</app-form-error>
+<h1>{{ title }}</h1>
+<form class="form-horizontal" [formGroup]="tagForm" (ngSubmit)="saveTag()">
+  <div class="form-group" [class.has-error]="nameControl.dirty && !nameControl.valid">
+    <label for="name" class="col-md-2 control-label">Nom</label>
+    <div class="col-md-10">
+      <input id="name" type="text" class="form-control" formControlName="name" />
+      <app-form-error control="name" error="required">Le nom de la catégorie est obligatoire</app-form-error>
+      <app-form-error control="name" error="maxlength">Le nom de la catégorie est trop long</app-form-error>
+    </div>
+  </div>
+  <div class="form-group" [class.has-error]="descriptionControl.dirty && !descriptionControl.valid">
+    <label for="description" class="col-md-2 control-label">Description</label>
+    <div class="col-md-10">
+      <textarea id="description" rows="5" class="form-control" formControlName="description"></textarea>
+      <app-form-error control="description" error="required">La description est obligatoire</app-form-error>
+      <app-form-error control="description" error="maxlength">La description est trop longue</app-form-error>
+    </div>
+  </div>
+  <div class="form-group" [class.has-error]="colorControl.dirty && !colorControl.valid">
+    <label for="color" class="col-md-2 control-label">Couleur</label>
+    <div class="col-md-10">
+      <input id="color" type="hidden" class="form-control" formControlName="color" />
+      <div class="app-colors">
+        <span class="app-color" *ngFor="let color of colors" [style.background]="color" [class.selected]="colorControl.value == color" (click)="colorControl.setValue(color)"></span>
       </div>
-      <div class="form-group" [class.has-error]="descriptionControl.dirty && !descriptionControl.valid">
-        <label for="description">Description</label>
-        <input id="description" type="text" class="form-control" formControlName="description" />
-        <app-form-error control="description" error="required">La description est obligatoire</app-form-error>
+      <app-form-error control="color" error="required">La couleur est obligatoire</app-form-error>
+    </div>
+  </div>
+  <div class="form-group" [class.has-error]="iconControl.dirty && !iconControl.valid">
+    <label for="icon" class="col-md-2 control-label">Icône</label>
+    <div class="col-md-10">
+      <input id="icon" type="hidden" class="form-control" formControlName="icon" />
+      <div class="app-icons">
+        <span class="app-icon glyphicon glyphicon-{{ icon }}" *ngFor="let icon of icons" [style.color]="colorControl.value ? colorControl.value : '#444444'" [class.selected]="iconControl.value == icon" (click)="iconControl.setValue(icon)"></span>
       </div>
-      <div class="form-group" [class.has-error]="iconControl.dirty && !iconControl.valid">
-        <label for="icon">Icône</label>
-        <input id="icon" type="text" class="form-control" formControlName="icon" />
-        <app-form-error control="icon" error="required">L'icône est obligatoire</app-form-error>
-      </div>
-      <div class="form-group" [class.has-error]="colorControl.dirty && !colorControl.valid">
-        <label for="color">Couleur</label>
-        <input id="color" type="text" class="form-control" formControlName="color" />
-        <app-form-error control="color" error="required">La couleur est obligatoire</app-form-error>
-      </div>
-      <button type="submit" class="btn btn-default" [disabled]="!tagForm.valid">Submit</button>
-    </form>
-</div>
+      <app-form-error control="icon" error="required">L'icône est obligatoire</app-form-error>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-md-2"></div>
+    <div class="col-md-10">
+      <button type="submit" class="btn btn-default" [disabled]="!tagForm.valid">{{ buttonLabel }}</button>
+    </div>
+  </div>
+</form>
