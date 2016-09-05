@@ -11,8 +11,6 @@ import { Account } from './account';
 @Injectable()
 export class AccountService {
 
-  accounts: Array<Account> = new Array<Account>();
-
   private accountChangedSubject = new Subject<Account>();
   accountChanged$ = this.accountChangedSubject.asObservable();
 

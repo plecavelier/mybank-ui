@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { REACTIVE_FORM_DIRECTIVES, FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { FormErrorComponent } from '../form-error/form-error.component';
-import { AccountService } from '../account.service';
+import { OperationService } from '../operation.service';
 import { AlertService } from '../alert.service';
 import { Operation } from '../operation';
 import { Alert } from '../alert';
@@ -30,13 +30,14 @@ export class OperationFormComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    private accountService: AccountService,
+    private operationService: OperationService,
     private alertService: AlertService) {
   }
 
   ngOnInit() {
 
-    // Init account
+    // Init operation
+    console.log(this.route.snapshot.data['operation']);
     if (this.route.snapshot.data['operation']) {
       this.operation = this.route.snapshot.data['operation'];
     } else {
@@ -46,7 +47,8 @@ export class OperationFormComponent implements OnInit {
     // Create form
     this.nameControl = this.formBuilder.control(this.operation.name, [ Validators.required, Validators.maxLength(50) ]);
     this.descriptionControl = this.formBuilder.control(this.operation.description, [ Validators.maxLength(250) ]);
-    this.dateControl = this.formBuilder.control(this.operation.date, [ Validators.required ]);
+    let dateString = this.operation.date === undefined ? null : this.operation.date.toISOString().substring(0, 10);
+    this.dateControl = this.formBuilder.control(dateString, [ Validators.required, Validators.pattern('^[0-9]{4}-[0-9]{2}-[0-9]{2}$') ]);
     this.amountControl = this.formBuilder.control(this.operation.amount, [ Validators.required, Validators.pattern('^[0-9]+([.][0-9]{0,2})?$') ]);
     let controls = {
       name : this.nameControl,
@@ -59,7 +61,7 @@ export class OperationFormComponent implements OnInit {
     this.operationForm.valueChanges.subscribe(value => {
       this.operation.name = value.name;
       this.operation.description = value.description;
-      this.operation.date = value.date;
+      this.operation.date = new Date(value.date);
       this.operation.amount = value.amount;
     });
 
@@ -74,22 +76,22 @@ export class OperationFormComponent implements OnInit {
   }
 
   saveOperation() {
-    /*if (this.isNew()) {
-      this.accountService.save(this.account)
+    if (this.isNew()) {
+      this.operationService.save(this.operation)
         .subscribe(
           response => {
-            this.alertService.emit(new Alert('success', 'Le compte bancaire a bien été créé'));
+            this.alertService.emit(new Alert('success', 'L\'opération a bien été créée'));
             this.clearForm();
           },
-          error => this.alertService.emit(new Alert('danger', 'Une erreur est survenue durant la création du compte bancaire'))
+          error => this.alertService.emit(new Alert('danger', 'Une erreur est survenue durant la création de l\'opération'))
         );
     } else {
-      this.accountService.update(this.account)
+      this.operationService.update(this.operation)
         .subscribe(
-          response => this.alertService.emit(new Alert('success', 'Le compte bancaire a bien été modifié')),
-          error =>  this.alertService.emit(new Alert('danger', 'Une erreur est survenue durant la modification du compte bancaire'))
+          response => this.alertService.emit(new Alert('success', 'L\'opération a bien été modifiée')),
+          error =>  this.alertService.emit(new Alert('danger', 'Une erreur est survenue durant la modification de l\'opération'))
         );
-    }*/
+    }
   }
 
   isNew(): boolean {
@@ -100,5 +102,7 @@ export class OperationFormComponent implements OnInit {
     this.operationForm.reset();
     this.operation = new Operation();
     this.operationForm.patchValue(this.operation);
+    let dateString = this.operation.date === undefined ? null : this.operation.date.toISOString().substring(0, 10);
+    this.operationForm.controls['date'].setValue(dateString);
   }
 }

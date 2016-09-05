@@ -11,8 +11,6 @@ import { Tag } from './tag';
 @Injectable()
 export class TagService {
 
-  tags: Array<Tag> = new Array<Tag>();
-
   private tagChangedSubject = new Subject<Tag>();
   tagChanged$ = this.tagChangedSubject.asObservable();
 

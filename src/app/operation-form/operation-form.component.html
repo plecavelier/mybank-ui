@@ -1,5 +1,13 @@
 <h1>{{ title }}</h1>
 <form class="form-horizontal" [formGroup]="operationForm" (ngSubmit)="saveOperation()">
+  <div class="form-group" [class.has-error]="dateControl.dirty && !dateControl.valid">
+    <label for="date" class="col-md-2 control-label">Date</label>
+    <div class="col-md-10">
+      <input id="date" type="date" class="form-control" formControlName="date" />
+      <app-form-error control="date" error="required">La date est obligatoire</app-form-error>
+      <app-form-error control="date" error="pattern">La date est incorrecte</app-form-error>
+    </div>
+  </div>
   <div class="form-group" [class.has-error]="nameControl.dirty && !nameControl.valid">
     <label for="name" class="col-md-2 control-label">Nom</label>
     <div class="col-md-10">
@@ -13,6 +21,17 @@
     <div class="col-md-10">
       <textarea id="description" rows="5" class="form-control" formControlName="description"></textarea>
       <app-form-error control="description" error="maxlength">La description est trop longue</app-form-error>
+    </div>
+  </div>
+  <div class="form-group" [class.has-error]="amountControl.dirty && !amountControl.valid">
+    <label for="amount" class="col-md-2 control-label">Montant</label>
+    <div class="col-md-10">
+      <div class="input-group">
+        <input id="amount" type="text" class="form-control" formControlName="amount" />
+        <div class="input-group-addon">€</div>
+      </div>
+      <app-form-error control="amount" error="required">Le montant est obligatoire</app-form-error>
+      <app-form-error control="amount" error="pattern">Le montant est incorrect</app-form-error>
     </div>
   </div>
   <div class="form-group">

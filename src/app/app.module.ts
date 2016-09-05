@@ -15,6 +15,8 @@ import { AlertService } from './alert.service';
 import { AccountFormResolveService } from './account-form-resolve.service';
 import { TagFormResolveService } from './tag-form-resolve.service';
 import { OperationFormComponent } from './operation-form/operation-form.component';
+import { OperationService } from './operation.service';
+import { OperationFormResolveService } from './operation-form-resolve.service';
 
 @NgModule({
   imports: [
@@ -39,7 +41,9 @@ import { OperationFormComponent } from './operation-form/operation-form.componen
     TagService,
     AlertService,
     AccountFormResolveService,
-    TagFormResolveService
+    TagFormResolveService,
+    OperationService,
+    OperationFormResolveService
   ],
   bootstrap: [ AppComponent ]
 })

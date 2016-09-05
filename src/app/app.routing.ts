@@ -6,6 +6,7 @@ import { AccountFormResolveService } from './account-form-resolve.service';
 import { TagFormComponent } from './tag-form/tag-form.component';
 import { TagFormResolveService } from './tag-form-resolve.service';
 import { OperationFormComponent } from './operation-form/operation-form.component';
+import { OperationFormResolveService } from './operation-form-resolve.service';
 
 const appRoutes: Routes = [
   { path: '', component: OperationsComponent },
@@ -15,7 +16,8 @@ const appRoutes: Routes = [
   { path: 'account-form/:id', component: AccountFormComponent, resolve: { account: AccountFormResolveService } },
   { path: 'tag-form', component: TagFormComponent },
   { path: 'tag-form/:id', component: TagFormComponent, resolve: { tag: TagFormResolveService } },
-  { path: 'operation-form', component: OperationFormComponent }
+  { path: 'operation-form', component: OperationFormComponent },
+  { path: 'operation-form/:id', component: OperationFormComponent, resolve: { operation: OperationFormResolveService } }
 ];
 
 export const appRoutingProviders: any[] = [
