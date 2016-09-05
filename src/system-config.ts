@@ -9,7 +9,6 @@
  **********************************************************************************************/
 /** Map relative paths to URLs. */
 const map: any = {
-  '@ng-bootstrap': 'vendor/@ng-bootstrap',
   'ng2-bootstrap': 'vendor/ng2-bootstrap',
   'moment': 'vendor/moment/moment.js',
   'boostrap': 'vendor/bootstrap'
@@ -17,35 +16,7 @@ const map: any = {
 
 /** User packages configuration. */
 const packages: any = {
-  '@ng-bootstrap/ng-bootstrap': {
-    main: 'index.js',
-    defaultExtension: 'js'
-  }
 };
-
-const ngBootstrapPackages:string[] = [
-  'accordion',
-  'alert',
-  'buttons',
-  'carousel',
-  'collapse',
-  'dropdown',
-  'pagination',
-  'popover',
-  'progressbar',
-  'rating',
-  'tabset',
-  'timepicker',
-  'tooltip',
-  'typeahead'
-];
-
-ngBootstrapPackages.forEach((pkg) => {
-  packages[`@ng-bootstrap/ng-bootstrap/${pkg}`] = {
-    main: 'index.js',
-    defaultExtension: 'js'
-  };
-});
 
 packages['ng2-bootstrap'] = {
   main: 'ng2-bootstrap.js',

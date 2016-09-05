@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Ng2BootstrapModule } from 'ng2-bootstrap/ng2-bootstrap';
 import { ReactiveFormsModule }   from '@angular/forms';
 import { HttpModule, JsonpModule } from '@angular/http';
@@ -21,7 +20,6 @@ import { OperationFormComponent } from './operation-form/operation-form.componen
   imports: [
     BrowserModule,
     ReactiveFormsModule,
-    NgbModule,
     Ng2BootstrapModule,
     HttpModule,
     JsonpModule,
