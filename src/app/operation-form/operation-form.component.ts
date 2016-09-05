@@ -4,28 +4,28 @@ import { ActivatedRoute } from '@angular/router';
 import { FormErrorComponent } from '../form-error/form-error.component';
 import { AccountService } from '../account.service';
 import { AlertService } from '../alert.service';
-import { Account } from '../account';
+import { Operation } from '../operation';
 import { Alert } from '../alert';
 
 @Component({
   moduleId: module.id,
-  selector: 'app-account-form',
-  templateUrl: 'account-form.component.html',
-  styleUrls: ['account-form.component.css'],
+  selector: 'app-operation-form',
+  templateUrl: 'operation-form.component.html',
+  styleUrls: ['operation-form.component.css'],
   directives: [ REACTIVE_FORM_DIRECTIVES, FormErrorComponent ]
 })
-export class AccountFormComponent implements OnInit {
+export class OperationFormComponent implements OnInit {
 
-  accountForm: FormGroup;
+  operationForm: FormGroup;
   nameControl: FormControl;
-  numberControl: FormControl;
-  balanceControl: FormControl;
   descriptionControl: FormControl;
+  dateControl: FormControl;
+  amountControl: FormControl;
 
   title: string;
   buttonLabel: string;
 
-  private account: Account;
+  private operation: Operation;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -37,48 +37,44 @@ export class AccountFormComponent implements OnInit {
   ngOnInit() {
 
     // Init account
-    if (this.route.snapshot.data['account']) {
-      this.account = this.route.snapshot.data['account'];
+    if (this.route.snapshot.data['operation']) {
+      this.operation = this.route.snapshot.data['operation'];
     } else {
-      this.account = new Account();
+      this.operation = new Operation();
     }
 
     // Create form
-    this.nameControl = this.formBuilder.control(this.account.name, [ Validators.required, Validators.maxLength(50) ]);
-    this.numberControl = this.formBuilder.control(this.account.number, [ Validators.required, Validators.maxLength(50) ]);
-    this.balanceControl = this.formBuilder.control(this.account.balance, [ Validators.required, Validators.pattern('^[0-9]+([.][0-9]{0,2})?$') ]);
-    this.descriptionControl = this.formBuilder.control(this.account.description, [ Validators.maxLength(250) ]);
+    this.nameControl = this.formBuilder.control(this.operation.name, [ Validators.required, Validators.maxLength(50) ]);
+    this.descriptionControl = this.formBuilder.control(this.operation.description, [ Validators.maxLength(250) ]);
+    this.dateControl = this.formBuilder.control(this.operation.date, [ Validators.required ]);
+    this.amountControl = this.formBuilder.control(this.operation.amount, [ Validators.required, Validators.pattern('^[0-9]+([.][0-9]{0,2})?$') ]);
     let controls = {
       name : this.nameControl,
-      number : this.numberControl,
-      description : this.descriptionControl
+      description : this.descriptionControl,
+      date : this.dateControl,
+      amount: this.amountControl
     }
-    if (this.isNew()) {
-      controls['balance'] = this.balanceControl;
-    }
-    this.accountForm = this.formBuilder.group(controls);
+    this.operationForm = this.formBuilder.group(controls);
 
-    this.accountForm.valueChanges.subscribe(value => {
-      this.account.name = value.name;
-      this.account.number = value.number;
-      if (this.isNew()) {
-        this.account.balance = value.balance;
-      }
-      this.account.description = value.description;
+    this.operationForm.valueChanges.subscribe(value => {
+      this.operation.name = value.name;
+      this.operation.description = value.description;
+      this.operation.date = value.date;
+      this.operation.amount = value.amount;
     });
 
     // Set title & button label
     if (this.isNew()) {
-      this.title = 'Création d\'un compte bancaire';
+      this.title = 'Création d\'une opération';
       this.buttonLabel = 'Créer';
     } else {
-      this.title = 'Modification du compte bancaire';
+      this.title = 'Modification de l\'opération';
       this.buttonLabel = 'Modifier';
     }
   }
 
-  saveAccount() {
-    if (this.isNew()) {
+  saveOperation() {
+    /*if (this.isNew()) {
       this.accountService.save(this.account)
         .subscribe(
           response => {
@@ -93,16 +89,16 @@ export class AccountFormComponent implements OnInit {
           response => this.alertService.emit(new Alert('success', 'Le compte bancaire a bien été modifié')),
           error =>  this.alertService.emit(new Alert('danger', 'Une erreur est survenue durant la modification du compte bancaire'))
         );
-    }
+    }*/
   }
 
   isNew(): boolean {
-    return this.account.id === undefined;
+    return this.operation.id === undefined;
   }
 
   private clearForm() {
-    this.accountForm.reset();
-    this.account = new Account();
-    this.accountForm.patchValue(this.account);
+    this.operationForm.reset();
+    this.operation = new Operation();
+    this.operationForm.patchValue(this.operation);
   }
 }

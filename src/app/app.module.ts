@@ -14,6 +14,7 @@ import { TagService } from './tag.service';
 import { AlertService } from './alert.service';
 import { AccountFormResolveService } from './account-form-resolve.service';
 import { TagFormResolveService } from './tag-form-resolve.service';
+import { OperationFormComponent } from './operation-form/operation-form.component';
 
 @NgModule({
   imports: [
@@ -29,7 +30,8 @@ import { TagFormResolveService } from './tag-form-resolve.service';
     OperationsComponent,
     StatisticsComponent,
     AccountFormComponent,
-    TagFormComponent
+    TagFormComponent,
+    OperationFormComponent
   ],
   providers: [
     appRoutingProviders,
