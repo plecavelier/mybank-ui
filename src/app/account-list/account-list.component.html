@@ -1,9 +1,9 @@
 <a class="list-group-item" *ngFor="let account of accounts">
   <div class="pull-right">
     <span class="badge">-200 €</span>
-    <span ngbDropdown>
-      <a href="javascript:void(0)" ngbDropdownToggle><span class="glyphicon glyphicon-option-vertical"></span></a>
-      <ul class="dropdown-menu">
+    <span dropdown>
+      <a href="javascript:void(0)" dropdownToggle><span class="glyphicon glyphicon-option-vertical"></span></a>
+      <ul class="dropdown-menu" dropdownMenu>
         <li><a routerLink="/account-form/{{ account.id }}"><span class="glyphicon glyphicon-pencil"></span> Modifier compte</a></li>
         <li role="separator" class="divider"></li>
         <li><a href="javascript:void(0)" (click)="deleteAccount(account)"><span class="glyphicon glyphicon-trash"></span> Supprimer compte</a></li>

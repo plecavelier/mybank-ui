@@ -9,7 +9,10 @@
  **********************************************************************************************/
 /** Map relative paths to URLs. */
 const map: any = {
-  '@ng-bootstrap': 'vendor/@ng-bootstrap'
+  '@ng-bootstrap': 'vendor/@ng-bootstrap',
+  'ng2-bootstrap': 'vendor/ng2-bootstrap',
+  'moment': 'vendor/moment/moment.js',
+  'boostrap': 'vendor/bootstrap'
 };
 
 /** User packages configuration. */
@@ -43,6 +46,11 @@ ngBootstrapPackages.forEach((pkg) => {
     defaultExtension: 'js'
   };
 });
+
+packages['ng2-bootstrap'] = {
+  main: 'ng2-bootstrap.js',
+  defaultExtension: 'js'
+}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 /***********************************************************************************************
