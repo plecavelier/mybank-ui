@@ -46,3 +46,20 @@
     </div>
   </div>
 </nav>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Opération</th>
+      <th>Montant</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let operation of operations">
+      <td>{{ operation.date }}</td>
+      <td>{{ operation.name }}</td> 
+      <td>{{ operation.amount }}</td>
+    </tr>
+  </tbody>
+</table>
