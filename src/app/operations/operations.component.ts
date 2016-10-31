@@ -33,12 +33,12 @@ export class OperationsComponent implements OnInit {
     );
   }
 
-  /*deleteAccount(account: Account) {
-    if (confirm('Souhaitez-vous vraiment supprimer ce compte bancaire ?')) {
-      this.accountService.delete(account).subscribe(
-        response => this.alertService.emit(new Alert('success', 'Le compte bancaire a bien été supprimé')),
-        error =>  this.alertService.emit(new Alert('danger', 'Une erreur est survenue durant la suppression du compte bancaire'))
+  deleteOperation(operation: Operation) {
+    if (confirm('Souhaitez-vous vraiment supprimer cette opération ?')) {
+      this.operationService.delete(operation).subscribe(
+        response => this.alertService.emit(new Alert('success', 'L\'opération a bien été supprimée')),
+        error =>  this.alertService.emit(new Alert('danger', 'Une erreur est survenue durant la suppression de l\'opération'))
       );
     }
-  }*/
+  }
 }
