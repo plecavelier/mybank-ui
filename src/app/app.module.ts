@@ -8,6 +8,8 @@ import { OperationsComponent } from './operations/operations.component';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { AccountFormComponent } from './account-form/account-form.component';
 import { TagFormComponent } from './tag-form/tag-form.component';
+import { LoginComponent } from './login/login.component';
+import { HomeComponent } from './home/home.component';
 import { routing, appRoutingProviders } from './app.routing';
 import { AccountService } from './account.service';
 import { TagService } from './tag.service';
@@ -17,6 +19,7 @@ import { TagFormResolveService } from './tag-form-resolve.service';
 import { OperationFormComponent } from './operation-form/operation-form.component';
 import { OperationService } from './operation.service';
 import { OperationFormResolveService } from './operation-form-resolve.service';
+import { AuthGuard } from './auth.guard';
 
 @NgModule({
   imports: [
@@ -29,6 +32,8 @@ import { OperationFormResolveService } from './operation-form-resolve.service';
   ],
   declarations: [
     AppComponent,
+    LoginComponent,
+    HomeComponent,
     OperationsComponent,
     StatisticsComponent,
     AccountFormComponent,
@@ -43,7 +48,8 @@ import { OperationFormResolveService } from './operation-form-resolve.service';
     AccountFormResolveService,
     TagFormResolveService,
     OperationService,
-    OperationFormResolveService
+    OperationFormResolveService,
+    AuthGuard
   ],
   bootstrap: [ AppComponent ]
 })
