@@ -19,6 +19,7 @@ import { TagFormResolveService } from './tag-form-resolve.service';
 import { OperationFormComponent } from './operation-form/operation-form.component';
 import { OperationService } from './operation.service';
 import { OperationFormResolveService } from './operation-form-resolve.service';
+import { SecurityService } from './security.service';
 import { AuthGuard } from './auth.guard';
 
 @NgModule({
@@ -49,7 +50,8 @@ import { AuthGuard } from './auth.guard';
     TagFormResolveService,
     OperationService,
     OperationFormResolveService,
-    AuthGuard
+    AuthGuard,
+    SecurityService
   ],
   bootstrap: [ AppComponent ]
 })
