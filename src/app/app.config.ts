@@ -11,7 +11,7 @@ export class AppConfig {
       }
       return token;
     }),
-    globalHeaders: [{'Content-Type':'application/json'}],
+    globalHeaders: [{'Content-Type': 'application/ld+json'}],
     noJwtError: true,
     noTokenScheme: true
   };
