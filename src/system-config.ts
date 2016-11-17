@@ -64,6 +64,10 @@ barrels.forEach((barrelName: string) => {
   cliSystemConfigPackages[barrelName] = { main: 'index' };
 });
 
+cliSystemConfigPackages['angular2-jwt'] = {
+  main: 'angular2-jwt'
+};
+
 /** Type declaration for ambient System. */
 declare var System: any;
 
@@ -72,6 +76,7 @@ System.config({
   map: {
     '@angular': 'vendor/@angular',
     'rxjs': 'vendor/rxjs',
+    'angular2-jwt': 'vendor/angular2-jwt',
     'main': 'main.js'
   },
   packages: cliSystemConfigPackages

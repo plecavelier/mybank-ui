@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { Ng2BootstrapModule } from 'ng2-bootstrap/ng2-bootstrap';
 import { ReactiveFormsModule }   from '@angular/forms';
 import { HttpModule, JsonpModule } from '@angular/http';
+import { AUTH_PROVIDERS, provideAuth } from 'angular2-jwt';
 import { AppComponent } from './app.component';
 import { OperationsComponent } from './operations/operations.component';
 import { StatisticsComponent } from './statistics/statistics.component';
@@ -21,6 +22,7 @@ import { OperationService } from './operation.service';
 import { OperationFormResolveService } from './operation-form-resolve.service';
 import { SecurityService } from './security.service';
 import { AuthGuard } from './auth.guard';
+import { AppConfig } from './app.config';
 
 @NgModule({
   imports: [
@@ -51,7 +53,9 @@ import { AuthGuard } from './auth.guard';
     OperationService,
     OperationFormResolveService,
     AuthGuard,
-    SecurityService
+    SecurityService,
+    AUTH_PROVIDERS,
+    provideAuth(AppConfig.JWT_CONFIG)
   ],
   bootstrap: [ AppComponent ]
 })

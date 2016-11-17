@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
   login() {
     console.log(this.usernameControl.value);
     console.log(this.passwordControl.value);
-    this.securityService.getToken(this.usernameControl.value, this.passwordControl.value).subscribe(
+    this.securityService.login(this.usernameControl.value, this.passwordControl.value).subscribe(
       response => {
         console.log("Redirect to home");
         this.router.navigate(['operations']);

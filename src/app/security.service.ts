@@ -4,15 +4,16 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/observable/throw';
+import { AppConfig } from './app.config';
 
 @Injectable()
 export class SecurityService {
 
-  private url = 'http://127.0.0.1:8000/login_check';
+  private url: string = 'http://127.0.0.1:8000/login_check';
 
   constructor(private http: Http) { }
 
-  getToken(username, password) {
+  login(username: string, password: string) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/x-www-form-urlencoded');
     let options = new RequestOptions({ headers: headers });
@@ -24,6 +25,15 @@ export class SecurityService {
         let errorCode = error.status == 401 ? 'unauthorized' : 'error';
         return Observable.throw(errorCode);
       })
-      .do(response => localStorage.setItem('token', response.json()['token']));
+      .do(response => {
+        let tokenName = AppConfig.JWT_CONFIG.tokenName;
+        localStorage.setItem(tokenName, response.json()['token'])
+      });
+  }
+
+  logout() {
+    let tokenName = AppConfig.JWT_CONFIG.tokenName;
+    sessionStorage.removeItem(tokenName);
+    localStorage.removeItem(tokenName);
   }
 }
