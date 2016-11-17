@@ -13,7 +13,7 @@ export class SecurityService {
 
   constructor(private http: Http) { }
 
-  login(username: string, password: string) {
+  login(username: string, password: string, rememberMe: boolean) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/x-www-form-urlencoded');
     let options = new RequestOptions({ headers: headers });
@@ -26,8 +26,15 @@ export class SecurityService {
         return Observable.throw(errorCode);
       })
       .do(response => {
+        let token = response.json()['token'];
         let tokenName = AppConfig.JWT_CONFIG.tokenName;
-        localStorage.setItem(tokenName, response.json()['token'])
+        if (rememberMe) {
+          sessionStorage.removeItem(tokenName);
+          localStorage.setItem(tokenName, token);
+        } else {
+          sessionStorage.setItem(tokenName, token);
+          localStorage.removeItem(tokenName);
+        }
       });
   }
 
