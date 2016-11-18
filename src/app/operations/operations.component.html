@@ -40,8 +40,8 @@
         </div>
       </div>
       <div class="btn-group navbar-btn" role="group">
-        <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-chevron-left"></span></button>
-        <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-chevron-right"></span></button>
+        <button type="button" class="btn btn-default" [disabled]="!previousPage" (click)="changePage(previousPage)"><span class="glyphicon glyphicon-chevron-left"></span></button>
+        <button type="button" class="btn btn-default" [disabled]="!nextPage" (click)="changePage(nextPage)"><span class="glyphicon glyphicon-chevron-right"></span></button>
       </div>
     </div>
   </div>

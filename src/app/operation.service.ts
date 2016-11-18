@@ -7,6 +7,7 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/concat';
 import { Operation } from './operation';
+import { PaginatedList } from './paginated-list';
 import { AuthHttp } from 'angular2-jwt';
 
 @Injectable()
@@ -19,7 +20,7 @@ export class OperationService {
 
   constructor(private authHttp: AuthHttp) { }
 
-  get(id): Observable<Operation> {
+  getItem(id: number): Observable<Operation> {
     return this.authHttp.get(this.operationsUrl + '/' + id)
       .map(response => <Operation> response.json())
       .do(operation => {
@@ -28,13 +29,26 @@ export class OperationService {
       .catch(this.handleError);
   }
 
-  getAll(): Observable<Operation[]> {
-    return this.authHttp.get(this.operationsUrl)
-      .map(response => <Operation[]> response.json()['hydra:member'])
-      .do(operations => {
-        operations.forEach(operation => {
+  getList(page: number = 1): Observable<PaginatedList<Operation>> {
+    let url = this.operationsUrl + '?page=' + page;
+    return this.authHttp.get(url)
+      .map(response => {
+        let jsonResponse = response.json();
+        let operations: PaginatedList<Operation> = new PaginatedList<Operation>();
+        operations.page = page;
+        operations.list = <Operation[]> jsonResponse['hydra:member'];
+        operations.list.forEach(operation => {
           operation.date = new Date(operation.date.toString());
         });
+        if ('hydra:view' in jsonResponse) {
+          if (page > 1) {
+            operations.previous = page - 1;
+          }
+          if ('hydra:next' in jsonResponse['hydra:view']) {
+            operations.next = page + 1;
+          }
+        } 
+        return operations;
       })
       .catch(this.handleError);
   }

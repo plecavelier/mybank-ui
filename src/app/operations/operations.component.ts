@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { OperationService } from '../operation.service'
 import { AlertService } from '../alert.service'
 import { Operation } from '../operation'
+import { PaginatedList } from '../paginated-list';
 import { Alert } from '../alert'
 
 @Component({
@@ -12,7 +13,9 @@ import { Alert } from '../alert'
 })
 export class OperationsComponent implements OnInit {
 
-  operations: Array<Operation>;
+  operations: Operation[];
+  previousPage: number;
+  nextPage: number;
 
   constructor(
     private operationService: OperationService,
@@ -26,11 +29,20 @@ export class OperationsComponent implements OnInit {
     this.refreshList();
   }
 
-  private refreshList() {
-    this.operationService.getAll().subscribe(
-      operations => this.operations = operations,
+  private refreshList(page: number = 1) {
+    this.operationService.getList(page).subscribe(
+      operations => {
+        this.operations = operations.list;
+        this.previousPage = operations.previous;
+        this.nextPage = operations.next;
+      },
       error =>  this.alertService.emit(new Alert('danger', 'Une erreur est survenue durant la récupération des opérations'))
     );
+  }
+
+  changePage(page: number) {
+    console.log('Change page ' + page);
+    this.refreshList(page);
   }
 
   deleteOperation(operation: Operation) {
