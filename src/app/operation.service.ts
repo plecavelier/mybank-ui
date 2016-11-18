@@ -37,6 +37,7 @@ export class OperationService {
         let operations: PaginatedList<Operation> = new PaginatedList<Operation>();
         operations.page = page;
         operations.list = <Operation[]> jsonResponse['hydra:member'];
+        operations.total = jsonResponse['hydra:totalItems'];
         operations.list.forEach(operation => {
           operation.date = new Date(operation.date.toString());
         });

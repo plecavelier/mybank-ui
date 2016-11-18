@@ -16,6 +16,7 @@ export class OperationsComponent implements OnInit {
   operations: Operation[];
   previousPage: number;
   nextPage: number;
+  total: number;
 
   constructor(
     private operationService: OperationService,
@@ -35,6 +36,7 @@ export class OperationsComponent implements OnInit {
         this.operations = operations.list;
         this.previousPage = operations.previous;
         this.nextPage = operations.next;
+        this.total = operations.total;
       },
       error =>  this.alertService.emit(new Alert('danger', 'Une erreur est survenue durant la récupération des opérations'))
     );
