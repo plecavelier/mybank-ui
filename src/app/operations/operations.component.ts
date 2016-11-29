@@ -4,6 +4,7 @@ import { AlertService } from '../alert.service'
 import { Operation } from '../operation'
 import { PaginatedList } from '../paginated-list';
 import { Alert } from '../alert'
+import { MonthNamePipe } from '../month-name.pipe';
 
 @Component({
   moduleId: module.id,
@@ -14,9 +15,15 @@ import { Alert } from '../alert'
 export class OperationsComponent implements OnInit {
 
   operations: Operation[];
+  page: number = 1;
   previousPage: number;
   nextPage: number;
   total: number;
+  year: number = null;
+  month: number = null;
+  yearItems: Object;
+  monthItems: Array<number>;
+  searchValue: string = '';
 
   constructor(
     private operationService: OperationService,
@@ -27,11 +34,17 @@ export class OperationsComponent implements OnInit {
     this.operationService.operationChanged$.subscribe(
       operations => this.refreshList()
     );
+    this.operationService.getYearMonths().subscribe(
+      yearMonths => {
+        this.yearItems = yearMonths;
+      },
+      error =>  this.alertService.emit(new Alert('danger', 'Une erreur est survenue durant la récupération des opérations'))
+    );
     this.refreshList();
   }
 
-  private refreshList(page: number = 1) {
-    this.operationService.getList(page).subscribe(
+  private refreshList() {
+    this.operationService.getList(this.page, this.year, this.month, this.searchValue).subscribe(
       operations => {
         this.operations = operations.list;
         this.previousPage = operations.previous;
@@ -42,9 +55,39 @@ export class OperationsComponent implements OnInit {
     );
   }
 
+  changeYear(year: string) {
+    this.page = 1;
+    this.year = Number.parseInt(year);
+    this.month = null;
+    this.monthItems = this.yearItems[year];
+    this.refreshList();
+  }
+
+  changeMonth(month: string) {
+    this.page = 1;
+    this.month = Number.parseInt(month);
+    this.refreshList();
+  }
+
+  getYearRangeLabel(): string {
+    if (this.yearItems) {
+      let years = Object.keys(this.yearItems);
+      if (years.length == 1) {
+        return years[0].toString();
+      } else {
+        return years[0] + ' - ' + years[years.length - 1];
+      }
+    }
+  }
+
   changePage(page: number) {
-    console.log('Change page ' + page);
-    this.refreshList(page);
+    this.page = page;
+    this.refreshList();
+  }
+
+  search() {
+    this.page = 1;
+    this.refreshList();
   }
 
   deleteOperation(operation: Operation) {

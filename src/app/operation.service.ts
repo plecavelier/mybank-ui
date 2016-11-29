@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { Http, Response, Headers, RequestOptions, URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/map';
@@ -16,7 +16,7 @@ export class OperationService {
   private operationChangedSubject = new Subject<Operation>();
   operationChanged$ = this.operationChangedSubject.asObservable();
 
-  private operationsUrl = 'http://127.0.0.1:8000/api/operations';
+  private operationsUrl = 'http://127.0.0.1:8000/operations';
 
   constructor(private authHttp: AuthHttp) { }
 
@@ -29,9 +29,23 @@ export class OperationService {
       .catch(this.handleError);
   }
 
-  getList(page: number = 1): Observable<PaginatedList<Operation>> {
-    let url = this.operationsUrl + '?page=' + page;
-    return this.authHttp.get(url)
+  getList(page: number = 1, year: number = null, month: number = null, searchValue: string = null): Observable<PaginatedList<Operation>> {
+
+    let params: URLSearchParams = new URLSearchParams();
+    params.set('page', String(page));
+
+    let [from, to]: Array<string> = this.getFromTo(year, month);
+    if (from && to) {
+      params.set('date[after]', from);
+      params.set('date[before]', to);
+    }
+    if (searchValue) {
+      params.set('name', searchValue);
+    }
+
+    let options = new RequestOptions({search: params});
+
+    return this.authHttp.get(this.operationsUrl, options)
       .map(response => {
         let jsonResponse = response.json();
         let operations: PaginatedList<Operation> = new PaginatedList<Operation>();
@@ -54,6 +68,34 @@ export class OperationService {
       .catch(this.handleError);
   }
 
+  getYearMonths() {
+    return this.authHttp.get('http://127.0.0.1:8000/operation_year_months')
+      .map(response => {
+        let jsonResponse = response.json();
+
+        let today: Date = new Date();
+        jsonResponse.push({year: today.getFullYear(), month: today.getMonth() + 1});
+
+        jsonResponse.sort(function(item1, item2) {
+          if (item1.year == item2.year) {
+            return item1.month - item2.month;
+          }
+          return item1.year - item2.year;
+        });
+
+        let yearMonths: Object = {};
+        for (let item of jsonResponse) {
+          if (!(item.year in yearMonths)) {
+            yearMonths[item.year] = [];
+          }
+          yearMonths[item.year].push(item.month);
+        }
+
+        return yearMonths;
+      })
+      .catch(this.handleError);
+  }
+
   update(operation: Operation) {
     return this.authHttp.put(this.operationsUrl + '/' + operation.id, JSON.stringify(operation))
       .do(() => this.operationChangedSubject.next(operation))
@@ -70,6 +112,26 @@ export class OperationService {
     return this.authHttp.delete(this.operationsUrl + '/' + operation.id)
       .do(() => this.operationChangedSubject.next(operation))
       .catch(this.handleError);
+  }
+
+  private getFromTo(year: number, month: number): Array<string> {
+    let from: string;
+    let to: string;
+    // Replace with moment library
+    if (year) {
+      if (month) {
+        from = year + '-' + (month < 10 ? '0' + month : String(month)) + '-01';
+        if (month == 12) {
+          to = (year + 1) + '-01-01';
+        } else {
+          to = year + '-' + ((month + 1) < 10 ? '0' + (month + 1) : String(month + 1)) + '-01';
+        }
+      } else {
+        from = year + '-01-01';
+        to = (year + 1) + '-01-01';
+      }
+    }
+    return [from, to];
   }
 
   private handleError(error: any) {

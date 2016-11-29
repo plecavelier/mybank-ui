@@ -15,7 +15,7 @@ export class TagService {
   private tagChangedSubject = new Subject<Tag>();
   tagChanged$ = this.tagChangedSubject.asObservable();
 
-  private tagsUrl = 'http://127.0.0.1:8000/api/tags';
+  private tagsUrl = 'http://127.0.0.1:8000/tags';
 
   constructor(private authHttp: AuthHttp) { }
 

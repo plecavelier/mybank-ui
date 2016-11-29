@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { Ng2BootstrapModule } from 'ng2-bootstrap/ng2-bootstrap';
-import { ReactiveFormsModule }   from '@angular/forms';
+import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 import { HttpModule, JsonpModule } from '@angular/http';
 import { AUTH_PROVIDERS, provideAuth } from 'angular2-jwt';
 import { AppComponent } from './app.component';
@@ -23,10 +23,13 @@ import { OperationFormResolveService } from './operation-form-resolve.service';
 import { SecurityService } from './security.service';
 import { AuthGuard } from './auth.guard';
 import { AppConfig } from './app.config';
+import { KeysPipe } from './keys.pipe';
+import { MonthNamePipe } from './month-name.pipe';
 
 @NgModule({
   imports: [
     BrowserModule,
+    FormsModule,
     ReactiveFormsModule,
     Ng2BootstrapModule,
     HttpModule,
@@ -41,7 +44,9 @@ import { AppConfig } from './app.config';
     StatisticsComponent,
     AccountFormComponent,
     TagFormComponent,
-    OperationFormComponent
+    OperationFormComponent,
+    KeysPipe,
+    MonthNamePipe
   ],
   providers: [
     appRoutingProviders,

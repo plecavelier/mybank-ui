@@ -9,7 +9,7 @@ import { AppConfig } from './app.config';
 @Injectable()
 export class SecurityService {
 
-  private url: string = 'http://127.0.0.1:8000/login_check';
+  private url: string = 'http://127.0.0.1:8000/login';
 
   constructor(private http: Http) { }
 

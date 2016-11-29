@@ -15,7 +15,7 @@ export class AccountService {
   private accountChangedSubject = new Subject<Account>();
   accountChanged$ = this.accountChangedSubject.asObservable();
 
-  private accountsUrl = 'http://127.0.0.1:8000/api/accounts';
+  private accountsUrl = 'http://127.0.0.1:8000/accounts';
   private options;
 
   constructor(private authHttp: AuthHttp) { }
