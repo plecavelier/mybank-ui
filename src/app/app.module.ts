@@ -27,6 +27,7 @@ import { AuthGuard } from './auth.guard';
 import { AppConfig } from './app.config';
 import { KeysPipe } from './keys.pipe';
 import { MonthNamePipe } from './month-name.pipe';
+import { AmountPipe } from './amount.pipe';
 
 @NgModule({
   imports: [
@@ -48,7 +49,8 @@ import { MonthNamePipe } from './month-name.pipe';
     TagFormComponent,
     OperationFormComponent,
     KeysPipe,
-    MonthNamePipe
+    MonthNamePipe,
+    AmountPipe
   ],
   providers: [
     appRoutingProviders,
