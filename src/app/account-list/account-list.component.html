@@ -1,6 +1,6 @@
 <a class="list-group-item" *ngFor="let account of accounts">
   <div class="pull-right">
-    <span class="badge">-200 €</span>
+    <span class="badge">{{ account.balance | amount }}</span>
     <span dropdown>
       <a href="javascript:void(0)" dropdownToggle><span class="glyphicon glyphicon-option-vertical"></span></a>
       <ul class="dropdown-menu" dropdownMenu>

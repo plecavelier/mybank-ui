@@ -33,6 +33,7 @@ export class OperationService {
 
     let params: URLSearchParams = new URLSearchParams();
     params.set('page', String(page));
+    params.set('order[date]', 'desc');
 
     let [from, to]: Array<string> = this.getFromTo(year, month);
     if (from && to) {
