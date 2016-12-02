@@ -2,14 +2,16 @@ import { Routes, RouterModule } from '@angular/router';
 import { OperationsComponent } from './operations/operations.component';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { AccountFormComponent } from './account-form/account-form.component';
-import { AccountFormResolveService } from './account-form-resolve.service';
+import { AccountResolve } from './account.resolver';
 import { TagFormComponent } from './tag-form/tag-form.component';
-import { TagFormResolveService } from './tag-form-resolve.service';
+import { TagResolve } from './tag.resolver';
 import { OperationFormComponent } from './operation-form/operation-form.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
-import { OperationFormResolveService } from './operation-form-resolve.service';
+import { OperationResolve } from './operation.resolver';
+import { TagsResolve } from './tags.resolver';
 import { AuthGuard } from './auth.guard';
+import { AccountsResolve } from './accounts.resolver';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -18,11 +20,11 @@ const appRoutes: Routes = [
     { path: 'operations', component: OperationsComponent },
     { path: 'statistics', component: StatisticsComponent },
     { path: 'account-form', component: AccountFormComponent },
-    { path: 'account-form/:id', component: AccountFormComponent, resolve: { account: AccountFormResolveService } },
+    { path: 'account-form/:id', component: AccountFormComponent, resolve: { account: AccountResolve } },
     { path: 'tag-form', component: TagFormComponent },
-    { path: 'tag-form/:id', component: TagFormComponent, resolve: { tag: TagFormResolveService } },
-    { path: 'operation-form', component: OperationFormComponent },
-    { path: 'operation-form/:id', component: OperationFormComponent, resolve: { operation: OperationFormResolveService } }
+    { path: 'tag-form/:id', component: TagFormComponent, resolve: { tag: TagResolve } },
+    { path: 'operation-form', component: OperationFormComponent, resolve: { tags: TagsResolve, accounts: AccountsResolve } },
+    { path: 'operation-form/:id', component: OperationFormComponent, resolve: { operation: OperationResolve, accounts: AccountsResolve, tags: TagsResolve } }
   ] },
 ];
 

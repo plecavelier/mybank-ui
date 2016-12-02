@@ -1,5 +1,15 @@
 <h1>{{ title }}</h1>
 <form class="form-horizontal" [formGroup]="operationForm" (ngSubmit)="saveOperation()">
+  <div class="form-group" [class.has-error]="accountControl.dirty && !accountControl.valid">
+    <label for="account" class="col-md-2 control-label">Compte bancaire</label>
+    <div class="col-md-10">
+      <select id="account" class="form-control" formControlName="account">
+        <option [ngValue]="null">Sélectionner un compte bancaire</option>
+        <option *ngFor="#account of accounts" [ngValue]="account.id">{{account.name}}</option>
+      </select>
+      <app-form-error control="account" error="required">Le compte bancaire est obligatoire</app-form-error>
+    </div>
+  </div>
   <div class="form-group" [class.has-error]="dateControl.dirty && !dateControl.valid">
     <label for="date" class="col-md-2 control-label">Date</label>
     <div class="col-md-10">
@@ -32,6 +42,15 @@
       </div>
       <app-form-error control="amount" error="required">Le montant est obligatoire</app-form-error>
       <app-form-error control="amount" error="pattern">Le montant est incorrect</app-form-error>
+    </div>
+  </div>
+  <div class="form-group" [class.has-error]="tagControl.dirty && !tagControl.valid">
+    <label for="tag" class="col-md-2 control-label">Catégorie</label>
+    <div class="col-md-10">
+      <select id="tag" class="form-control" formControlName="tag">
+        <option [ngValue]="null">Sélectionner une catégorie</option>
+        <option *ngFor="#tag of tags" [ngValue]="tag.id">{{tag.name}}</option>
+      </select>
     </div>
   </div>
   <div class="form-group">

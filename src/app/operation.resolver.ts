@@ -5,7 +5,7 @@ import { Operation } from './operation';
 import { OperationService } from './operation.service';
 
 @Injectable()
-export class OperationFormResolveService implements Resolve<Operation> {
+export class OperationResolve implements Resolve<Operation> {
 
   constructor(private operationService: OperationService) { }
 

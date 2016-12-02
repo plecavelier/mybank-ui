@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { Account } from './account';
-import { AccountService } from './account.service';
+import { Tag } from './tag';
+import { TagService } from './tag.service';
 
 @Injectable()
-export class AccountFormResolveService implements Resolve<Account> {
+export class TagResolve implements Resolve<Tag> {
 
-  constructor(private accountService: AccountService) { }
+  constructor(private tagService: TagService) { }
 
   resolve(route: ActivatedRouteSnapshot): Observable<any> | Promise<any> | any {
     let id = route.params['id'];
-    return this.accountService.get(id);
+    return this.tagService.get(id);
   }
 }

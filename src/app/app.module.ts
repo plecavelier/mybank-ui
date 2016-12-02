@@ -15,11 +15,13 @@ import { routing, appRoutingProviders } from './app.routing';
 import { AccountService } from './account.service';
 import { TagService } from './tag.service';
 import { AlertService } from './alert.service';
-import { AccountFormResolveService } from './account-form-resolve.service';
-import { TagFormResolveService } from './tag-form-resolve.service';
+import { AccountResolve } from './account.resolver';
+import { TagResolve } from './tag.resolver';
 import { OperationFormComponent } from './operation-form/operation-form.component';
 import { OperationService } from './operation.service';
-import { OperationFormResolveService } from './operation-form-resolve.service';
+import { OperationResolve } from './operation.resolver';
+import { TagsResolve } from './tags.resolver';
+import { AccountsResolve } from './accounts.resolver';
 import { SecurityService } from './security.service';
 import { AuthGuard } from './auth.guard';
 import { AppConfig } from './app.config';
@@ -53,12 +55,14 @@ import { MonthNamePipe } from './month-name.pipe';
     AccountService,
     TagService,
     AlertService,
-    AccountFormResolveService,
-    TagFormResolveService,
+    AccountResolve,
+    TagResolve,
     OperationService,
-    OperationFormResolveService,
+    OperationResolve,
+    TagsResolve,
     AuthGuard,
     SecurityService,
+    AccountsResolve,
     AUTH_PROVIDERS,
     provideAuth(AppConfig.JWT_CONFIG)
   ],

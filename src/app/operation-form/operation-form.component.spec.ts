@@ -7,7 +7,7 @@ import { OperationFormComponent } from './operation-form.component';
 
 describe('Component: OperationForm', () => {
   it('should create an instance', () => {
-    let component = new OperationFormComponent(null, null, null, null);
+    let component = new OperationFormComponent(null, null, null, null, null, null);
     expect(component).toBeTruthy();
   });
 });

@@ -1,5 +1,6 @@
 export class Account {
 
+  '@id': string;
   id: number;
   name: string = '';
   number: string = '';

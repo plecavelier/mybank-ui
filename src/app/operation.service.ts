@@ -97,13 +97,27 @@ export class OperationService {
   }
 
   update(operation: Operation) {
-    return this.authHttp.put(this.operationsUrl + '/' + operation.id, JSON.stringify(operation))
+    let operationObject = JSON.parse(JSON.stringify(operation));
+    if (operation.account) {
+      operationObject.account = operation.account['@id'];
+    }
+    if (operation.tag) {
+      operationObject.tag = operation.tag['@id'];
+    }
+    return this.authHttp.put(this.operationsUrl + '/' + operation.id, JSON.stringify(operationObject))
       .do(() => this.operationChangedSubject.next(operation))
       .catch(this.handleError);
   }
 
   save(operation: Operation) {
-    return this.authHttp.post(this.operationsUrl, JSON.stringify(operation))
+    let operationObject = JSON.parse(JSON.stringify(operation));
+    if (operation.account) {
+      operationObject.account = operation.account['@id'];
+    }
+    if (operation.tag) {
+      operationObject.tag = operation.tag['@id'];
+    }
+    return this.authHttp.post(this.operationsUrl, JSON.stringify(operationObject))
       .do(() => this.operationChangedSubject.next(operation))
       .catch(this.handleError);
   }

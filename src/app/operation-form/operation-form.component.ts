@@ -3,8 +3,12 @@ import { REACTIVE_FORM_DIRECTIVES, FormGroup, FormControl, FormBuilder, Validato
 import { ActivatedRoute } from '@angular/router';
 import { FormErrorComponent } from '../form-error/form-error.component';
 import { OperationService } from '../operation.service';
+import { AccountService } from '../account.service';
+import { TagService } from '../tag.service';
 import { AlertService } from '../alert.service';
 import { Operation } from '../operation';
+import { Account } from '../account';
+import { Tag } from '../tag';
 import { Alert } from '../alert';
 
 @Component({
@@ -21,16 +25,23 @@ export class OperationFormComponent implements OnInit {
   descriptionControl: FormControl;
   dateControl: FormControl;
   amountControl: FormControl;
+  accountControl: FormControl;
+  tagControl: FormControl;
 
   title: string;
   buttonLabel: string;
 
   private operation: Operation;
 
+  private accounts: Array<Account>;
+  private tags: Array<Tag>;
+
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private operationService: OperationService,
+    private accountService: AccountService,
+    private tagService: TagService,
     private alertService: AlertService) {
   }
 
@@ -44,17 +55,24 @@ export class OperationFormComponent implements OnInit {
       this.operation = new Operation();
     }
 
+    this.accounts = this.route.snapshot.data['accounts'];
+    this.tags = this.route.snapshot.data['tags'];
+
     // Create form
     this.nameControl = this.formBuilder.control(this.operation.name, [ Validators.required, Validators.maxLength(50) ]);
     this.descriptionControl = this.formBuilder.control(this.operation.description, [ Validators.maxLength(250) ]);
     let dateString = this.operation.date === undefined ? null : this.operation.date.toISOString().substring(0, 10);
     this.dateControl = this.formBuilder.control(dateString, [ Validators.required, Validators.pattern('^[0-9]{4}-[0-9]{2}-[0-9]{2}$') ]);
     this.amountControl = this.formBuilder.control(this.operation.amount, [ Validators.required, Validators.pattern('^[0-9]+([.][0-9]{0,2})?$') ]);
+    this.accountControl = this.formBuilder.control(this.operation.account ? this.operation.account.id : null, [ Validators.required ]);
+    this.tagControl = this.formBuilder.control(this.operation.tag ? this.operation.tag.id : null, [ ]);
     let controls = {
       name : this.nameControl,
       description : this.descriptionControl,
       date : this.dateControl,
-      amount: this.amountControl
+      amount: this.amountControl,
+      account: this.accountControl,
+      tag: this.tagControl
     }
     this.operationForm = this.formBuilder.group(controls);
 
@@ -62,7 +80,13 @@ export class OperationFormComponent implements OnInit {
       this.operation.name = value.name;
       this.operation.description = value.description;
       this.operation.date = new Date(value.date);
-      this.operation.amount = value.amount;
+      this.operation.amount = Number.parseInt(value.amount);
+      this.operation.account = this.accounts.find(account => {
+        return account.id == value.account;
+      });
+      this.operation.tag = this.tags.find(tag => {
+        return tag.id == value.tag;
+      });
     });
 
     // Set title & button label
