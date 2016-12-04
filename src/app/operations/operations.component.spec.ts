@@ -7,7 +7,7 @@ import { OperationsComponent } from './operations.component';
 
 describe('Component: Operations', () => {
   it('should create an instance', () => {
-    let component = new OperationsComponent(null, null);
+    let component = new OperationsComponent(null, null, null);
     expect(component).toBeTruthy();
   });
 });

@@ -1,4 +1,4 @@
-<a class="list-group-item" *ngFor="let account of accounts">
+<a href="javascript:void(0)" class="list-group-item" [class.active]="isSelected(account)" *ngFor="let account of accounts" (click)="toggleAccount(account)">
   <div class="pull-right">
     <span class="badge">{{ account.balance | amount }}</span>
     <span dropdown>

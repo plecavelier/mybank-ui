@@ -7,7 +7,7 @@ import { TagListComponent } from './tag-list.component';
 
 describe('Component: TagList', () => {
   it('should create an instance', () => {
-    let component = new TagListComponent(null, null);
+    let component = new TagListComponent(null, null, null);
     expect(component).toBeTruthy();
   });
 });

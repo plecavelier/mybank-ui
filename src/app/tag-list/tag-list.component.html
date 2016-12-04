@@ -1,4 +1,4 @@
-<a href="#" class="list-group-item" *ngFor="let tag of tags">
+<a href="javascript:void(0)" class="list-group-item" [class.active]="isSelected(tag)" *ngFor="let tag of tags" (click)="toggleTag(tag)">
   {{ tag.name }}
   <span class="pull-right" dropdown>
     <a href="javascript:void(0)" dropdownToggle><span class="glyphicon glyphicon-option-vertical"></span></a>

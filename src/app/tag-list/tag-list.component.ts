@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TagService } from '../tag.service'
 import { AlertService } from '../alert.service'
+import { FilterService } from '../filter.service'
 import { Tag } from '../tag'
 import { Alert } from '../alert'
 
@@ -13,10 +14,12 @@ import { Alert } from '../alert'
 export class TagListComponent implements OnInit {
 
   tags: Array<Tag>;
+  selectedTags: Array<Tag> = [];
 
   constructor(
     private tagService: TagService,
-    private alertService: AlertService) {
+    private alertService: AlertService,
+    private filterService: FilterService) {
   }
 
   ngOnInit() {
@@ -31,6 +34,20 @@ export class TagListComponent implements OnInit {
       tags => this.tags = tags,
       error =>  this.alertService.emit(new Alert('danger', 'Une erreur est survenue durant la récupération des catégories'))
     );
+  }
+
+  toggleTag(tag: Tag) {
+    let index = this.selectedTags.indexOf(tag);
+    if (index > -1) {
+      this.selectedTags.splice(index, 1);
+    } else {
+      this.selectedTags.push(tag);
+    }
+    this.filterService.updateTags(this.selectedTags);
+  }
+
+  isSelected(tag: Tag) {
+    return this.selectedTags.indexOf(tag) > -1;
   }
 
   deleteTag(tag: Tag) {

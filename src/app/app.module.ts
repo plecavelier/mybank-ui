@@ -23,6 +23,7 @@ import { OperationResolve } from './operation.resolver';
 import { TagsResolve } from './tags.resolver';
 import { AccountsResolve } from './accounts.resolver';
 import { SecurityService } from './security.service';
+import { FilterService } from './filter.service';
 import { AuthGuard } from './auth.guard';
 import { AppConfig } from './app.config';
 import { KeysPipe } from './keys.pipe';
@@ -64,6 +65,7 @@ import { AmountPipe } from './amount.pipe';
     TagsResolve,
     AuthGuard,
     SecurityService,
+    FilterService,
     AccountsResolve,
     AUTH_PROVIDERS,
     provideAuth(AppConfig.JWT_CONFIG)

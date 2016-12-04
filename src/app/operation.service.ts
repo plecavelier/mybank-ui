@@ -9,6 +9,7 @@ import 'rxjs/add/operator/concat';
 import { Operation } from './operation';
 import { PaginatedList } from './paginated-list';
 import { AuthHttp } from 'angular2-jwt';
+import { Filter } from './filter'
 
 @Injectable()
 export class OperationService {
@@ -29,7 +30,7 @@ export class OperationService {
       .catch(this.handleError);
   }
 
-  getList(page: number = 1, year: number = null, month: number = null, searchValue: string = null): Observable<PaginatedList<Operation>> {
+  getList(page: number = 1, year: number = null, month: number = null, searchValue: string = null, filter: Filter = null): Observable<PaginatedList<Operation>> {
 
     let params: URLSearchParams = new URLSearchParams();
     params.set('page', String(page));
@@ -42,6 +43,19 @@ export class OperationService {
     }
     if (searchValue) {
       params.set('name', searchValue);
+    }
+
+    if (filter) {
+      if (filter.accounts && filter.accounts.length > 0) {
+        params.set('account.id', filter.accounts.map(account => {
+          return account.id;
+        }).join());
+      }
+      if (filter.tags && filter.tags.length > 0) {
+        params.set('tag.id', filter.tags.map(tag => {
+          return tag.id;
+        }).join());
+      }
     }
 
     let options = new RequestOptions({search: params});

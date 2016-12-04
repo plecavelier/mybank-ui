@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { OperationService } from '../operation.service'
 import { AlertService } from '../alert.service'
+import { FilterService } from '../filter.service'
 import { Operation } from '../operation'
+import { Tag } from '../tag'
+import { Filter } from '../filter'
 import { PaginatedList } from '../paginated-list';
 import { Alert } from '../alert'
 import { MonthNamePipe } from '../month-name.pipe';
@@ -24,15 +27,25 @@ export class OperationsComponent implements OnInit {
   yearItems: Object;
   monthItems: Array<number>;
   searchValue: string = '';
+  filter: Filter;
 
   constructor(
     private operationService: OperationService,
-    private alertService: AlertService) {
+    private alertService: AlertService,
+    private filterService: FilterService) {
   }
 
   ngOnInit() {
+    this.filter = this.filterService.filter;
     this.operationService.operationChanged$.subscribe(
       operations => this.refreshList()
+    );
+    this.filterService.filterChanged$.subscribe(
+      filter => {
+        this.page = 1;
+        this.filter = filter;
+        this.refreshList();
+      }
     );
     this.operationService.getYearMonths().subscribe(
       yearMonths => {
@@ -44,7 +57,7 @@ export class OperationsComponent implements OnInit {
   }
 
   private refreshList() {
-    this.operationService.getList(this.page, this.year, this.month, this.searchValue).subscribe(
+    this.operationService.getList(this.page, this.year, this.month, this.searchValue, this.filter).subscribe(
       operations => {
         this.operations = operations.list;
         this.previousPage = operations.previous;
