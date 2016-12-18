@@ -29,6 +29,7 @@ import { AppConfig } from './app.config';
 import { KeysPipe } from './keys.pipe';
 import { MonthNamePipe } from './month-name.pipe';
 import { AmountPipe } from './amount.pipe';
+import { ChartModule } from 'angular2-highcharts';
 
 @NgModule({
   imports: [
@@ -38,7 +39,8 @@ import { AmountPipe } from './amount.pipe';
     Ng2BootstrapModule,
     HttpModule,
     JsonpModule,
-    routing
+    routing,
+    ChartModule
   ],
   declarations: [
     AppComponent,

@@ -21,7 +21,9 @@ module.exports = function(defaults) {
       'moment/**/*.+(js|js.map)',
       'bootstrap/dist/css/bootstrap.min.css',
       'bootstrap/dist/css/bootstrap.min.css.map',
-      'bootstrap/dist/fonts/**'
+      'bootstrap/dist/fonts/**',
+      'angular2-highcharts/**/*.+(js|js.map)',
+      'highcharts/**/*.+(js|js.map)',
     ]
   });
 };

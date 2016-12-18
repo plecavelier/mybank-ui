@@ -40,6 +40,7 @@ const barrels: string[] = [
 
   // Thirdparty barrels.
   'rxjs',
+  'angular2-highcharts',
 
   // App specific barrels.
   'app',
@@ -68,6 +69,10 @@ cliSystemConfigPackages['angular2-jwt'] = {
   main: 'angular2-jwt'
 };
 
+cliSystemConfigPackages['highcharts'] = {
+  main: 'highcharts'
+};
+
 /** Type declaration for ambient System. */
 declare var System: any;
 
@@ -76,6 +81,8 @@ System.config({
   map: {
     '@angular': 'vendor/@angular',
     'rxjs': 'vendor/rxjs',
+    'angular2-highcharts': 'vendor/angular2-highcharts',
+    'highcharts': 'vendor/highcharts',
     'angular2-jwt': 'vendor/angular2-jwt',
     'main': 'main.js'
   },

@@ -28,6 +28,13 @@ export class StatisticsComponent implements OnInit {
 
   filter: Filter;
 
+  options = {
+    title : { text : 'simple chart' },
+    series: [{
+      data: [29.9, 71.5, 106.4, 129.2],
+    }]
+  };
+
   constructor(private operationService: OperationService,
     private alertService: AlertService,
     private filterService: FilterService) { }
