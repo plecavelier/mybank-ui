@@ -3,8 +3,10 @@ import { Subject } from 'rxjs/Subject';
 import { Filter } from './filter';
 import { Account } from './account';
 import { Tag } from './tag';
+import 'rxjs/add/operator/take';
 
 @Injectable()
+// TODO : ce service devrait etre un singleton
 export class FilterService {
 
   private filterChangedSubject = new Subject<Filter>();

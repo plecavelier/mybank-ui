@@ -16,7 +16,7 @@
     </div>
     <div class="nav navbar-nav navbar-right">
       <p class="navbar-text">{{ total }} opérations</p>
-      <p class="navbar-text">200 €</p>
+      <p class="navbar-text">{{ totalAmount | amount }}</p>
       <div class="btn-group navbar-btn" role="group">
         <div class="btn-group" role="group" dropdown>
           <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" dropdownToggle>
@@ -25,7 +25,7 @@
           </button>
           <ul class="dropdown-menu" dropdownMenu>
             <li><a href="javascript:void(0)" (click)="changeYear(null)">{{ getYearRangeLabel() }}</a></li>
-            <li *ngFor="#yearItem of yearItems | keys"><a href="javascript:void(0)" (click)="changeYear(yearItem.key)">{{ yearItem.key }}</a></li>
+            <li *ngFor="let yearItem of yearItems | keys"><a href="javascript:void(0)" (click)="changeYear(yearItem.key)">{{ yearItem.key }}</a></li>
           </ul>
         </div>
         <div *ngIf="year" class="btn-group" role="group" dropdown>
@@ -35,7 +35,7 @@
           </button>
           <ul class="dropdown-menu" dropdownMenu>
             <li><a href="javascript:void(0)" (click)="changeMonth(null)">Janvier - Décembre</a></li>
-            <li *ngFor="#monthItem of monthItems"><a href="javascript:void(0)" (click)="changeMonth(monthItem)">{{ monthItem | monthName }}</a></li>
+            <li *ngFor="let monthItem of monthItems"><a href="javascript:void(0)" (click)="changeMonth(monthItem)">{{ monthItem | monthName }}</a></li>
           </ul>
         </div>
       </div>

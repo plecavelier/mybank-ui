@@ -6,7 +6,9 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/concat';
+import 'rxjs/add/operator/combineLatest';
 import { Operation } from './operation';
+import { ChartData } from './chart-data';
 import { PaginatedList } from './paginated-list';
 import { AuthHttp } from 'angular2-jwt';
 import { Filter } from './filter'
@@ -60,25 +62,60 @@ export class OperationService {
 
     let options = new RequestOptions({search: params});
 
-    return this.authHttp.get(this.operationsUrl, options)
-      .map(response => {
-        let jsonResponse = response.json();
+    let httpList = this.authHttp.get(this.operationsUrl, options);
+    let httpTotal = this.authHttp.get(this.operationsUrl + '_total', options);
+
+    return httpList
+      .combineLatest(httpTotal)
+      .map(responses => {
+        let jsonResponseList = responses[0].json();
+        let jsonResponseTotal = responses[1].json();
         let operations: PaginatedList<Operation> = new PaginatedList<Operation>();
         operations.page = page;
-        operations.list = <Operation[]> jsonResponse['hydra:member'];
-        operations.total = jsonResponse['hydra:totalItems'];
+        operations.list = <Operation[]> jsonResponseList['hydra:member'];
+        operations.total = jsonResponseList['hydra:totalItems'];
         operations.list.forEach(operation => {
           operation.date = new Date(operation.date.toString());
         });
-        if ('hydra:view' in jsonResponse) {
+        if ('hydra:view' in jsonResponseList) {
           if (page > 1) {
             operations.previous = page - 1;
           }
-          if ('hydra:next' in jsonResponse['hydra:view']) {
+          if ('hydra:next' in jsonResponseList['hydra:view']) {
             operations.next = page + 1;
           }
-        } 
+        }
+        operations.totalAmount = jsonResponseTotal;
         return operations;
+      })
+      .catch(this.handleError);
+  }
+
+  getChartDatas(period: string, filter: Filter): Observable<Array<ChartData>> {
+
+    let params: URLSearchParams = new URLSearchParams();
+    params.set('period', period);
+
+    if (filter) {
+      if (filter.accounts && filter.accounts.length > 0) {
+        params.set('accounts', filter.accounts.map(account => {
+          return account.id;
+        }).join());
+      }
+      if (filter.tags && filter.tags.length > 0) {
+        params.set('tags', filter.tags.map(tag => {
+          return tag.id;
+        }).join());
+      }
+    }
+
+    let options = new RequestOptions({search: params});
+
+    return this.authHttp.get('http://127.0.0.1:8000/operation_chart_datas', options)
+      .map(response => {
+        let jsonResponse = response.json();
+        let chartDatas = <Array<ChartData>> jsonResponse;
+        return chartDatas;
       })
       .catch(this.handleError);
   }

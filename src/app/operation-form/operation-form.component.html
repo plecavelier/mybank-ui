@@ -5,7 +5,7 @@
     <div class="col-md-10">
       <select id="account" class="form-control" formControlName="account">
         <option [ngValue]="null">Sélectionner un compte bancaire</option>
-        <option *ngFor="#account of accounts" [ngValue]="account.id">{{account.name}}</option>
+        <option *ngFor="let account of accounts" [ngValue]="account.id">{{account.name}}</option>
       </select>
       <app-form-error control="account" error="required">Le compte bancaire est obligatoire</app-form-error>
     </div>
@@ -49,7 +49,7 @@
     <div class="col-md-10">
       <select id="tag" class="form-control" formControlName="tag">
         <option [ngValue]="null">Sélectionner une catégorie</option>
-        <option *ngFor="#tag of tags" [ngValue]="tag.id">{{tag.name}}</option>
+        <option *ngFor="let tag of tags" [ngValue]="tag.id">{{tag.name}}</option>
       </select>
     </div>
   </div>

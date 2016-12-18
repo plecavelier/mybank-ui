@@ -7,7 +7,7 @@ import { StatisticsComponent } from './statistics.component';
 
 describe('Component: Statistics', () => {
   it('should create an instance', () => {
-    let component = new StatisticsComponent();
+    let component = new StatisticsComponent(null, null, null);
     expect(component).toBeTruthy();
   });
 });

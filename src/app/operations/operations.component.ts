@@ -22,6 +22,7 @@ export class OperationsComponent implements OnInit {
   previousPage: number;
   nextPage: number;
   total: number;
+  totalAmount: number;
   year: number = null;
   month: number = null;
   yearItems: Object;
@@ -63,6 +64,7 @@ export class OperationsComponent implements OnInit {
         this.previousPage = operations.previous;
         this.nextPage = operations.next;
         this.total = operations.total;
+        this.totalAmount = operations.totalAmount;
       },
       error =>  this.alertService.emit(new Alert('danger', 'Une erreur est survenue durant la récupération des opérations'))
     );

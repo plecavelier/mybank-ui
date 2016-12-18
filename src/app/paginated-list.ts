@@ -5,4 +5,5 @@ export class PaginatedList<R> {
   previous: number = null;
   next: number = null;
   total: number;
+  totalAmount: number;
 }
