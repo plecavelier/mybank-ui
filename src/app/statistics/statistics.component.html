@@ -23,4 +23,4 @@
   </div>
 </nav>
 
-<chart [options]="options"></chart>
+<chart *ngIf="options" [options]="options" style="display: block; height: 600px"></chart>

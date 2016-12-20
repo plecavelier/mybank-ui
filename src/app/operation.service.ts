@@ -114,6 +114,10 @@ export class OperationService {
     return this.authHttp.get('http://127.0.0.1:8000/operation_chart_datas', options)
       .map(response => {
         let jsonResponse = response.json();
+        jsonResponse.forEach(item => {
+          item.date = new Date(item.date);
+          item.amount = parseInt(item.amount);
+        });
         let chartDatas = <Array<ChartData>> jsonResponse;
         return chartDatas;
       })
