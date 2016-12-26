@@ -1,0 +1,16 @@
+<h1>Import d'opérations</h1>
+<form class="form-horizontal" [formGroup]="importForm" (ngSubmit)="importOperation()">
+  <div class="form-group" [class.has-error]="contentControl.dirty && !contentControl.valid">
+    <label for="content" class="col-md-2 control-label">Contenu OFX</label>
+    <div class="col-md-10">
+      <textarea id="content" class="form-control" formControlName="content"></textarea>
+      <app-form-error control="content" error="required">Le contenu OFX est obligatoire</app-form-error>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-md-2"></div>
+    <div class="col-md-10">
+      <button type="submit" class="btn btn-default" [disabled]="!importForm.valid">Importer</button>
+    </div>
+  </div>
+</form>

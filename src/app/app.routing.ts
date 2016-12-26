@@ -12,12 +12,14 @@ import { OperationResolve } from './operation.resolver';
 import { TagsResolve } from './tags.resolver';
 import { AuthGuard } from './auth.guard';
 import { AccountsResolve } from './accounts.resolver';
+import { ImportFormComponent } from './import-form/import-form.component';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: '', component: HomeComponent, canActivate: [ AuthGuard ], children: [
     { path: '', component: OperationsComponent },
     { path: 'operations', component: OperationsComponent },
+    { path: 'import-form', component: ImportFormComponent },
     { path: 'statistics', component: StatisticsComponent },
     { path: 'account-form', component: AccountFormComponent },
     { path: 'account-form/:id', component: AccountFormComponent, resolve: { account: AccountResolve } },

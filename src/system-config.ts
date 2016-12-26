@@ -57,6 +57,7 @@ const barrels: string[] = [
   'app/operation-form',
   'app/login',
   'app/home',
+  'app/import-form',
   /** @cli-barrel */
 ];
 

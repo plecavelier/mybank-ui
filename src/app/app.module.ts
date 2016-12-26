@@ -30,6 +30,7 @@ import { KeysPipe } from './keys.pipe';
 import { MonthNamePipe } from './month-name.pipe';
 import { AmountPipe } from './amount.pipe';
 import { ChartModule } from 'angular2-highcharts';
+import { ImportFormComponent } from './import-form/import-form.component';
 
 @NgModule({
   imports: [
@@ -51,6 +52,7 @@ import { ChartModule } from 'angular2-highcharts';
     AccountFormComponent,
     TagFormComponent,
     OperationFormComponent,
+    ImportFormComponent,
     KeysPipe,
     MonthNamePipe,
     AmountPipe

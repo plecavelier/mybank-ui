@@ -184,6 +184,16 @@ export class OperationService {
       .catch(this.handleError);
   }
 
+  import(ofxContent: string) {
+    let params = {
+      format: 'ofx',
+      content: ofxContent
+    }
+    return this.authHttp.post('http://127.0.0.1:8000/operation_imports', params)
+      .do(response => console.log(response))
+      .catch(this.handleError);
+  }
+
   private getFromTo(year: number, month: number): Array<string> {
     let from: string;
     let to: string;
