@@ -6,10 +6,9 @@ import { Account } from '../account'
 import { Alert } from '../alert'
 
 @Component({
-  moduleId: module.id,
   selector: 'ul[app-account-list]',
-  templateUrl: 'account-list.component.html',
-  styleUrls: ['account-list.component.css']
+  templateUrl: './account-list.component.html',
+  styleUrls: ['./account-list.component.css']
 })
 export class AccountListComponent implements OnInit {
 

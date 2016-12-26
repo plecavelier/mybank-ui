@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { REACTIVE_FORM_DIRECTIVES, FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { OperationService } from '../operation.service';
 import { AlertService } from '../alert.service';
 import { Alert } from '../alert';
 
 @Component({
-  moduleId: module.id,
   selector: 'app-import-form',
-  templateUrl: 'import-form.component.html',
-  styleUrls: ['import-form.component.css']
+  templateUrl: './import-form.component.html',
+  styleUrls: ['./import-form.component.css']
 })
 export class ImportFormComponent implements OnInit {
 

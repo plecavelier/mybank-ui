@@ -1,15 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { REACTIVE_FORM_DIRECTIVES, FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
-import { FormErrorComponent } from '../form-error/form-error.component';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { SecurityService } from '../security.service';
 import { Router } from '@angular/router';
 
 @Component({
-  moduleId: module.id,
   selector: 'app-login',
-  templateUrl: 'login.component.html',
-  styleUrls: ['login.component.css'],
-  directives: [ REACTIVE_FORM_DIRECTIVES, FormErrorComponent ]
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
 

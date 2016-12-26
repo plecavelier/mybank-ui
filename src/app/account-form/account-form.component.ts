@@ -1,18 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { REACTIVE_FORM_DIRECTIVES, FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { FormErrorComponent } from '../form-error/form-error.component';
 import { AccountService } from '../account.service';
 import { AlertService } from '../alert.service';
 import { Account } from '../account';
 import { Alert } from '../alert';
 
 @Component({
-  moduleId: module.id,
   selector: 'app-account-form',
-  templateUrl: 'account-form.component.html',
-  styleUrls: ['account-form.component.css'],
-  directives: [ REACTIVE_FORM_DIRECTIVES, FormErrorComponent ]
+  templateUrl: './account-form.component.html',
+  styleUrls: ['./account-form.component.css']
 })
 export class AccountFormComponent implements OnInit {
 

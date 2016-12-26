@@ -6,10 +6,9 @@ import { Tag } from '../tag'
 import { Alert } from '../alert'
 
 @Component({
-  moduleId: module.id,
   selector: 'ul[app-tag-list]',
-  templateUrl: 'tag-list.component.html',
-  styleUrls: ['tag-list.component.css']
+  templateUrl: './tag-list.component.html',
+  styleUrls: ['./tag-list.component.css']
 })
 export class TagListComponent implements OnInit {
 

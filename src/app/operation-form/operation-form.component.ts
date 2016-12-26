@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { REACTIVE_FORM_DIRECTIVES, FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { FormErrorComponent } from '../form-error/form-error.component';
 import { OperationService } from '../operation.service';
 import { AccountService } from '../account.service';
 import { TagService } from '../tag.service';
@@ -12,11 +11,9 @@ import { Tag } from '../tag';
 import { Alert } from '../alert';
 
 @Component({
-  moduleId: module.id,
   selector: 'app-operation-form',
-  templateUrl: 'operation-form.component.html',
-  styleUrls: ['operation-form.component.css'],
-  directives: [ REACTIVE_FORM_DIRECTIVES, FormErrorComponent ]
+  templateUrl: './operation-form.component.html',
+  styleUrls: ['./operation-form.component.css']
 })
 export class OperationFormComponent implements OnInit {
 

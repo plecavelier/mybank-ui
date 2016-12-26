@@ -17,10 +17,9 @@ Highcharts.setOptions({
 });
 
 @Component({
-  moduleId: module.id,
   selector: 'app-statistics',
-  templateUrl: 'statistics.component.html',
-  styleUrls: ['statistics.component.css']
+  templateUrl: './statistics.component.html',
+  styleUrls: ['./statistics.component.css']
 })
 export class StatisticsComponent implements OnInit {
 
