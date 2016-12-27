@@ -50,7 +50,7 @@ export class AccountListComponent implements OnInit, OnDestroy {
   }
 
   toggleAccount(account: Account) {
-    let index = this.selectedAccounts.indexOf(account);
+    let index = this.selectedAccounts.findIndex(current => current.id == account.id);
     if (index > -1) {
       this.selectedAccounts.splice(index, 1);
     } else {
@@ -60,7 +60,7 @@ export class AccountListComponent implements OnInit, OnDestroy {
   }
 
   isSelected(account: Account) {
-    return this.selectedAccounts.indexOf(account) > -1;
+    return this.selectedAccounts.findIndex(current => current.id == account.id) > -1;
   }
 
   deleteAccount(account: Account) {

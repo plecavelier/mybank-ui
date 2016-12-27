@@ -34,7 +34,6 @@ export class OperationService extends RestService<Operation, OperationType> {
     params.set('order[date]', 'desc');
 
     let fromTo: {from: string, to: string} = this.getFromTo(year, month);
-    console.log(fromTo);
     if (fromTo) {
       params.set('date[after]', fromTo.from);
       params.set('date[before]', fromTo.to);

@@ -43,7 +43,7 @@ export class TagListComponent implements OnInit, OnDestroy {
   }
 
   toggleTag(tag: Tag) {
-    let index = this.selectedTags.indexOf(tag);
+    let index = this.selectedTags.findIndex(current => current.id == tag.id);
     if (index > -1) {
       this.selectedTags.splice(index, 1);
     } else {
@@ -53,7 +53,7 @@ export class TagListComponent implements OnInit, OnDestroy {
   }
 
   isSelected(tag: Tag) {
-    return this.selectedTags.indexOf(tag) > -1;
+    return this.selectedTags.findIndex(current => current.id == tag.id) > -1;
   }
 
   deleteTag(tag: Tag) {
