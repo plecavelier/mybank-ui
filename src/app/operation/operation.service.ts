@@ -12,7 +12,7 @@ import { AuthHttp } from 'angular2-jwt';
 import { ChartData } from '../chart/chart-data';
 import { Filter } from '../dashboard/filter';
 import { Operation } from './operation';
-import { PaginatedList } from '../shared/paginated-list';
+import { OperationPaginatedList } from './operation-paginated-list';
 
 @Injectable()
 export class OperationService {
@@ -33,7 +33,7 @@ export class OperationService {
       .catch(this.handleError);
   }
 
-  getList(page: number = 1, year: number = null, month: number = null, searchValue: string = null, filter: Filter = null): Observable<PaginatedList<Operation>> {
+  getList(page: number = 1, year: number = null, month: number = null, searchValue: string = null, filter: Filter = null): Observable<OperationPaginatedList> {
 
     let params: URLSearchParams = new URLSearchParams();
     params.set('page', String(page));
@@ -71,7 +71,7 @@ export class OperationService {
       .map(responses => {
         let jsonResponseList = responses[0].json();
         let jsonResponseTotal = responses[1].json();
-        let operations: PaginatedList<Operation> = new PaginatedList<Operation>();
+        let operations: OperationPaginatedList = new OperationPaginatedList();
         operations.page = page;
         operations.list = <Operation[]> jsonResponseList['hydra:member'];
         operations.total = jsonResponseList['hydra:totalItems'];

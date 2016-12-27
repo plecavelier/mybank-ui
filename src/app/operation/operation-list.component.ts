@@ -8,7 +8,7 @@ import { FilterService } from '../dashboard/filter.service';
 import { MonthNamePipe } from '../shared/month-name.pipe';
 import { Operation } from './operation';
 import { OperationService } from './operation.service';
-import { PaginatedList } from '../shared/paginated-list';
+import { OperationPaginatedList } from './operation-paginated-list';
 import { Tag } from '../tag/tag';
 
 @Component({
