@@ -46,7 +46,6 @@ export class OperationFormComponent implements OnInit {
   ngOnInit() {
 
     // Init operation
-    console.log(this.route.snapshot.data['operation']);
     if (this.route.snapshot.data['operation']) {
       this.operation = this.route.snapshot.data['operation'];
     } else {

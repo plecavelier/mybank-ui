@@ -34,7 +34,7 @@ export class MapperService {
     let object: Object = {};
     object['id'] = entity['id'];
     type.attributes().forEach(attribute => {
-      if (attribute.key in entity) {
+      if (attribute.key in entity && typeof(entity[attribute.key]) !== 'undefined') {
         if (attribute.type == 'model') {
           object[attribute.key] = entity[attribute.key]['@id'];
         } else {
