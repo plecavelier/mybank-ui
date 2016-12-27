@@ -1,18 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
-import 'rxjs/add/operator/take';
 
 import { Account } from '../account/account';
 import { Filter } from './filter';
 import { Tag } from '../tag/tag';
 
 @Injectable()
-// TODO : ce service devrait etre un singleton
 export class FilterService {
 
+  filter: Filter = new Filter();
   private filterChangedSubject = new Subject<Filter>();
   filterChanged$ = this.filterChangedSubject.asObservable();
-  filter: Filter = new Filter();
 
   constructor() { }
 

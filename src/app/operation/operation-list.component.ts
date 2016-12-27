@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
 
 import { Alert } from '../shared/alert';
 import { AlertService } from '../shared/alert.service';
@@ -15,7 +16,7 @@ import { Tag } from '../tag/tag';
   templateUrl: './operation-list.component.html',
   styleUrls: ['./operation-list.component.css']
 })
-export class OperationListComponent implements OnInit {
+export class OperationListComponent implements OnInit, OnDestroy {
 
   operations: Operation[];
   page: number = 1;
@@ -29,6 +30,8 @@ export class OperationListComponent implements OnInit {
   monthItems: Array<number>;
   searchValue: string = '';
   filter: Filter;
+  operationServiceSubscription: Subscription;
+  filterChangedSubscription: Subscription;
 
   constructor(
     private operationService: OperationService,
@@ -38,10 +41,10 @@ export class OperationListComponent implements OnInit {
 
   ngOnInit() {
     this.filter = this.filterService.filter;
-    this.operationService.operationChanged$.subscribe(
+    this.operationServiceSubscription = this.operationService.operationChanged$.subscribe(
       operations => this.refreshList()
     );
-    this.filterService.filterChanged$.subscribe(
+    this.filterChangedSubscription = this.filterService.filterChanged$.subscribe(
       filter => {
         this.page = 1;
         this.filter = filter;
@@ -55,6 +58,11 @@ export class OperationListComponent implements OnInit {
       error =>  this.alertService.emit(new Alert('danger', 'Une erreur est survenue durant la récupération des opérations'))
     );
     this.refreshList();
+  }
+
+  ngOnDestroy() {
+    this.operationServiceSubscription.unsubscribe();
+    this.filterChangedSubscription.unsubscribe();
   }
 
   private refreshList() {

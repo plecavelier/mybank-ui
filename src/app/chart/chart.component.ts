@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
 
 import { Alert } from '../shared/alert';
 import { AlertService } from '../shared/alert.service';
@@ -23,31 +24,29 @@ Highcharts.setOptions({
   templateUrl: './chart.component.html',
   styleUrls: ['./chart.component.css']
 })
-export class ChartComponent implements OnInit {
+export class ChartComponent implements OnInit, OnDestroy {
 
   modes: { [key:string]: string } = {
     comparison: 'Comparaison',
     evolution: 'Evolution'
   };
   mode: string = 'comparison';
-
   periods: { [key:string]: string } = {
     month: 'Mensuel',
     quarter: 'Trimestriel',
     year: 'Annuel'
   };
   period: string = 'month';
-
   filter: Filter;
-
   options = null;
+  filterChangedSubscription: Subscription;
 
   constructor(private operationService: OperationService,
     private alertService: AlertService,
     private filterService: FilterService) { }
 
   ngOnInit() {
-    this.filterService.filterChanged$.subscribe(
+    this.filterChangedSubscription = this.filterService.filterChanged$.subscribe(
       filter => {
         this.filter = filter;
         this.refreshChart();
@@ -55,6 +54,10 @@ export class ChartComponent implements OnInit {
     );
     this.filter = this.filterService.filter;
     this.refreshChart();
+  }
+
+  ngOnDestroy() {
+    this.filterChangedSubscription.unsubscribe();
   }
 
   changeMode(mode: string) {
