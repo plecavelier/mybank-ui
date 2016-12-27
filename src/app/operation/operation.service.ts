@@ -8,6 +8,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/concat';
 import 'rxjs/add/operator/combineLatest';
 import { AuthHttp } from 'angular2-jwt';
+import * as moment from 'moment';
 
 import { RestService } from '../shared/rest.service';
 import { ChartData } from '../chart/chart-data';
@@ -32,10 +33,11 @@ export class OperationService extends RestService<Operation, OperationType> {
     params.set('page', String(page));
     params.set('order[date]', 'desc');
 
-    let [from, to]: Array<string> = this.getFromTo(year, month);
-    if (from && to) {
-      params.set('date[after]', from);
-      params.set('date[before]', to);
+    let fromTo: {from: string, to: string} = this.getFromTo(year, month);
+    console.log(fromTo);
+    if (fromTo) {
+      params.set('date[after]', fromTo.from);
+      params.set('date[before]', fromTo.to);
     }
     if (searchValue) {
       params.set('name', searchValue);
@@ -159,23 +161,21 @@ export class OperationService extends RestService<Operation, OperationType> {
       .catch(this.handleError);
   }
 
-  // TODO : refactor with moment library
-  private getFromTo(year: number, month: number): Array<string> {
-    let from: string;
-    let to: string;
+  private getFromTo(year: number, month: number): {from: string, to: string} {
     if (year) {
+      let from;
+      let to;
       if (month) {
-        from = year + '-' + (month < 10 ? '0' + month : String(month)) + '-01';
-        if (month == 12) {
-          to = (year + 1) + '-01-01';
-        } else {
-          to = year + '-' + ((month + 1) < 10 ? '0' + (month + 1) : String(month + 1)) + '-01';
-        }
+        from = moment().year(year).month(month - 1).date(1);
+        to = moment(from).add(1, 'months').add(-1, 'days');
       } else {
-        from = year + '-01-01';
-        to = (year + 1) + '-01-01';
+        from = moment().year(year).month(0).date(1);
+        to = moment(from).add(1, 'years').add(-1, 'days');
+      }
+      return {
+        from: from.format('YYYY-MM-DD'),
+        to: to.format('YYYY-MM-DD')
       }
     }
-    return [from, to];
   }
 }
