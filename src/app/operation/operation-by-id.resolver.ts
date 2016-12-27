@@ -12,6 +12,6 @@ export class OperationByIdResolver implements Resolve<Operation> {
 
   resolve(route: ActivatedRouteSnapshot): Observable<any> | Promise<any> | any {
     let id = route.params['id'];
-    return this.operationService.getItem(id);
+    return this.operationService.get(id);
   }
 }

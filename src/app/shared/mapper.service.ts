@@ -11,9 +11,9 @@ export class MapperService {
       input = input.json();
     }
     let entity: T = type.factory();
-    type.attributes().forEach((value: string, key: string) => {
-      if (key in input) {
-        entity[key] = input[key];
+    type.attributes().forEach(attribute => {
+      if (attribute.key in input) {
+        entity[attribute.key] = this.mapProperty(input[attribute.key], attribute.type, attribute.model);
       }
     });
     return entity;
@@ -33,11 +33,35 @@ export class MapperService {
   mapToObject<T>(entity: T, type: ModelType<T>): Object {
     let object: Object = {};
     object['id'] = entity['id'];
-    type.attributes().forEach((value: string, key: string) => {
-      if (key in entity) {
-        object[key] = entity[key];
+    type.attributes().forEach(attribute => {
+      if (attribute.key in entity) {
+        if (attribute.type == 'model') {
+          object[attribute.key] = entity[attribute.key]['@id'];
+        } else {
+          object[attribute.key] = entity[attribute.key];
+        }
       }
     });
     return object;
+  }
+
+  private mapProperty(value: any, type: string, model?: any): any | Date {
+    if (value == null) {
+      return null;
+    }
+    switch(type) {
+      case 'string':
+        return String(value);
+
+      case 'number':
+        return Number(value);
+
+      case 'date':
+        return new Date(value);
+
+      case 'model':
+        return this.mapToEntity(<Object> value, model);
+    }
+    return value;
   }
 }

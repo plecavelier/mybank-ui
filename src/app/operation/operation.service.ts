@@ -9,31 +9,23 @@ import 'rxjs/add/operator/concat';
 import 'rxjs/add/operator/combineLatest';
 import { AuthHttp } from 'angular2-jwt';
 
+import { RestService } from '../shared/rest.service';
 import { ChartData } from '../chart/chart-data';
 import { Filter } from '../dashboard/filter';
 import { Operation } from './operation';
+import { OperationType } from './operation-type';
 import { OperationPaginatedList } from './operation-paginated-list';
 
 @Injectable()
-// TODO : create common RestService
-export class OperationService {
-
-  private operationChangedSubject = new Subject<Operation>();
-  operationChanged$ = this.operationChangedSubject.asObservable();
+export class OperationService extends RestService<Operation, OperationType> {
 
   private operationsUrl = 'http://127.0.0.1:8000/operations';
 
-  constructor(private authHttp: AuthHttp) { }
-
-  getItem(id: number): Observable<Operation> {
-    return this.authHttp.get(this.operationsUrl + '/' + id)
-      .map(response => <Operation> response.json())
-      .do(operation => {
-        operation.date = new Date(operation.date.toString());
-      })
-      .catch(this.handleError);
+  getModelType(): OperationType {
+    return new OperationType();
   }
 
+  // TODO : manage parameters with generic REST service
   getList(page: number = 1, year: number = null, month: number = null, searchValue: string = null, filter: Filter = null): Observable<OperationPaginatedList> {
 
     let params: URLSearchParams = new URLSearchParams();
@@ -93,6 +85,7 @@ export class OperationService {
       .catch(this.handleError);
   }
 
+  // TODO : export in dedicated service
   getChartDatas(period: string, filter: Filter): Observable<Array<ChartData>> {
 
     let params: URLSearchParams = new URLSearchParams();
@@ -126,6 +119,7 @@ export class OperationService {
       .catch(this.handleError);
   }
 
+  // TODO : export in dedicated service
   getYearMonths() {
     return this.authHttp.get('http://127.0.0.1:8000/operation_year_months')
       .map(response => {
@@ -154,52 +148,21 @@ export class OperationService {
       .catch(this.handleError);
   }
 
-  update(operation: Operation) {
-    let operationObject = JSON.parse(JSON.stringify(operation));
-    if (operation.account) {
-      operationObject.account = operation.account['@id'];
-    }
-    if (operation.tag) {
-      operationObject.tag = operation.tag['@id'];
-    }
-    return this.authHttp.put(this.operationsUrl + '/' + operation.id, JSON.stringify(operationObject))
-      .do(() => this.operationChangedSubject.next(operation))
-      .catch(this.handleError);
-  }
-
-  save(operation: Operation) {
-    let operationObject = JSON.parse(JSON.stringify(operation));
-    if (operation.account) {
-      operationObject.account = operation.account['@id'];
-    }
-    if (operation.tag) {
-      operationObject.tag = operation.tag['@id'];
-    }
-    return this.authHttp.post(this.operationsUrl, JSON.stringify(operationObject))
-      .do(() => this.operationChangedSubject.next(operation))
-      .catch(this.handleError);
-  }
-
-  delete(operation: Operation) {
-    return this.authHttp.delete(this.operationsUrl + '/' + operation.id)
-      .do(() => this.operationChangedSubject.next(operation))
-      .catch(this.handleError);
-  }
-
+  // TODO : export in dedicated service
   import(ofxContent: string) {
     let params = {
       format: 'ofx',
       content: ofxContent
     }
     return this.authHttp.post('http://127.0.0.1:8000/operation_imports', params)
-      .do(() => this.operationChangedSubject.next(null))
+      .do(() => this.changedSubject.next(null))
       .catch(this.handleError);
   }
 
+  // TODO : refactor with moment library
   private getFromTo(year: number, month: number): Array<string> {
     let from: string;
     let to: string;
-    // Replace with moment library
     if (year) {
       if (month) {
         from = year + '-' + (month < 10 ? '0' + month : String(month)) + '-01';
@@ -214,12 +177,5 @@ export class OperationService {
       }
     }
     return [from, to];
-  }
-
-  private handleError(error: any) {
-    let errMsg = (error.message) ? error.message :
-      error.status ? `${error.status} - ${error.statusText}` : 'Server error';
-    console.error(errMsg);
-    return Observable.throw(errMsg);
   }
 }

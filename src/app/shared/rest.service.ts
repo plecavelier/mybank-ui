@@ -14,7 +14,7 @@ import { ModelType } from './model-type';
 @Injectable()
 export abstract class RestService<E, T extends ModelType<E>> {
 
-  private changedSubject = new Subject<E>();
+  protected changedSubject = new Subject<E>();
   changed$ = this.changedSubject.asObservable();
 
   constructor(protected authHttp: AuthHttp, protected mapperService: MapperService) { }

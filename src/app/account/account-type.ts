@@ -7,13 +7,27 @@ export class AccountType implements ModelType<Account> {
   	return new Account();
   }
 
-  attributes(): Map<string, any> {
-    let mapping: Map<string, any> = new Map<string, any>();
-    mapping.set('id', 'number');
-    mapping.set('name', 'string');
-    mapping.set('number', 'string');
-    mapping.set('balance', 'number');
-    mapping.set('description', 'string');
-    return mapping;
+  attributes(): {key: string, type: string, model?: any}[] {
+    return [
+      {
+        key: '@id',
+        type: 'string'
+      }, {
+        key: 'id',
+        type: 'number'
+      }, {
+        key: 'name',
+        type: 'string'
+      }, {
+        key: 'number',
+        type: 'string'
+      }, {
+        key: 'balance',
+        type: 'number'
+      }, {
+        key: 'description',
+        type: 'string'
+      }
+    ];
   }
 }

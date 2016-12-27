@@ -2,5 +2,5 @@ export interface ModelType<T> {
 
   factory(): T;
 
-  attributes(): Map<string, any>;
+  attributes(): {key: string, type: string, model?: any}[];
 }

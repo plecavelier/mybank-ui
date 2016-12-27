@@ -7,13 +7,27 @@ export class TagType implements ModelType<Tag> {
   	return new Tag();
   }
 
-  attributes(): Map<string, any> {
-    let mapping: Map<string, any> = new Map<string, any>();
-    mapping.set('id', 'number');
-    mapping.set('name', 'string');
-    mapping.set('description', 'string');
-    mapping.set('icon', 'string');
-    mapping.set('color', 'string');
-    return mapping;
+  attributes(): {key: string, type: string, model?: any}[] {
+    return [
+      {
+        key: '@id',
+        type: 'string'
+      }, {
+        key: 'id',
+        type: 'number'
+      }, {
+        key: 'name',
+        type: 'string'
+      }, {
+        key: 'description',
+        type: 'string'
+      }, {
+        key: 'icon',
+        type: 'string'
+      }, {
+        key: 'color',
+        type: 'string'
+      }
+    ];
   }
 }

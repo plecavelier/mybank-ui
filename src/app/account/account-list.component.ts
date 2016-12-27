@@ -28,7 +28,7 @@ export class AccountListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.operationChangedSubscription = this.operationService.operationChanged$.subscribe(
+    this.operationChangedSubscription = this.operationService.changed$.subscribe(
       operation => this.refreshList()
     );
     this.accountChangedSubscription = this.accountService.changed$.subscribe(
