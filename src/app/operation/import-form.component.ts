@@ -36,7 +36,7 @@ export class ImportFormComponent implements OnInit {
       .subscribe(
         response => {
           this.alertService.emit(new Alert('success', 'Les opérations ont bien été importées'));
-          //this.importForm.reset()
+          this.importForm.reset();
         },
         error => this.alertService.emit(new Alert('danger', 'Une erreur est survenue durant l\'import des opérations'))
       );

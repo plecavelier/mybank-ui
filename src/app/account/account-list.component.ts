@@ -1,32 +1,45 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
 
 import { Account } from './account';
 import { AccountService } from './account.service';
 import { Alert } from '../shared/alert';
 import { AlertService } from '../shared/alert.service';
 import { FilterService } from '../dashboard/filter.service';
+import { OperationService } from '../operation/operation.service';
 
 @Component({
   selector: 'ul[app-account-list]',
   templateUrl: './account-list.component.html',
   styleUrls: ['./account-list.component.css']
 })
-export class AccountListComponent implements OnInit {
+export class AccountListComponent implements OnInit, OnDestroy {
 
   accounts: Array<Account>;
   selectedAccounts: Array<Account> = [];
+  accountChangedSubscription: Subscription;
+  operationChangedSubscription: Subscription;
 
   constructor(
     private accountService: AccountService,
     private alertService: AlertService,
-    private filterService: FilterService) {
+    private filterService: FilterService,
+    private operationService: OperationService) {
   }
 
   ngOnInit() {
-    this.accountService.accountChanged$.subscribe(
+    this.operationChangedSubscription = this.operationService.operationChanged$.subscribe(
+      operation => this.refreshList()
+    );
+    this.accountChangedSubscription = this.accountService.accountChanged$.subscribe(
       account => this.refreshList()
     );
     this.refreshList();
+  }
+
+  ngOnDestroy() {
+    this.accountChangedSubscription.unsubscribe();
+    this.operationChangedSubscription.unsubscribe();
   }
 
   private refreshList() {

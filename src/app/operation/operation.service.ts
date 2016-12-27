@@ -191,7 +191,7 @@ export class OperationService {
       content: ofxContent
     }
     return this.authHttp.post('http://127.0.0.1:8000/operation_imports', params)
-      .do(response => console.log(response))
+      .do(() => this.operationChangedSubject.next(null))
       .catch(this.handleError);
   }
 

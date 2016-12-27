@@ -30,7 +30,6 @@ export class OperationListComponent implements OnInit, OnDestroy {
   monthItems: Array<number>;
   searchValue: string = '';
   filter: Filter;
-  operationServiceSubscription: Subscription;
   filterChangedSubscription: Subscription;
 
   constructor(
@@ -41,9 +40,6 @@ export class OperationListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.filter = this.filterService.filter;
-    this.operationServiceSubscription = this.operationService.operationChanged$.subscribe(
-      operations => this.refreshList()
-    );
     this.filterChangedSubscription = this.filterService.filterChanged$.subscribe(
       filter => {
         this.page = 1;
@@ -61,7 +57,6 @@ export class OperationListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.operationServiceSubscription.unsubscribe();
     this.filterChangedSubscription.unsubscribe();
   }
 

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
 
 import { Alert } from '../shared/alert';
 import { AlertService } from '../shared/alert.service';
@@ -11,10 +12,11 @@ import { TagService } from './tag.service';
   templateUrl: './tag-list.component.html',
   styleUrls: ['./tag-list.component.css']
 })
-export class TagListComponent implements OnInit {
+export class TagListComponent implements OnInit, OnDestroy {
 
   tags: Array<Tag>;
   selectedTags: Array<Tag> = [];
+  tagChangedSubscription: Subscription;
 
   constructor(
     private tagService: TagService,
@@ -23,10 +25,14 @@ export class TagListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.tagService.tagChanged$.subscribe(
+    this.tagChangedSubscription = this.tagService.tagChanged$.subscribe(
       tag => this.refreshList()
     );
     this.refreshList();
+  }
+
+  ngOnDestroy() {
+    this.tagChangedSubscription.unsubscribe();
   }
 
   private refreshList() {

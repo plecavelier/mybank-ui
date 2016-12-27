@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
 
 import { Alert } from '../shared/alert';
 import { AlertService } from '../shared/alert.service';
@@ -10,14 +11,19 @@ import { AuthService } from '../auth/auth.service';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
   
   alerts: Array<Alert> = [];
+  alertEmittedSubscription: Subscription;
 
   constructor(private router: Router, private alertService: AlertService, private authService: AuthService) {
-    this.alertService.alertEmitted$.subscribe(
+    this.alertEmittedSubscription = this.alertService.alertEmitted$.subscribe(
       alert => this.alerts.push(alert)
     );
+  }
+
+  ngOnDestroy() {
+    this.alertEmittedSubscription.unsubscribe();
   }
 
   ngOnInit() {
