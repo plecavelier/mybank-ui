@@ -1,46 +1,45 @@
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpModule, JsonpModule, Http, RequestOptions } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
-import { Ng2BootstrapModule, DropdownModule, AlertModule } from 'ng2-bootstrap/ng2-bootstrap';
-import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
-import { HttpModule, JsonpModule } from '@angular/http';
-import { AuthHttp, AuthConfig } from 'angular2-jwt';
-import { AppComponent } from './app.component';
-import { OperationsComponent } from './operations/operations.component';
-import { StatisticsComponent } from './statistics/statistics.component';
-import { AccountFormComponent } from './account-form/account-form.component';
-import { TagFormComponent } from './tag-form/tag-form.component';
-import { LoginComponent } from './login/login.component';
-import { HomeComponent } from './home/home.component';
-import { AccountListComponent } from './account-list/account-list.component';
-import { TagListComponent } from './tag-list/tag-list.component';
-import { routing, appRoutingProviders } from './app.routing';
-import { AccountService } from './account.service';
-import { TagService } from './tag.service';
-import { AlertService } from './alert.service';
-import { AccountResolve } from './account.resolver';
-import { TagResolve } from './tag.resolver';
-import { OperationFormComponent } from './operation-form/operation-form.component';
-import { OperationService } from './operation.service';
-import { OperationResolve } from './operation.resolver';
-import { TagsResolve } from './tags.resolver';
-import { AccountsResolve } from './accounts.resolver';
-import { SecurityService } from './security.service';
-import { FilterService } from './filter.service';
-import { AuthGuard } from './auth.guard';
-import { AppConfig } from './app.config';
-import { KeysPipe } from './keys.pipe';
-import { MonthNamePipe } from './month-name.pipe';
-import { AmountPipe } from './amount.pipe';
 import { ChartModule } from 'angular2-highcharts';
-import { ImportFormComponent } from './import-form/import-form.component';
-import { Http, RequestOptions } from '@angular/http';
-import { FormErrorComponent } from './form-error/form-error.component';
+import { AuthHttp, AuthConfig } from 'angular2-jwt';
+import { Ng2BootstrapModule, DropdownModule, AlertModule } from 'ng2-bootstrap/ng2-bootstrap';
+
+import { AppComponent } from './app.component';
+import { AppConfig } from './app.config';
+import { routing, appRoutingProviders } from './app.routing';
+import { AccountFormComponent } from './account/account-form.component';
+import { AccountListComponent } from './account/account-list.component';
+import { LoginComponent } from './auth/login.component';
+import { ChartComponent } from './chart/chart.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { ImportFormComponent } from './operation/import-form.component';
+import { OperationFormComponent } from './operation/operation-form.component';
+import { OperationListComponent } from './operation/operation-list.component';
+import { FormErrorComponent } from './shared/form-error.component';
+import { TagFormComponent } from './tag/tag-form.component';
+import { TagListComponent } from './tag/tag-list.component';
+import { AccountByIdResolver } from './account/account-by-id.resolver';
+import { AccountListResolver } from './account/account-list.resolver';
+import { OperationByIdResolver } from './operation/operation-by-id.resolver';
+import { TagByIdResolver } from './tag/tag-by-id.resolver';
+import { TagListResolver } from './tag/tag-list.resolver';
+import { AuthService } from './auth/auth.service';
+import { AccountService } from './account/account.service';
+import { AlertService } from './shared/alert.service';
+import { FilterService } from './dashboard/filter.service';
+import { OperationService } from './operation/operation.service';
+import { TagService } from './tag/tag.service';
+import { AuthGuard } from './auth/auth.guard';
+import { KeysPipe } from './shared/keys.pipe';
+import { MonthNamePipe } from './shared/month-name.pipe';
+import { AmountPipe } from './shared/amount.pipe';
 
 export function authFactory(http: Http, options: RequestOptions) {
   return new AuthHttp(new AuthConfig(AppConfig.JWT_CONFIG), http, options);
 };
 
-// Include this in your ngModule providers
 export const authProvider = {
   provide: AuthHttp,
   deps: [Http, RequestOptions],
@@ -49,49 +48,52 @@ export const authProvider = {
 
 @NgModule({
   imports: [
+    AlertModule.forRoot(),
     BrowserModule,
-    FormsModule,
-    ReactiveFormsModule,
-    Ng2BootstrapModule,
-    HttpModule,
-    JsonpModule,
-    routing,
     ChartModule,
     DropdownModule.forRoot(),
-    AlertModule.forRoot()
+    FormsModule,
+    HttpModule,
+    JsonpModule,
+    Ng2BootstrapModule,
+    ReactiveFormsModule,
+    routing
   ],
   declarations: [
-    AppComponent,
-    LoginComponent,
-    HomeComponent,
-    OperationsComponent,
-    StatisticsComponent,
     AccountFormComponent,
-    TagFormComponent,
-    OperationFormComponent,
-    ImportFormComponent,
-    FormErrorComponent,
     AccountListComponent,
+    AppComponent,
+    ChartComponent,
+    DashboardComponent,
+    FormErrorComponent,
+    ImportFormComponent,
+    LoginComponent,
+    OperationFormComponent,
+    OperationListComponent,
+    TagFormComponent,
     TagListComponent,
+
     KeysPipe,
     MonthNamePipe,
     AmountPipe
   ],
   providers: [
     appRoutingProviders,
-    AccountService,
-    TagService,
-    AlertService,
-    AccountResolve,
-    TagResolve,
-    OperationService,
-    OperationResolve,
-    TagsResolve,
     AuthGuard,
-    SecurityService,
+    authProvider,
+
+    AccountService,
+    AlertService,
+    AuthService,
     FilterService,
-    AccountsResolve,
-    authProvider
+    OperationService,
+    TagService,
+
+    AccountByIdResolver,
+    AccountListResolver,
+    OperationByIdResolver,
+    TagByIdResolver,
+    TagListResolver
   ],
   bootstrap: [ AppComponent ]
 })
