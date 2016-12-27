@@ -111,7 +111,10 @@ export class OperationListComponent implements OnInit, OnDestroy {
   deleteOperation(operation: Operation) {
     if (confirm('Souhaitez-vous vraiment supprimer cette opération ?')) {
       this.operationService.delete(operation).subscribe(
-        response => this.alertService.emit(new Alert('success', 'L\'opération a bien été supprimée')),
+        response => {
+          this.alertService.emit(new Alert('success', 'L\'opération a bien été supprimée'));
+          this.refreshList();
+        },
         error =>  this.alertService.emit(new Alert('danger', 'Une erreur est survenue durant la suppression de l\'opération'))
       );
     }
