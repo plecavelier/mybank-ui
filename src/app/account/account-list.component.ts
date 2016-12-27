@@ -31,7 +31,7 @@ export class AccountListComponent implements OnInit, OnDestroy {
     this.operationChangedSubscription = this.operationService.operationChanged$.subscribe(
       operation => this.refreshList()
     );
-    this.accountChangedSubscription = this.accountService.accountChanged$.subscribe(
+    this.accountChangedSubscription = this.accountService.changed$.subscribe(
       account => this.refreshList()
     );
     this.refreshList();

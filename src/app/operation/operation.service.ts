@@ -15,6 +15,7 @@ import { Operation } from './operation';
 import { OperationPaginatedList } from './operation-paginated-list';
 
 @Injectable()
+// TODO : create common RestService
 export class OperationService {
 
   private operationChangedSubject = new Subject<Operation>();

@@ -25,7 +25,7 @@ export class TagListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.tagChangedSubscription = this.tagService.tagChanged$.subscribe(
+    this.tagChangedSubscription = this.tagService.changed$.subscribe(
       tag => this.refreshList()
     );
     this.refreshList();

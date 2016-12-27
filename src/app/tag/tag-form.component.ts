@@ -89,6 +89,7 @@ export class TagFormComponent implements OnInit {
     private alertService: AlertService) {
   }
 
+  // TODO : ngOnInit pas reexecute lors d'un changement de parametres : http://stackoverflow.com/questions/38357826/angular-rc3-router-navigating-to-same-page-with-different-parameters
   ngOnInit() {
 
     // Init tag

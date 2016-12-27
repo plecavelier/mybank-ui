@@ -29,6 +29,7 @@ import { AuthService } from './auth/auth.service';
 import { AccountService } from './account/account.service';
 import { AlertService } from './shared/alert.service';
 import { FilterService } from './dashboard/filter.service';
+import { MapperService } from './shared/mapper.service';
 import { OperationService } from './operation/operation.service';
 import { TagService } from './tag/tag.service';
 import { AuthGuard } from './auth/auth.guard';
@@ -86,6 +87,7 @@ export const authProvider = {
     AlertService,
     AuthService,
     FilterService,
+    MapperService,
     OperationService,
     TagService,
 
