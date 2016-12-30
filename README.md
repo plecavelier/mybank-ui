@@ -47,7 +47,7 @@ Déploiement
 
 L'outil [Deployer][4] est utilisé pour effectuer les déploiements de l'application.
 
-Copier le fichier `servers.yml.dist` vers `servers.yml` et renseigner les paramètres de vos différents environnements (cf. [section Servers de la doc de Deployer][6]).
+Copier le fichier `servers.yml.dist` vers `servers.yml` et renseigner les paramètres des différents environnements de déploiement (cf. [section Servers de la doc de Deployer][6]).
 
 Créer les différents fichiers de configuration Angular `src/environments/environment.env.ts` correspondant à chaque environnement de déploiement en dupliquant le fichier `src/environments/environment.ts.dist`.
 
