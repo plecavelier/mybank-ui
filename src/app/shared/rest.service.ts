@@ -8,6 +8,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/concat';
 import { AuthHttp } from 'angular2-jwt';
 
+import { environment } from '../../environments/environment';
 import { MapperService } from './mapper.service';
 import { ModelType } from './model-type';
 
@@ -54,7 +55,7 @@ export abstract class RestService<E, T extends ModelType<E>> {
   private getUrl(): string {
     let entity: E = this.getModelType().factory();
     let name: string = entity.constructor.name.toLowerCase();
-    return 'http://127.0.0.1:8000/' + name + 's';
+    return environment['apiUrl'] + '/' + name + 's';
   }
 
   protected handleError(error: any) {

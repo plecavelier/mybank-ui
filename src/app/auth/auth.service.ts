@@ -6,11 +6,12 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/observable/throw';
 
 import { AppConfig } from '../app.config';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class AuthService {
 
-  private url: string = 'http://127.0.0.1:8000/login';
+  private url: string = environment['apiUrl'] + '/login';
 
   constructor(private http: Http) { }
 

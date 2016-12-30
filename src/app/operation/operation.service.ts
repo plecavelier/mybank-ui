@@ -10,6 +10,7 @@ import 'rxjs/add/operator/combineLatest';
 import { AuthHttp } from 'angular2-jwt';
 import * as moment from 'moment';
 
+import { environment } from '../../environments/environment';
 import { RestService } from '../shared/rest.service';
 import { ChartData } from '../chart/chart-data';
 import { Filter } from '../dashboard/filter';
@@ -57,8 +58,9 @@ export class OperationService extends RestService<Operation, OperationType> {
 
     let options = new RequestOptions({search: params});
 
-    let httpList = this.authHttp.get(this.operationsUrl, options);
-    let httpTotal = this.authHttp.get(this.operationsUrl + '_total', options);
+    let url = environment['apiUrl'] + '/operations';
+    let httpList = this.authHttp.get(url, options);
+    let httpTotal = this.authHttp.get(url + '_total', options);
 
     return httpList
       .combineLatest(httpTotal)
@@ -107,7 +109,7 @@ export class OperationService extends RestService<Operation, OperationType> {
 
     let options = new RequestOptions({search: params});
 
-    return this.authHttp.get('http://127.0.0.1:8000/operation_chart_datas', options)
+    return this.authHttp.get(environment['apiUrl'] + '/operation_chart_datas', options)
       .map(response => {
         let jsonResponse = response.json();
         jsonResponse.forEach(item => {
@@ -122,7 +124,7 @@ export class OperationService extends RestService<Operation, OperationType> {
 
   // TODO : export in dedicated service
   getYearMonths() {
-    return this.authHttp.get('http://127.0.0.1:8000/operation_year_months')
+    return this.authHttp.get(environment['apiUrl'] + '/operation_year_months')
       .map(response => {
         let jsonResponse = response.json();
 
@@ -155,7 +157,7 @@ export class OperationService extends RestService<Operation, OperationType> {
       format: 'ofx',
       content: ofxContent
     }
-    return this.authHttp.post('http://127.0.0.1:8000/operation_imports', params)
+    return this.authHttp.post(environment['apiUrl'] + '/operation_imports', params)
       .do(() => this.changedSubject.next(null))
       .catch(this.handleError);
   }
