@@ -60,7 +60,7 @@ export class OperationFormComponent implements OnInit {
     this.descriptionControl = this.formBuilder.control(this.operation.description, [ Validators.maxLength(250) ]);
     let dateString = this.operation.date === undefined ? null : this.operation.date.toISOString().substring(0, 10);
     this.dateControl = this.formBuilder.control(dateString, [ Validators.required, Validators.pattern('^[0-9]{4}-[0-9]{2}-[0-9]{2}$') ]);
-    this.amountControl = this.formBuilder.control(this.operation.amount, [ Validators.required, Validators.pattern('^[0-9]+([.][0-9]{0,2})?$') ]);
+    this.amountControl = this.formBuilder.control(this.operation.amount / 100, [ Validators.required, Validators.pattern('^-?[0-9]+([.][0-9]{0,2})?$') ]);
     this.accountControl = this.formBuilder.control(this.operation.account ? this.operation.account.id : null, [ Validators.required ]);
     this.tagControl = this.formBuilder.control(this.operation.tag ? this.operation.tag.id : null, [ ]);
     let controls = {
@@ -77,7 +77,7 @@ export class OperationFormComponent implements OnInit {
       this.operation.name = value.name;
       this.operation.description = value.description;
       this.operation.date = new Date(value.date);
-      this.operation.amount = Number.parseInt(value.amount);
+      this.operation.amount = Math.round(Number.parseFloat(value.amount) * 100);
       this.operation.account = this.accounts.find(account => {
         return account.id == value.account;
       });
