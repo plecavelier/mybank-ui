@@ -129,7 +129,7 @@ export class OperationService extends RestService<Operation, OperationType> {
         let jsonResponse = response.json();
 
         let today: Date = new Date();
-        jsonResponse.push({year: today.getFullYear(), month: today.getMonth() + 1});
+        jsonResponse.push({year: String(today.getFullYear()), month: String(today.getMonth() + 1)});
 
         jsonResponse.sort(function(item1, item2) {
           if (item1.year == item2.year) {
@@ -143,7 +143,9 @@ export class OperationService extends RestService<Operation, OperationType> {
           if (!(item.year in yearMonths)) {
             yearMonths[item.year] = [];
           }
-          yearMonths[item.year].push(item.month);
+          if (!yearMonths[item.year].includes(item.month)) {
+            yearMonths[item.year].push(item.month);
+          }
         }
 
         return yearMonths;
