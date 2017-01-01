@@ -101,7 +101,7 @@ export class TagFormComponent implements OnInit {
 
     // Create form
     this.nameControl = this.formBuilder.control(this.tag.name, [ Validators.required, Validators.maxLength(50) ]);
-    this.descriptionControl = this.formBuilder.control(this.tag.description, [ Validators.required, Validators.maxLength(250) ]);
+    this.descriptionControl = this.formBuilder.control(this.tag.description, [ Validators.maxLength(250) ]);
     this.iconControl = this.formBuilder.control(this.tag.icon, Validators.required);
     this.colorControl = this.formBuilder.control(this.tag.color, Validators.required);
     let controls = {
