@@ -39,6 +39,10 @@ export class OperationListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    let today: Date = new Date();
+    this.year = today.getFullYear();
+    this.month = today.getMonth() + 1;
+        
     this.filter = this.filterService.filter;
     this.filterChangedSubscription = this.filterService.filterChanged$.subscribe(
       filter => {
@@ -47,12 +51,15 @@ export class OperationListComponent implements OnInit, OnDestroy {
         this.refreshList();
       }
     );
+
     this.operationService.getYearMonths().subscribe(
       yearMonths => {
         this.yearItems = yearMonths;
+        this.monthItems = this.yearItems[this.year];
       },
       error =>  this.alertService.emit(new Alert('danger', 'Une erreur est survenue durant la récupération des opérations'))
     );
+
     this.refreshList();
   }
 
