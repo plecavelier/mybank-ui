@@ -10,7 +10,7 @@ import { TagService } from './tag.service';
 @Component({
   selector: 'ul[app-tag-list]',
   templateUrl: './tag-list.component.html',
-  styleUrls: ['./tag-list.component.css']
+  styleUrls: ['./tag-list.component.scss']
 })
 export class TagListComponent implements OnInit, OnDestroy {
 

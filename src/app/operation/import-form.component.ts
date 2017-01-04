@@ -8,7 +8,7 @@ import { OperationService } from './operation.service';
 @Component({
   selector: 'app-import-form',
   templateUrl: './import-form.component.html',
-  styleUrls: ['./import-form.component.css']
+  styleUrls: ['./import-form.component.scss']
 })
 export class ImportFormComponent implements OnInit {
 

@@ -14,7 +14,7 @@ import { TagService } from '../tag/tag.service';
 @Component({
   selector: 'app-operation-form',
   templateUrl: './operation-form.component.html',
-  styleUrls: ['./operation-form.component.css']
+  styleUrls: ['./operation-form.component.scss']
 })
 export class OperationFormComponent implements OnInit {
 

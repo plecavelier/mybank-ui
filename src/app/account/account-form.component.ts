@@ -10,7 +10,7 @@ import { AlertService } from '../shared/alert.service';
 @Component({
   selector: 'app-account-form',
   templateUrl: './account-form.component.html',
-  styleUrls: ['./account-form.component.css']
+  styleUrls: ['./account-form.component.scss']
 })
 export class AccountFormComponent implements OnInit {
 
