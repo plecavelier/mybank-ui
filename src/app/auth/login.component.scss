@@ -1,0 +1,27 @@
+.row {
+  text-align: center;
+  margin: auto;
+  max-width: 400px;
+
+  h1 {
+    display: block;
+    font-size: 30px;
+    color: #014554;
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
+
+  .logo {
+    display: block;
+    margin: auto;
+    margin-top: 100px;
+    width: 128px;
+  }
+
+  form {
+    button {
+      display: block;
+      width: 100%;
+    }
+  }
+}

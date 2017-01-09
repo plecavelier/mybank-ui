@@ -1,0 +1,126 @@
+$base-color: #EF9813;
+$dark-color: #012F3A;
+$navbar-height: 60px;
+$panel-width: 350px;
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  border-radius: 0;
+  border: 0;
+  margin: 0;
+
+  &.navbar-inverse {
+    background-color: $dark-color;
+
+    .navbar-nav {
+      > li {
+        > a {
+          color: #CCCCCC;
+
+          &:hover {
+            color: white;
+            background: lighten($dark-color, 5%);
+          }
+        }
+      }
+    }
+  }
+
+  .navbar-header {
+
+    .navbar-brand {
+      height: $navbar-height;
+      padding: 0 15px;
+
+      img {
+        margin-top: 10%;
+        height: 80%;
+      }
+    }
+  }
+
+  .navbar-nav {
+    > li {
+      > a {
+        padding-top: 0;
+        padding-bottom: 0;
+        height: $navbar-height;
+        line-height: $navbar-height;
+        font-size: 15px;
+
+        &.logout {
+          font-size: 18px;
+        }
+      }
+    }
+  }
+}
+
+
+.panel {
+  position: absolute;
+  overflow: auto;
+  top: $navbar-height;
+  left: 0;
+  width: $panel-width;
+  bottom: 0;
+  margin: 0;
+  border-left: 0;
+  border-bottom: 0;
+  border-radius: 0;
+
+  > .panel-heading {
+    background-color: $dark-color;
+    color: white;
+    padding: 0;
+    height: 50px;
+    line-height: 50px;
+    position: relative;
+    border-radius: 0;
+
+    > .panel-title {
+      display: block;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      margin-right: 40px;
+      margin-left: 10px;
+      color: white;
+      height: 100%;
+    }
+
+    > div[dropdown] {
+      position: absolute;
+      width: 30px;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      background: $dark-color;
+      text-align: center;
+      border-left: solid 1px #DDDDDD;
+
+      &:hover {
+        background: lighten($dark-color, 5%);
+      }
+
+      > a {
+        display: block;
+        color: white;
+        font-size: 16px;
+      }
+    }
+  }
+}
+
+.content {
+  position: fixed;
+  top: $navbar-height;
+  left: $panel-width;
+  bottom: 0;
+  right: 0;
+  overflow: auto;
+  padding: 20px;
+}

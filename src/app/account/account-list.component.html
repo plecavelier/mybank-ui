@@ -1,15 +1,17 @@
-<a href="javascript:void(0)" class="list-group-item" [class.active]="isSelected(account)" *ngFor="let account of accounts" (click)="toggleAccount(account)">
-  <div class="pull-right">
-    <span class="badge">{{ account.balance | amount }}</span>
-    <span dropdown>
-      <a href="javascript:void(0)" dropdownToggle><span class="glyphicon glyphicon-option-vertical"></span></a>
-      <ul class="dropdown-menu" dropdownMenu>
-        <li><a routerLink="/account-form/{{ account.id }}"><span class="glyphicon glyphicon-pencil"></span> Modifier compte</a></li>
-        <li role="separator" class="divider"></li>
-        <li><a href="javascript:void(0)" (click)="deleteAccount(account)"><span class="glyphicon glyphicon-trash"></span> Supprimer compte</a></li>
-      </ul>
-    </span>
+<div class="list-group-item" [class.large]="account.number" [class.selected]="isSelected(account)" *ngFor="let account of accounts">
+  <a href="javascript:void(0)" (click)="toggleAccount(account)">
+    <h4 class="list-group-item-heading">{{ account.name }}</h4>
+    <p class="list-group-item-text">{{ account.number }}</p>
+    <div class="balance">
+      <span class="badge" [class.positive]="account.balance >= 0" [class.negative]="account.balance < 0">{{ account.balance | amount }}</span>
+    </div>
+  </a>
+  <div dropdown>
+    <a href="javascript:void(0)" dropdownToggle><span class="glyphicon glyphicon-option-vertical"></span></a>
+    <ul class="dropdown-menu dropdown-menu-right" dropdownMenu>
+      <li><a routerLink="/account-form/{{ account.id }}"><span class="glyphicon glyphicon-pencil"></span> Modifier compte</a></li>
+      <li role="separator" class="divider"></li>
+      <li><a href="javascript:void(0)" (click)="deleteAccount(account)"><span class="glyphicon glyphicon-trash"></span> Supprimer compte</a></li>
+    </ul>
   </div>
-  <h4 class="list-group-item-heading">{{ account.name }}</h4>
-  <p class="list-group-item-text">{{ account.number }}</p>
-</a>
+</div>

@@ -1,51 +1,50 @@
-<nav class="navbar navbar-default">
-  <div class="collapse navbar-collapse">
-    <div class="nav navbar-nav">
-      <div class="btn-group navbar-btn" role="group">
-        <a routerLink="/operation-form" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Créer opération</a>
-        <a routerLink="/import-form" class="btn btn-default"><span class="glyphicon glyphicon-import"></span> Importer opérations</a>
+<div class="container-fluid container-no-padding toolbar">
+  <div class="pull-left btn-toolbar">
+
+    <div class="btn-group" role="group">
+      <div class="btn-group" role="group" dropdown>
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" dropdownToggle>
+          {{ year ? year : getYearRangeLabel() }}
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" dropdownMenu>
+          <li><a href="javascript:void(0)" (click)="changeYear(null)">{{ getYearRangeLabel() }}</a></li>
+          <li *ngFor="let yearItem of yearItems | keys"><a href="javascript:void(0)" (click)="changeYear(yearItem.key)">{{ yearItem.key }}</a></li>
+        </ul>
+      </div>
+      <div *ngIf="year" class="btn-group" role="group" dropdown>
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" dropdownToggle>
+          {{ month ? ( month | monthName ) : 'Janvier - Décembre' }}
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" dropdownMenu>
+          <li><a href="javascript:void(0)" (click)="changeMonth(null)">Janvier - Décembre</a></li>
+          <li *ngFor="let monthItem of monthItems"><a href="javascript:void(0)" (click)="changeMonth(monthItem)">{{ monthItem | monthName }}</a></li>
+        </ul>
       </div>
     </div>
-    <div class="navbar-form navbar-right">
-      <div class="input-group">
-          <input type="text" class="form-control" placeholder="Search" (keyup.enter)="search()" [(ngModel)]="searchValue">
-          <div class="input-group-btn">
-              <button class="btn btn-default" (click)="search()"><i class="glyphicon glyphicon-search"></i></button>
-          </div>
+
+    <div class="input-group search">
+      <input type="text" class="form-control" placeholder="Rechercher..." (keyup.enter)="search()" [(ngModel)]="searchValue">
+      <div class="input-group-btn">
+          <button class="btn btn-default" (click)="search()"><i class="glyphicon glyphicon-search"></i></button>
       </div>
     </div>
-    <div class="nav navbar-nav navbar-right">
-      <p class="navbar-text">{{ total }} opérations</p>
-      <p class="navbar-text">{{ totalAmount | amount }}</p>
-      <div class="btn-group navbar-btn" role="group">
-        <div class="btn-group" role="group" dropdown>
-          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" dropdownToggle>
-            {{ year ? year : getYearRangeLabel() }}
-            <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu" dropdownMenu>
-            <li><a href="javascript:void(0)" (click)="changeYear(null)">{{ getYearRangeLabel() }}</a></li>
-            <li *ngFor="let yearItem of yearItems | keys"><a href="javascript:void(0)" (click)="changeYear(yearItem.key)">{{ yearItem.key }}</a></li>
-          </ul>
-        </div>
-        <div *ngIf="year" class="btn-group" role="group" dropdown>
-          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" dropdownToggle>
-            {{ month ? ( month | monthName ) : 'Janvier - Décembre' }}
-            <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu" dropdownMenu>
-            <li><a href="javascript:void(0)" (click)="changeMonth(null)">Janvier - Décembre</a></li>
-            <li *ngFor="let monthItem of monthItems"><a href="javascript:void(0)" (click)="changeMonth(monthItem)">{{ monthItem | monthName }}</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="btn-group navbar-btn" role="group">
-        <button type="button" class="btn btn-default" [disabled]="!previousPage" (click)="changePage(previousPage)"><span class="glyphicon glyphicon-chevron-left"></span></button>
-        <button type="button" class="btn btn-default" [disabled]="!nextPage" (click)="changePage(nextPage)"><span class="glyphicon glyphicon-chevron-right"></span></button>
-      </div>
-    </div>
+
   </div>
-</nav>
+  <div class="pull-right btn-toolbar">
+
+    <span class="label label-default total-number">{{ total }}<br>opérations</span>
+
+    <span class="label total-amount" [class.label-success]="totalAmount >= 0" [class.label-danger]="totalAmount < 0">{{ totalAmount | amount }}</span>
+
+    <div class="btn-group" role="group">
+      <button type="button" class="btn btn-default" [disabled]="!previousPage" (click)="changePage(previousPage)"><span class="glyphicon glyphicon-chevron-left"></span></button>
+      <button type="button" class="btn btn-default" [disabled]="!nextPage" (click)="changePage(nextPage)"><span class="glyphicon glyphicon-chevron-right"></span></button>
+    </div>
+
+  </div>
+</div>
 
 <table class="table table-striped">
   <thead>
@@ -61,7 +60,7 @@
     <tr *ngFor="let operation of operations">
       <td>{{ operation.date | date:'dd/MM/yyyy' }}</td>
       <td>
-        <span class="badge" *ngIf="operation.tag" [style.background]="operation.tag.color ? operation.tag.color : '#555555'">
+        <span class="badge" *ngIf="operation.tag" [style.background]="operation.tag.color ? operation.tag.color : '#AAAAAA'">
           <span class="app-icon glyphicon glyphicon-{{ operation.tag.icon ? operation.tag.icon : 'tag' }}"></span>
           {{ operation.tag.name }}
         </span>
@@ -69,7 +68,7 @@
       </td>
       <td>{{ operation.account.name }}</td>
       <td [style.color]="operation.amount >= 0 ? 'green' : 'red'">{{ operation.amount | amount }}</td>
-      <td>
+      <td class="option">
         <span dropdown>
           <a href="javascript:void(0)" dropdownToggle><span class="glyphicon glyphicon-option-vertical"></span></a>
           <ul class="dropdown-menu dropdown-menu-right" dropdownMenu>

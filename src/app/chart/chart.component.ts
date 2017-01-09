@@ -90,7 +90,8 @@ export class ChartComponent implements OnInit, OnDestroy {
     let thiz = this;
     return {
       chart : {
-        zoomType : 'x'
+        zoomType : 'x',
+        spacingTop: 30
       },
       title: {
         text: null
@@ -159,6 +160,8 @@ export class ChartComponent implements OnInit, OnDestroy {
       },
       series: [{
         type: 'area',
+        color: '#EF9813',
+        fillColor: '#FFE2B7',
         lineWidth : 2,
         marker : {
           radius : 1

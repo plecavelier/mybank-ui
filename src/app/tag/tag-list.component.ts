@@ -59,7 +59,7 @@ export class TagListComponent implements OnInit, OnDestroy {
   deleteTag(tag: Tag) {
     if (confirm('Souhaitez-vous vraiment supprimer cette catégorie ?')) {
       this.tagService.delete(tag).subscribe(
-        response => this.alertService.emit(new Alert('success', 'La catégorie a bien été supprimé')),
+        response => this.alertService.emit(new Alert('success', 'La catégorie a bien été supprimée')),
         error =>  this.alertService.emit(new Alert('danger', 'Une erreur est survenue durant la suppression de la catégorie'))
       );
     }

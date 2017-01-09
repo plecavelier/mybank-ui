@@ -1,1 +1,205 @@
-/* You can add global styles to this file, and also import other style files */
+/* VARIABLES */
+
+$base-color: #EF9813;
+$dark-color: #012F3A;
+
+
+/* GLOBAL */
+
+body {
+  background: #F9F9F9;
+}
+
+.margin-left {
+  margin-left: 5px;
+}
+
+.margin-right {
+  margin-right: 5px;
+}
+
+
+/* GRID */
+
+.container-no-padding {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.row-no-padding {
+  [class*="col-"] {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
+
+
+/* FORM */
+
+form {
+  text-align: left;
+}
+
+label {
+  color: $dark-color;
+  font-weight: normal;
+}
+
+.form-horizontal {
+
+  .form-group {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .control-label {
+    padding-top: 15px;
+  }
+}
+
+.form-control {
+  height: 50px;
+  border-radius: 0;
+  box-shadow: none;
+
+  &:focus, &:active {
+    border-color: $base-color;
+    outline: none !important;
+    box-shadow: none !important;
+  }
+}
+
+.input-group-addon {
+  border-radius: 0;
+  color: $dark-color;
+}
+
+.form-check {
+
+  label {
+
+    cursor: pointer;
+
+    &:after {
+      content: '';
+      display: table;
+      clear: both;
+    }
+
+    input[type="checkbox"] {
+      display: none;
+
+      + .box .glyphicon {
+        transform: scale(3) rotateZ(-20deg);
+        opacity: 0;
+        transition: all .3s ease-in;
+      }
+
+      &:checked + .box .glyphicon {
+        transform: scale(1) rotateZ(0deg);
+        opacity: 1;
+      }
+
+      &:disabled + .box {
+        opacity: .5;
+      }
+    }
+
+    .box {
+      position: relative;
+      display: inline-block;
+      background: white;
+      border: 1px solid #CCCCCC;
+      border-radius: 0;
+      width: 30px;
+      height: 30px;
+      margin-right: 10px;
+
+      .glyphicon {
+        font-size: 15px;
+        margin: 6px;
+        color: $dark-color;
+      }
+    }
+  }
+}
+
+.has-error {
+  .help-block {
+    margin-bottom: 0;
+  }
+}
+
+
+/* BUTTONS */
+
+/* TODO : BUTTONS STYLE */
+
+.btn-toolbar {
+  >.label {
+    margin-left: 5px;
+  }
+  .label {
+    float: left;
+  }
+}
+
+.btn {
+  padding: 15px 20px 14px 20px;
+  border-radius: 0;
+
+  &:hover, &:focus, &:active, &.active, &:active:focus {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+}
+
+.btn-default {
+  color: $dark-color;
+  background-color: #FFFFFF;
+  border-color: #CCCCCC;
+
+  &:hover, &:focus, &:active, &.active, &:active:focus {
+    background-color: #EEEEEE;
+    border-color: #BBBBBB;
+  }
+}
+
+.btn-primary {
+  background-color: $base-color;
+  border-color: darken($base-color, 5%);
+
+  &:hover, &:focus, &:active, &.active, &:active:focus {
+    background-color: darken($base-color, 5%);
+    border-color: darken($base-color, 5%);
+  }
+
+  &:hover[disabled], &:focus[disabled], &:active[disabled], &.active[disabled] {
+    background-color: $base-color;
+    border-color: darken($base-color, 5%);
+  }
+}
+
+
+/* NAVBAR */
+
+.navbar-options {
+  
+}
+
+
+/* ALERT */
+
+.alert {
+  border-radius: 0;
+}
+
+/* TABLE */
+
+.table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: white;
+}
+
+.table-striped > tbody > tr:nth-of-type(even) {
+  background-color: #F9F9F9;
+}

@@ -1,39 +1,54 @@
-<nav class="navbar navbar-default">
-  <div class="collapse navbar-collapse">
-    <ul class="nav navbar-nav">
-      <li>
-        <a routerLink="/operations">Opérations</a>
-      </li>
-      <li>
-        <a routerLink="/statistics">Statistiques</a>
-      </li>
-    </ul>
-    <ul class="nav navbar-nav navbar-right">
-      <li><a href="javascript:void(0)" (click)="logout()"><span class="glyphicon glyphicon-log-out"></span> Déconnexion</a></li>
-    </ul>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a routerLink="/" class="navbar-brand">
+        <img src="assets/logo-2.png" alt="" />
+      </a>
+    </div>
+    <div>
+      <ul class="nav navbar-nav">
+        <li>
+          <a routerLink="/operations">Opérations</a>
+        </li>
+        <li>
+          <a routerLink="/statistics">Statistiques</a>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a routerLink="/operation-form"><span class="glyphicon glyphicon-plus"></span> Créer opération</a>
+        <li><a routerLink="/import-form"><span class="glyphicon glyphicon-import"></span> Importer opérations</a>
+        <li><a class="logout" href="javascript:void(0)" (click)="logout()" title="Déconnexion"><span class="glyphicon glyphicon-log-out"></span></a></li>
+      </ul>
+    </div>
   </div>
 </nav>
 
-<div class="row" style="margin: 0px;">
-  <div class="col-md-3">
-    <div class="panel panel-default">
-      <div class="panel-heading clearfix">
-        <h3 class="panel-title pull-left">Comptes bancaires</h3>
-        <a routerLink="/account-form" class="btn btn-default pull-right"><span class="glyphicon glyphicon-plus"></span> Créer compte</a>
-      </div>
-      <ul class="list-group" app-account-list (alertEventEmitter)="displayAlert($event)"></ul>
-      <div class="panel-heading clearfix">
-        <h3 class="panel-title pull-left">Catégories</h3>
-        <a routerLink="/tag-form" class="btn btn-default pull-right"><span class="glyphicon glyphicon-plus"></span> Créer catégorie</a>
-      </div>
-      <ul class="list-group" app-tag-list></ul>
+<div class="panel panel-default">
+  <div class="panel-heading clearfix">
+    <div class="panel-title">Comptes bancaires</div>
+    <div dropdown>
+      <a href="javascript:void(0)" dropdownToggle><span class="glyphicon glyphicon-option-vertical"></span></a>
+      <ul class="dropdown-menu dropdown-menu-right" dropdownMenu>
+        <li><a routerLink="/account-form"><span class="glyphicon glyphicon-plus"></span> Créer compte</a></li>
+      </ul>
     </div>
   </div>
-
-  <main class="col-md-9">
-    <p *ngFor="let alert of alerts">
-      <alert [type]="alert.type" [dismissOnTimeout]="5000" (close)="closeAlert(alert)">{{ alert.message }}</alert>
-    </p>
-    <router-outlet></router-outlet>
-  </main>
+  <ul class="list-group" app-account-list (alertEventEmitter)="displayAlert($event)"></ul>
+  <div class="panel-heading clearfix">
+    <div class="panel-title pull-left">Catégories</div>
+    <div dropdown>
+      <a href="javascript:void(0)" dropdownToggle><span class="glyphicon glyphicon-option-vertical"></span></a>
+      <ul class="dropdown-menu dropdown-menu-right" dropdownMenu>
+        <li><a routerLink="/tag-form"><span class="glyphicon glyphicon-plus"></span> Créer catégorie</a></li>
+      </ul>
+    </div>
+  </div>
+  <ul class="list-group" app-tag-list></ul>
 </div>
+
+<main class="content">
+  <p *ngFor="let alert of alerts">
+    <alert [type]="alert.type" [dismissOnTimeout]="5000" (close)="closeAlert(alert)">{{ alert.message }}</alert>
+  </p>
+  <router-outlet></router-outlet>
+</main>

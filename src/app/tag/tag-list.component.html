@@ -1,12 +1,14 @@
-<a href="javascript:void(0)" class="list-group-item" [class.active]="isSelected(tag)" *ngFor="let tag of tags" (click)="toggleTag(tag)">
-  <span class="app-icon glyphicon glyphicon-{{ tag.icon ? tag.icon : 'tag' }}" [style.color]="tag.color ? tag.color : '#555555'"></span>
-  {{ tag.name }}
-  <span class="pull-right" dropdown>
+<div class="list-group-item" *ngFor="let tag of tags" [class.selected]="isSelected(tag)">
+  <a href="javascript:void(0)" (click)="toggleTag(tag)">
+    <span class="glyphicon glyphicon-{{ tag.icon ? tag.icon : 'tag' }}" [style.background-color]="tag.color ? tag.color : '#AAAAAA'"></span>
+    <span class="name">{{ tag.name }}</span>
+  </a>
+  <div dropdown>
     <a href="javascript:void(0)" dropdownToggle><span class="glyphicon glyphicon-option-vertical"></span></a>
-    <ul class="dropdown-menu" dropdownMenu>
+    <ul class="dropdown-menu dropdown-menu-right" dropdownMenu>
       <li><a routerLink="/tag-form/{{ tag.id }}"><span class="glyphicon glyphicon-pencil"></span> Modifier catégorie</a></li>
       <li role="separator" class="divider"></li>
       <li><a href="javascript:void(0)" (click)="deleteTag(tag)"><span class="glyphicon glyphicon-trash"></span> Supprimer catégorie</a></li>
     </ul>
-  </span>
-</a>
+  </div>
+</div>

@@ -1,0 +1,75 @@
+$base-color: #EF9813;
+$dark-color: #012F3A;
+
+.list-group-item {
+  position: relative;
+  padding: 0;
+  height: 44px;
+  line-height: 44px;
+
+  &.selected {
+
+    > a, > a:hover {
+      background: #FFE2B7;
+    }
+
+    > div {
+      background: #FFE2B7;
+    }
+  }
+
+  > a {
+    display: block;
+    position: relative;
+    text-decoration: none;
+
+    &:hover {
+      background: #EEEEEE;
+    }
+
+    .glyphicon {
+      position: absolute;
+      left: 5px;
+      top: 50%;
+      margin-top: -15px;
+      width: 30px;
+      height: 30px;
+      line-height: 30px;
+      font-size: 14px;
+      text-align: center;
+      color: white;
+      border-radius: 5px;
+    }
+
+    .name {
+      display: block;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      margin-right: 35px;
+      margin-left: 40px;
+      color: #333333;
+    }
+  }
+
+  > div {
+    position: absolute;
+    width: 30px;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background: #EEEEEE;
+    text-align: center;
+    border-left: solid 1px #DDDDDD;
+
+    &:hover {
+      background: white;
+    }
+
+    > a {
+      display: block;
+      color: $dark-color;
+      font-size: 16px;
+    }
+  }
+}

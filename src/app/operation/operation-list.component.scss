@@ -1,0 +1,33 @@
+$dark-color: #012F3A;
+
+.toolbar {
+  margin-bottom: 20px;
+
+  .search {
+    width: 200px;
+  }
+
+  .total-number {
+    font-size: 12px;
+    line-height: 18px;
+    padding: 7px 10px;
+  }
+
+  .total-amount {
+    font-size: 14px;
+    line-height: 50px;
+    padding: 0 15px;
+  }
+}
+
+.table {
+  margin: 0;
+
+  .option {
+    text-align: center;
+
+    a[dropdowntoggle] {
+      color: $dark-color;
+    }
+  }
+}

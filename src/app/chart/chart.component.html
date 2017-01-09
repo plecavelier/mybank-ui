@@ -1,26 +1,24 @@
-<nav class="navbar navbar-default">
-  <div class="collapse navbar-collapse">
-    <div class="nav navbar-nav">
-      <div class="btn-group navbar-btn" role="group" dropdown>
-        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" dropdownToggle>
-          {{ modes[mode] }}
-          <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu" dropdownMenu>
-          <li *ngFor="let modeItem of modes | keys"><a href="javascript:void(0)" (click)="changeMode(modeItem.key)">{{ modeItem.value }}</a></li>
-        </ul>
-      </div>
-      <div class="btn-group navbar-btn" role="group" dropdown>
-        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" dropdownToggle>
-          {{ periods[period] }}
-          <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu" dropdownMenu>
-          <li *ngFor="let periodItem of periods | keys"><a href="javascript:void(0)" (click)="changePeriod(periodItem.key)">{{ periodItem.value }}</a></li>
-        </ul>
-      </div>
+<div class="container-fluid container-no-padding toolbar">
+  <div class="btn-toolbar">
+    <div class="btn-group" role="group" dropdown>
+      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" dropdownToggle>
+        {{ modes[mode] }}
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" dropdownMenu>
+        <li *ngFor="let modeItem of modes | keys"><a href="javascript:void(0)" (click)="changeMode(modeItem.key)">{{ modeItem.value }}</a></li>
+      </ul>
+    </div>
+    <div class="btn-group" role="group" dropdown>
+      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" dropdownToggle>
+        {{ periods[period] }}
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" dropdownMenu>
+        <li *ngFor="let periodItem of periods | keys"><a href="javascript:void(0)" (click)="changePeriod(periodItem.key)">{{ periodItem.value }}</a></li>
+      </ul>
     </div>
   </div>
-</nav>
+</div>
 
-<chart *ngIf="options" [options]="options" style="display: block; height: 600px"></chart>
+<chart *ngIf="options" [options]="options"></chart>
