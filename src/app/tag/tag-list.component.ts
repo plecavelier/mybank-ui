@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
+import { ActivatedRoute } from '@angular/router';
 
 import { Alert } from '../shared/alert';
 import { AlertService } from '../shared/alert.service';
@@ -21,14 +22,16 @@ export class TagListComponent implements OnInit, OnDestroy {
   constructor(
     private tagService: TagService,
     private alertService: AlertService,
-    private filterService: FilterService) {
+    private filterService: FilterService,
+    private route: ActivatedRoute) {
   }
 
   ngOnInit() {
+    this.tags = this.route.snapshot.data['tags'];
+
     this.tagChangedSubscription = this.tagService.changed$.subscribe(
       tag => this.refreshList()
     );
-    this.refreshList();
   }
 
   ngOnDestroy() {

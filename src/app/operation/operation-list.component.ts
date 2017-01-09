@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
+import { ActivatedRoute } from '@angular/router';
 
 import { Alert } from '../shared/alert';
 import { AlertService } from '../shared/alert.service';
@@ -35,13 +36,25 @@ export class OperationListComponent implements OnInit, OnDestroy {
   constructor(
     private operationService: OperationService,
     private alertService: AlertService,
-    private filterService: FilterService) {
+    private filterService: FilterService,
+    private route: ActivatedRoute) {
   }
 
   ngOnInit() {
+
     let today: Date = new Date();
     this.year = today.getFullYear();
     this.month = today.getMonth() + 1;
+
+    let operations: OperationPaginatedList = this.route.snapshot.data['operations'];
+    this.operations = operations.list;
+    this.previousPage = operations.previous;
+    this.nextPage = operations.next;
+    this.total = operations.total;
+    this.totalAmount = operations.totalAmount;
+
+    this.yearItems = this.route.snapshot.data['yearMonths'];
+    this.monthItems = this.yearItems[this.year];
         
     this.filter = this.filterService.filter;
     this.filterChangedSubscription = this.filterService.filterChanged$.subscribe(
@@ -51,16 +64,6 @@ export class OperationListComponent implements OnInit, OnDestroy {
         this.refreshList();
       }
     );
-
-    this.operationService.getYearMonths().subscribe(
-      yearMonths => {
-        this.yearItems = yearMonths;
-        this.monthItems = this.yearItems[this.year];
-      },
-      error =>  this.alertService.emit(new Alert('danger', 'Une erreur est survenue durant la récupération des opérations'))
-    );
-
-    this.refreshList();
   }
 
   ngOnDestroy() {

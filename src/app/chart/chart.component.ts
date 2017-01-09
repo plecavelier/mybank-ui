@@ -1,6 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
+import { ActivatedRoute } from '@angular/router';
 
+import { ChartData } from './chart-data';
 import { Alert } from '../shared/alert';
 import { AlertService } from '../shared/alert.service';
 import { FilterService } from '../dashboard/filter.service';
@@ -43,9 +45,12 @@ export class ChartComponent implements OnInit, OnDestroy {
 
   constructor(private operationService: OperationService,
     private alertService: AlertService,
-    private filterService: FilterService) { }
+    private filterService: FilterService,
+    private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.options = this.constructChart(this.route.snapshot.data['chartDatas']);
+
     this.filterChangedSubscription = this.filterService.filterChanged$.subscribe(
       filter => {
         this.filter = filter;
@@ -53,7 +58,6 @@ export class ChartComponent implements OnInit, OnDestroy {
       }
     );
     this.filter = this.filterService.filter;
-    this.refreshChart();
   }
 
   ngOnDestroy() {
@@ -73,17 +77,21 @@ export class ChartComponent implements OnInit, OnDestroy {
   private refreshChart() {
     this.operationService.getChartDatas(this.period, this.filter).subscribe(
       chartDatas => {
-        let options = this.getChartOptions();
-        let sumAmount: number = 0;
-        chartDatas.forEach(data => {
-          sumAmount += data.amount;
-          let amount = this.mode == 'comparison' ? data.amount / 100 : sumAmount / 100;
-          options.series[0].data.push([data.date.getTime(), amount]);
-        });
-        this.options = options;
+        this.options = this.constructChart(chartDatas);
       },
       error =>  this.alertService.emit(new Alert('danger', 'Une erreur est survenue durant la récupération des statistiques'))
     );
+  }
+
+  private constructChart(chartDatas: ChartData[]) {
+    let options = this.getChartOptions();
+    let sumAmount: number = 0;
+    chartDatas.forEach(data => {
+      sumAmount += data.amount;
+      let amount = this.mode == 'comparison' ? data.amount / 100 : sumAmount / 100;
+      options.series[0].data.push([data.date.getTime(), amount]);
+    });
+    return options;
   }
 
   private getChartOptions() {

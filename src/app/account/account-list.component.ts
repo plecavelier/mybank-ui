@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
+import { ActivatedRoute } from '@angular/router';
 
 import { Account } from './account';
 import { AccountService } from './account.service';
@@ -24,17 +25,19 @@ export class AccountListComponent implements OnInit, OnDestroy {
     private accountService: AccountService,
     private alertService: AlertService,
     private filterService: FilterService,
-    private operationService: OperationService) {
+    private operationService: OperationService,
+    private route: ActivatedRoute) {
   }
 
   ngOnInit() {
+    this.accounts = this.route.snapshot.data['accounts'];
+
     this.operationChangedSubscription = this.operationService.changed$.subscribe(
       operation => this.refreshList()
     );
     this.accountChangedSubscription = this.accountService.changed$.subscribe(
       account => this.refreshList()
     );
-    this.refreshList();
   }
 
   ngOnDestroy() {

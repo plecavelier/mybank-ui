@@ -22,9 +22,12 @@ import { TagFormComponent } from './tag/tag-form.component';
 import { TagListComponent } from './tag/tag-list.component';
 import { AccountByIdResolver } from './account/account-by-id.resolver';
 import { AccountListResolver } from './account/account-list.resolver';
+import { ChartDataListResolver } from './chart/chart-data-list.resolver';
 import { OperationByIdResolver } from './operation/operation-by-id.resolver';
+import { OperationPaginatedListResolver } from './operation/operation-paginated-list.resolver';
 import { TagByIdResolver } from './tag/tag-by-id.resolver';
 import { TagListResolver } from './tag/tag-list.resolver';
+import { YearMonthResolver } from './operation/year-month.resolver';
 import { AuthService } from './auth/auth.service';
 import { AccountService } from './account/account.service';
 import { AlertService } from './shared/alert.service';
@@ -93,9 +96,12 @@ export const authProvider = {
 
     AccountByIdResolver,
     AccountListResolver,
+    ChartDataListResolver,
     OperationByIdResolver,
+    OperationPaginatedListResolver,
     TagByIdResolver,
-    TagListResolver
+    TagListResolver,
+    YearMonthResolver
   ],
   bootstrap: [ AppComponent ]
 })
