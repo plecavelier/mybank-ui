@@ -6,9 +6,25 @@
   <div dropdown>
     <a href="javascript:void(0)" dropdownToggle><span class="glyphicon glyphicon-option-vertical"></span></a>
     <ul class="dropdown-menu dropdown-menu-right" dropdownMenu>
-      <li><a routerLink="/tag-form/{{ tag.id }}"><span class="glyphicon glyphicon-pencil"></span> Modifier catégorie</a></li>
+      <li><a href="javascript:void(0)" (click)="editTag(tag)"><span class="glyphicon glyphicon-pencil"></span> Modifier catégorie</a></li>
       <li role="separator" class="divider"></li>
       <li><a href="javascript:void(0)" (click)="deleteTag(tag)"><span class="glyphicon glyphicon-trash"></span> Supprimer catégorie</a></li>
     </ul>
+  </div>
+</div>
+ 
+<div bsModal #editModal="bs-modal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" (click)="editModal.hide()">
+          <span>&times;</span>
+        </button>
+        <h4 class="modal-title">Modification catégorie</h4>
+      </div>
+      <div class="modal-body">
+        <app-form [type]="tagType" [model]="tagToEdit" [service]="tagService" (success)="editModal.hide()"></app-form>
+      </div>
+    </div>
   </div>
 </div>

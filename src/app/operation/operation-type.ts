@@ -1,3 +1,5 @@
+import { ValidatorFn } from '@angular/forms';
+
 import { ModelType } from '../shared/model-type';
 import { Operation } from './operation';
 import { AccountType } from '../account/account-type';
@@ -9,7 +11,7 @@ export class OperationType implements ModelType<Operation> {
   	return new Operation();
   }
 
-  attributes(): {key: string, type: string, model?: any}[] {
+  attributes() {
     return [
       {
         key: '@id',

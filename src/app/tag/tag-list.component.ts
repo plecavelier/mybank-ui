@@ -1,12 +1,14 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { ActivatedRoute } from '@angular/router';
+import { ModalDirective } from 'ng2-bootstrap';
 
 import { Alert } from '../shared/alert';
 import { AlertService } from '../shared/alert.service';
 import { FilterService } from '../dashboard/filter.service';
 import { Tag } from './tag';
 import { TagService } from './tag.service';
+import { TagType } from './tag-type';
 
 @Component({
   selector: 'ul[app-tag-list]',
@@ -18,6 +20,9 @@ export class TagListComponent implements OnInit, OnDestroy {
   tags: Array<Tag>;
   selectedTags: Array<Tag> = [];
   tagChangedSubscription: Subscription;
+  tagType: TagType = new TagType();
+  tagToEdit: Tag;
+  @ViewChild('editModal') public editModal: ModalDirective;
 
   constructor(
     private tagService: TagService,
@@ -57,6 +62,11 @@ export class TagListComponent implements OnInit, OnDestroy {
 
   isSelected(tag: Tag) {
     return this.selectedTags.findIndex(current => current.id == tag.id) > -1;
+  }
+
+  editTag(tag: Tag) {
+    this.tagToEdit = tag;
+    this.editModal.show();
   }
 
   deleteTag(tag: Tag) {

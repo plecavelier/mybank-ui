@@ -1,0 +1,44 @@
+$base-color: #EF9813;
+$dark-color: #012F3A;
+
+.colors {
+
+  > span {
+    float: left;
+    cursor: pointer;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    width: 40px;
+    height: 40px;
+    border: solid 1px #cccccc;
+    opacity: 0.5;
+
+    &.selected, &:hover {
+      opacity: 1;
+      border: solid 1px $dark-color;
+    }
+  }
+}
+
+.icons {
+
+  > span {
+    color: $dark-color;
+    float: left;
+    cursor: pointer;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    font-size: 30px;
+    padding: 5px;
+    border: solid 1px white;
+
+    &.selected, &:hover {
+      background: $dark-color;
+      color: $base-color;
+    }
+
+    &:hover {
+      border: solid 1px $base-color;
+    }
+  }
+}

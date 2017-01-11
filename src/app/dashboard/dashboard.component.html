@@ -29,7 +29,7 @@
     <div dropdown>
       <a href="javascript:void(0)" dropdownToggle><span class="glyphicon glyphicon-option-vertical"></span></a>
       <ul class="dropdown-menu dropdown-menu-right" dropdownMenu>
-        <li><a routerLink="/account-form"><span class="glyphicon glyphicon-plus"></span> Créer compte</a></li>
+        <li><a href="javascript:void(0)" (click)="accountModal.show()"><span class="glyphicon glyphicon-plus"></span> Créer compte</a></li>
       </ul>
     </div>
   </div>
@@ -39,11 +39,43 @@
     <div dropdown>
       <a href="javascript:void(0)" dropdownToggle><span class="glyphicon glyphicon-option-vertical"></span></a>
       <ul class="dropdown-menu dropdown-menu-right" dropdownMenu>
-        <li><a routerLink="/tag-form"><span class="glyphicon glyphicon-plus"></span> Créer catégorie</a></li>
+        <li><a href="javascript:void(0)" (click)="tagModal.show()"><span class="glyphicon glyphicon-plus"></span> Créer catégorie</a></li>
       </ul>
     </div>
   </div>
   <ul class="list-group" app-tag-list></ul>
+</div>
+
+<div bsModal #accountModal="bs-modal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" (click)="accountModal.hide()">
+          <span>&times;</span>
+        </button>
+        <h4 class="modal-title">Création compte bancaire</h4>
+      </div>
+      <div class="modal-body">
+        <app-form [type]="accountType" [service]="accountService" (success)="accountModal.hide()"></app-form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div bsModal #tagModal="bs-modal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" (click)="tagModal.hide()">
+          <span>&times;</span>
+        </button>
+        <h4 class="modal-title">Création catégorie</h4>
+      </div>
+      <div class="modal-body">
+        <app-form [type]="tagType" [service]="tagService" (success)="tagModal.hide()"></app-form>
+      </div>
+    </div>
+  </div>
 </div>
 
 <main class="content">

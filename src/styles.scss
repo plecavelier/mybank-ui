@@ -180,10 +180,22 @@ label {
 }
 
 
-/* NAVBAR */
+/* MODAL */
 
-.navbar-options {
+.modal {
   
+  .modal-content {
+    border-radius: 0;
+
+    .modal-header {
+      background: lighten($dark-color, 10%);
+      color: white;
+
+      .close {
+        color: white;
+      }
+    }
+  }
 }
 
 

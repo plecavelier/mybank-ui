@@ -4,7 +4,7 @@ import { HttpModule, JsonpModule, Http, RequestOptions } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { ChartModule } from 'angular2-highcharts';
 import { AuthHttp, AuthConfig } from 'angular2-jwt';
-import { Ng2BootstrapModule, DropdownModule, AlertModule } from 'ng2-bootstrap/ng2-bootstrap';
+import { Ng2BootstrapModule, DropdownModule, AlertModule, ModalModule } from 'ng2-bootstrap/ng2-bootstrap';
 
 import { AppComponent } from './app.component';
 import { AppConfig } from './app.config';
@@ -17,6 +17,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ImportFormComponent } from './operation/import-form.component';
 import { OperationFormComponent } from './operation/operation-form.component';
 import { OperationListComponent } from './operation/operation-list.component';
+import { FormComponent } from './shared/form.component';
 import { FormErrorComponent } from './shared/form-error.component';
 import { TagFormComponent } from './tag/tag-form.component';
 import { TagListComponent } from './tag/tag-list.component';
@@ -59,6 +60,7 @@ export const authProvider = {
     FormsModule,
     HttpModule,
     JsonpModule,
+    ModalModule.forRoot(),
     Ng2BootstrapModule,
     ReactiveFormsModule,
     routing
@@ -69,6 +71,7 @@ export const authProvider = {
     AppComponent,
     ChartComponent,
     DashboardComponent,
+    FormComponent,
     FormErrorComponent,
     ImportFormComponent,
     LoginComponent,

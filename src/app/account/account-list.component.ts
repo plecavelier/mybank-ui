@@ -1,9 +1,11 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { ActivatedRoute } from '@angular/router';
+import { ModalDirective } from 'ng2-bootstrap';
 
 import { Account } from './account';
 import { AccountService } from './account.service';
+import { AccountType } from './account-type';
 import { Alert } from '../shared/alert';
 import { AlertService } from '../shared/alert.service';
 import { FilterService } from '../dashboard/filter.service';
@@ -20,6 +22,9 @@ export class AccountListComponent implements OnInit, OnDestroy {
   selectedAccounts: Array<Account> = [];
   accountChangedSubscription: Subscription;
   operationChangedSubscription: Subscription;
+  accountType: AccountType = new AccountType();
+  accountToEdit: Account;
+  @ViewChild('editModal') public editModal: ModalDirective;
 
   constructor(
     private accountService: AccountService,
@@ -64,6 +69,11 @@ export class AccountListComponent implements OnInit, OnDestroy {
 
   isSelected(account: Account) {
     return this.selectedAccounts.findIndex(current => current.id == account.id) > -1;
+  }
+
+  editAccount(account: Account) {
+    this.accountToEdit = account;
+    this.editModal.show();
   }
 
   deleteAccount(account: Account) {
