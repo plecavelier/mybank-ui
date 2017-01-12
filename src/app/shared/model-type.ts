@@ -12,6 +12,7 @@ export interface ModelType<T> {
     values?: string[],
     label?: string,
     validators?: ValidatorFn|ValidatorFn[],
-    onlyNew?: boolean
+    onlyNew?: boolean,
+    required?: boolean
   }[];
 }

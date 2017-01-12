@@ -23,6 +23,9 @@ export class OperationService extends RestService<Operation, OperationType> {
 
   private operationsUrl = 'http://127.0.0.1:8000/operations';
 
+  protected openFormSubject = new Subject<Operation>();
+  openForm$ = this.openFormSubject.asObservable();
+
   getModelType(): OperationType {
     return new OperationType();
   }
@@ -162,6 +165,10 @@ export class OperationService extends RestService<Operation, OperationType> {
     return this.authHttp.post(environment['apiUrl'] + '/operation_imports', params)
       .do(() => this.changedSubject.next(null))
       .catch(this.handleError);
+  }
+
+  openForm(operation: Operation) {
+    this.openFormSubject.next(operation);
   }
 
   private getFromTo(year: number, month: number): {from: string, to: string} {

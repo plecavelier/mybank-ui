@@ -11,6 +11,8 @@ import { Operation } from './operation';
 import { OperationService } from './operation.service';
 import { OperationPaginatedList } from './operation-paginated-list';
 import { Tag } from '../tag/tag';
+import { TagService } from '../tag/tag.service';
+import { AccountService } from '../account/account.service';
 
 @Component({
   selector: 'app-operation-list',
@@ -32,8 +34,13 @@ export class OperationListComponent implements OnInit, OnDestroy {
   searchValue: string = '';
   filter: Filter;
   filterChangedSubscription: Subscription;
+  accountChangedSubscription: Subscription;
+  tagChangedSubscription: Subscription;
+  operationChangedSubscription: Subscription;
 
   constructor(
+    private accountService: AccountService,
+    private tagService: TagService,
     private operationService: OperationService,
     private alertService: AlertService,
     private filterService: FilterService,
@@ -64,10 +71,22 @@ export class OperationListComponent implements OnInit, OnDestroy {
         this.refreshList();
       }
     );
+    this.accountChangedSubscription = this.accountService.changed$.subscribe(
+      account => this.refreshList()
+    );
+    this.tagChangedSubscription = this.tagService.changed$.subscribe(
+      tag => this.refreshList()
+    );
+    this.operationChangedSubscription = this.operationService.changed$.subscribe(
+      operation => this.refreshList()
+    );
   }
 
   ngOnDestroy() {
     this.filterChangedSubscription.unsubscribe();
+    this.accountChangedSubscription.unsubscribe();
+    this.tagChangedSubscription.unsubscribe();
+    this.operationChangedSubscription.unsubscribe();
   }
 
   private refreshList() {
@@ -116,6 +135,10 @@ export class OperationListComponent implements OnInit, OnDestroy {
   search() {
     this.page = 1;
     this.refreshList();
+  }
+
+  editOperation(operation: Operation) {
+    this.operationService.openForm(operation);
   }
 
   deleteOperation(operation: Operation) {

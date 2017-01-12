@@ -72,7 +72,7 @@
         <span dropdown>
           <a href="javascript:void(0)" dropdownToggle><span class="glyphicon glyphicon-option-vertical"></span></a>
           <ul class="dropdown-menu dropdown-menu-right" dropdownMenu>
-            <li><a routerLink="/operation-form/{{ operation.id }}"><span class="glyphicon glyphicon-pencil"></span> Modifier opération</a></li>
+            <li><a href="javascript:void(0)" (click)="editOperation(operation)"><span class="glyphicon glyphicon-pencil"></span> Modifier opération</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="javascript:void(0)" (click)="deleteOperation(operation)"><span class="glyphicon glyphicon-trash"></span> Supprimer opération</a></li>
           </ul>

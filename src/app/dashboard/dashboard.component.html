@@ -15,7 +15,7 @@
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a routerLink="/operation-form"><span class="glyphicon glyphicon-plus"></span> Créer opération</a>
+        <li><a href="javascript:void(0)" (click)="openOperationForm()"><span class="glyphicon glyphicon-plus"></span> Créer opération</a>
         <li><a routerLink="/import-form"><span class="glyphicon glyphicon-import"></span> Importer opérations</a>
         <li><a class="logout" href="javascript:void(0)" (click)="logout()" title="Déconnexion"><span class="glyphicon glyphicon-log-out"></span></a></li>
       </ul>
@@ -33,7 +33,7 @@
       </ul>
     </div>
   </div>
-  <ul class="list-group" app-account-list (alertEventEmitter)="displayAlert($event)"></ul>
+  <ul class="list-group" app-account-list [accounts]="accounts" (alertEventEmitter)="displayAlert($event)"></ul>
   <div class="panel-heading clearfix">
     <div class="panel-title pull-left">Catégories</div>
     <div dropdown>
@@ -43,7 +43,7 @@
       </ul>
     </div>
   </div>
-  <ul class="list-group" app-tag-list></ul>
+  <ul class="list-group" app-tag-list [tags]="tags" (alertEventEmitter)="displayAlert($event)"></ul>
 </div>
 
 <div bsModal #accountModal="bs-modal" class="modal fade" tabindex="-1" role="dialog">
@@ -73,6 +73,22 @@
       </div>
       <div class="modal-body">
         <app-form [type]="tagType" [service]="tagService" (success)="tagModal.hide()"></app-form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div bsModal #operationModal="bs-modal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" (click)="operationModal.hide()">
+          <span>&times;</span>
+        </button>
+        <h4 class="modal-title">Création catégorie</h4>
+      </div>
+      <div class="modal-body">
+        <app-form [type]="operationType" [model]="operation" [service]="operationService" [models]="models" (success)="operationModal.hide()"></app-form>
       </div>
     </div>
   </div>

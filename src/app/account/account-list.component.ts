@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { ActivatedRoute } from '@angular/router';
 import { ModalDirective } from 'ng2-bootstrap';
@@ -16,12 +16,10 @@ import { OperationService } from '../operation/operation.service';
   templateUrl: './account-list.component.html',
   styleUrls: ['./account-list.component.scss']
 })
-export class AccountListComponent implements OnInit, OnDestroy {
+export class AccountListComponent {
 
-  accounts: Array<Account>;
-  selectedAccounts: Array<Account> = [];
-  accountChangedSubscription: Subscription;
-  operationChangedSubscription: Subscription;
+  @Input() accounts: Account[];
+  selectedAccounts: Account[] = [];
   accountType: AccountType = new AccountType();
   accountToEdit: Account;
   @ViewChild('editModal') public editModal: ModalDirective;
@@ -30,31 +28,7 @@ export class AccountListComponent implements OnInit, OnDestroy {
     private accountService: AccountService,
     private alertService: AlertService,
     private filterService: FilterService,
-    private operationService: OperationService,
-    private route: ActivatedRoute) {
-  }
-
-  ngOnInit() {
-    this.accounts = this.route.snapshot.data['accounts'];
-
-    this.operationChangedSubscription = this.operationService.changed$.subscribe(
-      operation => this.refreshList()
-    );
-    this.accountChangedSubscription = this.accountService.changed$.subscribe(
-      account => this.refreshList()
-    );
-  }
-
-  ngOnDestroy() {
-    this.accountChangedSubscription.unsubscribe();
-    this.operationChangedSubscription.unsubscribe();
-  }
-
-  private refreshList() {
-    this.accountService.getAll().subscribe(
-      accounts => this.accounts = accounts,
-      error =>  this.alertService.emit(new Alert('danger', 'Une erreur est survenue durant la récupération des comptes bancaires'))
-    );
+    private operationService: OperationService) {
   }
 
   toggleAccount(account: Account) {

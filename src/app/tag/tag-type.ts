@@ -22,7 +22,8 @@ export class TagType implements ModelType<Tag> {
         type: 'string',
         fieldType: 'text',
         label: 'Nom',
-        validators: [ Validators.required, Validators.maxLength(50) ]
+        validators: [ Validators.required, Validators.maxLength(50) ],
+        required: true
       }, {
         key: 'description',
         type: 'string',
@@ -52,7 +53,8 @@ export class TagType implements ModelType<Tag> {
           '#006633'
         ],
         label: 'Icône',
-        validators: Validators.required
+        validators: Validators.required,
+        required: true
       }, {
         key: 'icon',
         type: 'string',
@@ -94,7 +96,8 @@ export class TagType implements ModelType<Tag> {
           'sunglasses'
         ],
         label: 'Couleur',
-        validators: Validators.required
+        validators: Validators.required,
+        required: true
       }
     ];
   }

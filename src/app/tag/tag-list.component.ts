@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { ActivatedRoute } from '@angular/router';
 import { ModalDirective } from 'ng2-bootstrap';
@@ -15,11 +15,10 @@ import { TagType } from './tag-type';
   templateUrl: './tag-list.component.html',
   styleUrls: ['./tag-list.component.scss']
 })
-export class TagListComponent implements OnInit, OnDestroy {
+export class TagListComponent {
 
-  tags: Array<Tag>;
-  selectedTags: Array<Tag> = [];
-  tagChangedSubscription: Subscription;
+  @Input() tags: Tag[];
+  selectedTags: Tag[] = [];
   tagType: TagType = new TagType();
   tagToEdit: Tag;
   @ViewChild('editModal') public editModal: ModalDirective;
@@ -29,25 +28,6 @@ export class TagListComponent implements OnInit, OnDestroy {
     private alertService: AlertService,
     private filterService: FilterService,
     private route: ActivatedRoute) {
-  }
-
-  ngOnInit() {
-    this.tags = this.route.snapshot.data['tags'];
-
-    this.tagChangedSubscription = this.tagService.changed$.subscribe(
-      tag => this.refreshList()
-    );
-  }
-
-  ngOnDestroy() {
-    this.tagChangedSubscription.unsubscribe();
-  }
-
-  private refreshList() {
-    this.tagService.getAll().subscribe(
-      tags => this.tags = tags,
-      error =>  this.alertService.emit(new Alert('danger', 'Une erreur est survenue durant la récupération des catégories'))
-    );
   }
 
   toggleTag(tag: Tag) {

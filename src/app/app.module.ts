@@ -9,17 +9,13 @@ import { Ng2BootstrapModule, DropdownModule, AlertModule, ModalModule } from 'ng
 import { AppComponent } from './app.component';
 import { AppConfig } from './app.config';
 import { routing, appRoutingProviders } from './app.routing';
-import { AccountFormComponent } from './account/account-form.component';
 import { AccountListComponent } from './account/account-list.component';
 import { LoginComponent } from './auth/login.component';
 import { ChartComponent } from './chart/chart.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ImportFormComponent } from './operation/import-form.component';
-import { OperationFormComponent } from './operation/operation-form.component';
 import { OperationListComponent } from './operation/operation-list.component';
 import { FormComponent } from './shared/form.component';
-import { FormErrorComponent } from './shared/form-error.component';
-import { TagFormComponent } from './tag/tag-form.component';
 import { TagListComponent } from './tag/tag-list.component';
 import { AccountByIdResolver } from './account/account-by-id.resolver';
 import { AccountListResolver } from './account/account-list.resolver';
@@ -66,18 +62,14 @@ export const authProvider = {
     routing
   ],
   declarations: [
-    AccountFormComponent,
     AccountListComponent,
     AppComponent,
     ChartComponent,
     DashboardComponent,
     FormComponent,
-    FormErrorComponent,
     ImportFormComponent,
     LoginComponent,
-    OperationFormComponent,
     OperationListComponent,
-    TagFormComponent,
     TagListComponent,
 
     KeysPipe,

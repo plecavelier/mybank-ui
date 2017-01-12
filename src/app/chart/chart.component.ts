@@ -42,6 +42,7 @@ export class ChartComponent implements OnInit, OnDestroy {
   filter: Filter;
   options = null;
   filterChangedSubscription: Subscription;
+  operationChangedSubscription: Subscription;
 
   constructor(private operationService: OperationService,
     private alertService: AlertService,
@@ -58,10 +59,15 @@ export class ChartComponent implements OnInit, OnDestroy {
       }
     );
     this.filter = this.filterService.filter;
+    
+    this.operationChangedSubscription = this.operationService.changed$.subscribe(
+      operation => this.refreshChart()
+    );
   }
 
   ngOnDestroy() {
     this.filterChangedSubscription.unsubscribe();
+    this.operationChangedSubscription.unsubscribe();
   }
 
   changeMode(mode: string) {

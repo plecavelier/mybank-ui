@@ -3,7 +3,10 @@
 <form class="form-horizontal" [formGroup]="form" (ngSubmit)="persist()">
   <div *ngFor="let attr of attributes">
     <div class="form-group" *ngIf="includeAttribute(attr)" [class.has-error]="form.get(attr.key).dirty && !form.get(attr.key).valid">
-      <label for="{{attr.key}}" class="col-md-3 control-label">{{attr.label}}</label>
+      <label for="{{attr.key}}" class="col-md-3 control-label">
+        <span *ngIf="attr.required">*</span>
+        {{attr.label}}
+      </label>
       <div class="col-md-9">
         <ng-container [ngSwitch]="attr.fieldType">
 
@@ -27,6 +30,13 @@
           </div>
 
           <textarea *ngSwitchCase="'textarea'" id="{{attr.key}}" rows="5" class="form-control" formControlName="{{attr.key}}"></textarea>
+          
+          <select *ngSwitchCase="'select'" id="{{attr.key}}" class="form-control" formControlName="{{attr.key}}">
+            <option [ngValue]="null">-- {{attr.label}} --</option>
+            <ng-container *ngIf="attr.type == 'model'">
+              <option *ngFor="let model of models[attr.key]" [ngValue]="model.id">{{model.name}}</option>
+            </ng-container>
+          </select>
 
           <input *ngSwitchDefault id="{{attr.key}}" type="{{attr.fieldType}}" class="form-control" formControlName="{{attr.key}}" />
 

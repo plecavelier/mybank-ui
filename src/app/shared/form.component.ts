@@ -16,6 +16,7 @@ export class FormComponent<T> implements OnChanges {
   @Input() model: T;
   @Input() type: ModelType<T>;
   @Input() service: RestService<T, ModelType<T>>;
+  @Input() models: {};
   @Output() success = new EventEmitter();
   attributes;
   alerts: Alert[] = [];
@@ -50,7 +51,25 @@ export class FormComponent<T> implements OnChanges {
     // Set model values in form
     this.attributes.forEach((attr, n) => {
       if (this.includeAttribute(attr)) {
-        this.form.get(attr.key).setValue(this.model[attr.key]);
+        let value = attr.key in this.model ? this.model[attr.key] : null;
+
+        if (value != null) {
+          switch (attr.type) {
+            case 'number':
+              value = value / 100;
+              break;
+
+            case 'date':
+              value = value.toISOString().substring(0, 10);
+              break;
+
+            case 'model':
+              value = value.id;
+              break;
+          }
+        }
+
+        this.form.get(attr.key).setValue(value);
       }
     });
   }
@@ -70,10 +89,30 @@ export class FormComponent<T> implements OnChanges {
     let modelToPersist: T = Object.assign({}, this.model);
     this.attributes.forEach((attr, n) => {
       if (this.includeAttribute(attr)) {
-        modelToPersist[attr.key] = this.form.get(attr.key).value;
+        let value = this.form.get(attr.key).value;
+
+        if (value != '') {
+          switch (attr.type) {
+            case 'number':
+              value = Math.round(Number.parseFloat(value) * 100);
+              break;
+
+            case 'date':
+              value = new Date(value);
+              break;
+
+            case 'model':
+              value = this.models[attr.key].find(model => {
+                return model.id == value;
+              });
+              break;
+          }
+        }
+
+        modelToPersist[attr.key] = value;
       }
     });
-
+    
     // Persist with service
     if (this.isNew()) {
       this.service.save(modelToPersist)

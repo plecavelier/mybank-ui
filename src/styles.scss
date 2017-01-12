@@ -43,6 +43,12 @@ form {
 label {
   color: $dark-color;
   font-weight: normal;
+
+  > span {
+    font-weight: bold;
+    color: $base-color;
+    font-size: 16px;
+  }
 }
 
 .form-horizontal {

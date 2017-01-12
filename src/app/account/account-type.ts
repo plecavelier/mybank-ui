@@ -22,7 +22,8 @@ export class AccountType implements ModelType<Account> {
         type: 'string',
         fieldType: 'text',
         label: 'Nom',
-        validators: [ Validators.required, Validators.maxLength(50) ]
+        validators: [ Validators.required, Validators.maxLength(50) ],
+        required: true
       }, {
         key: 'description',
         type: 'string',
@@ -34,13 +35,15 @@ export class AccountType implements ModelType<Account> {
         type: 'string',
         fieldType: 'text',
         label: 'Numéro de compte',
-        validators: [ Validators.required, Validators.maxLength(50) ]
+        validators: [ Validators.required, Validators.maxLength(50) ],
+        required: true
       }, {
         key: 'balance',
         type: 'number',
         fieldType: 'amount',
         label: 'Solde',
-        validators: [ Validators.required, Validators.pattern('^[0-9]+([.][0-9]{0,2})?$') ],
+        validators: [ Validators.required, Validators.pattern('^-?[0-9]+([.][0-9]{0,2})?$') ],
+        required: true,
         onlyNew: true
       }
     ];
