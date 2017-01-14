@@ -220,3 +220,25 @@ label {
 .table-striped > tbody > tr:nth-of-type(even) {
   background-color: #F9F9F9;
 }
+
+
+/* LOADING */
+
+.loading {
+  background-color: rgba(255, 255, 255, 0.5);
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999999;
+  display: block;
+
+  > img {
+    position: fixed;
+    left: 50%;
+    margin-left: -155px;
+    top: 50%;
+    margin-top: -155px;
+  }
+}
