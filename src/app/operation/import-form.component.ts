@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 
 import { Alert } from '../shared/alert';
@@ -14,6 +14,8 @@ export class ImportFormComponent implements OnInit {
 
   importForm: FormGroup;
   contentControl: FormControl;
+  alerts: Alert[] = [];
+  @Output() success = new EventEmitter();
 
   constructor(
     private formBuilder: FormBuilder,
@@ -35,10 +37,13 @@ export class ImportFormComponent implements OnInit {
     this.operationService.import(this.importForm.value.content)
       .subscribe(
         response => {
-          this.alertService.emit(new Alert('success', 'Les opérations ont bien été importées'));
           this.importForm.reset();
+          this.success.emit();
+          this.alertService.emit(new Alert('success', 'Les opérations ont bien été importées'));
         },
-        error => this.alertService.emit(new Alert('danger', 'Une erreur est survenue durant l\'import des opérations'))
+        error => {
+          this.alerts.push(new Alert('danger', 'Une erreur est survenue durant l\'import des opérations'));
+        }
       );
   }
 }

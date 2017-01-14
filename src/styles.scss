@@ -38,17 +38,17 @@ body {
 
 form {
   text-align: left;
+
+  .required {
+    font-weight: bold;
+    color: $base-color;
+    font-size: 16px;
+  }
 }
 
 label {
   color: $dark-color;
   font-weight: normal;
-
-  > span {
-    font-weight: bold;
-    color: $base-color;
-    font-size: 16px;
-  }
 }
 
 .form-horizontal {

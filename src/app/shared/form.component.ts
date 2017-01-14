@@ -137,6 +137,18 @@ export class FormComponent<T> implements OnChanges {
     }
   }
 
+  isRequired(attribute) {
+    if (!('validators' in attribute)) {
+      return false;
+    } else if (Array.isArray(attribute.validators)) {
+      return attribute.validators.find(validator => {
+        return validator == Validators.required;
+      }) != undefined;
+    } else {
+        return attribute.validators == Validators.required;
+    }
+  }
+
   closeAlert(alert: Alert) {
     let index: number = this.alerts.indexOf(alert);
     this.alerts.splice(index, 1);

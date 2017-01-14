@@ -16,7 +16,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="javascript:void(0)" (click)="openOperationForm()"><span class="glyphicon glyphicon-plus"></span> Créer opération</a>
-        <li><a routerLink="/import-form"><span class="glyphicon glyphicon-import"></span> Importer opérations</a>
+        <li><a href="javascript:void(0)" (click)="importModal.show()"><span class="glyphicon glyphicon-import"></span> Importer opérations</a>
         <li><a class="logout" href="javascript:void(0)" (click)="logout()" title="Déconnexion"><span class="glyphicon glyphicon-log-out"></span></a></li>
       </ul>
     </div>
@@ -89,6 +89,22 @@
       </div>
       <div class="modal-body">
         <app-form [type]="operationType" [model]="operation" [service]="operationService" [models]="models" (success)="operationModal.hide()"></app-form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div bsModal #importModal="bs-modal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" (click)="importModal.hide()">
+          <span>&times;</span>
+        </button>
+        <h4 class="modal-title">Import d'opérations</h4>
+      </div>
+      <div class="modal-body">
+        <app-import-form (success)="importModal.hide()"></app-import-form>
       </div>
     </div>
   </div>

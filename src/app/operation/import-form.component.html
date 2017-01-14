@@ -1,15 +1,26 @@
+<alert *ngFor="let alert of alerts" [type]="alert.type" [dismissOnTimeout]="5000" (close)="closeAlert(alert)">{{ alert.message }}</alert>
+
 <form class="form-horizontal" [formGroup]="importForm" (ngSubmit)="importOperation()">
   <div class="form-group" [class.has-error]="contentControl.dirty && !contentControl.valid">
-    <label for="content" class="col-md-2 control-label">Contenu OFX</label>
-    <div class="col-md-10">
-      <textarea id="content" class="form-control" formControlName="content"></textarea>
+    <label for="content" class="col-md-3 control-label">Contenu OFX <span class="required">*</span></label>
+    <div class="col-md-9">
+      <textarea id="content" class="form-control" formControlName="content" rows="20"></textarea>
       <span class="help-block" *ngIf="contentControl.dirty && contentControl.hasError('required')">Ce champ est obligatoire</span>
     </div>
   </div>
   <div class="form-group">
-    <div class="col-md-2"></div>
-    <div class="col-md-10">
+    <div class="col-md-3"></div>
+    <div class="col-md-9">
       <button type="submit" class="btn btn-primary" [disabled]="!importForm.valid">Importer</button>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-md-3"></div>
+    <div class="col-md-9">
+      <span class="help-block">
+        <span class="required">*</span>
+        Champs obligatoires
+      </span>
     </div>
   </div>
 </form>
