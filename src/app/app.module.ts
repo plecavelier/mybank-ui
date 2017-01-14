@@ -4,7 +4,7 @@ import { HttpModule, JsonpModule, Http, RequestOptions } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { ChartModule } from 'angular2-highcharts';
 import { AuthHttp, AuthConfig } from 'angular2-jwt';
-import { Ng2BootstrapModule, DropdownModule, AlertModule, ModalModule } from 'ng2-bootstrap/ng2-bootstrap';
+import { Ng2BootstrapModule, DropdownModule, AlertModule, ModalModule, CollapseModule } from 'ng2-bootstrap/ng2-bootstrap';
 
 import { AppComponent } from './app.component';
 import { AppConfig } from './app.config';
@@ -52,6 +52,7 @@ export const authProvider = {
     AlertModule.forRoot(),
     BrowserModule,
     ChartModule,
+    CollapseModule.forRoot(),
     DropdownModule.forRoot(),
     FormsModule,
     HttpModule,

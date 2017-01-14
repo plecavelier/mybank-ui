@@ -1,22 +1,28 @@
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
+      <button type="button" (click)="isCollapsed = !isCollapsed" class="navbar-toggle collapsed" data-toggle="collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
       <a routerLink="/" class="navbar-brand">
         <img src="assets/logo-2.png" alt="" />
       </a>
     </div>
-    <div>
+    <div id="main-menu" class="navbar-collapse" [collapse]="isCollapsed">
       <ul class="nav navbar-nav">
         <li>
-          <a routerLink="/operations">Opérations</a>
+          <a routerLink="/operations" (click)="isCollapsed = true">Opérations</a>
         </li>
         <li>
-          <a routerLink="/statistics">Statistiques</a>
+          <a routerLink="/statistics" (click)="isCollapsed = true">Statistiques</a>
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="javascript:void(0)" (click)="openOperationForm()"><span class="glyphicon glyphicon-plus"></span> Créer opération</a>
-        <li><a href="javascript:void(0)" (click)="importModal.show()"><span class="glyphicon glyphicon-import"></span> Importer opérations</a>
+        <li><a href="javascript:void(0)" (click)="isCollapsed = true; openOperationForm()"><span class="glyphicon glyphicon-plus"></span> Créer opération</a>
+        <li><a href="javascript:void(0)" (click)="isCollapsed = true; importModal.show()"><span class="glyphicon glyphicon-import"></span> Importer opérations</a>
         <li><a class="logout" href="javascript:void(0)" (click)="logout()" title="Déconnexion"><span class="glyphicon glyphicon-log-out"></span></a></li>
       </ul>
     </div>

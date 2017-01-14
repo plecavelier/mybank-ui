@@ -16,11 +16,13 @@ import { TagService } from '../tag/tag.service';
 import { Operation } from '../operation/operation';
 import { OperationService } from '../operation/operation.service';
 import { OperationType } from '../operation/operation-type';
+import { fadeAnimation } from '../shared/animation';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
+  animations: [ fadeAnimation ]
 })
 export class DashboardComponent implements OnInit, OnDestroy {
   
@@ -38,6 +40,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   operation: Operation;
   openOperationFormSubscription: Subscription;
   @ViewChild('operationModal') operationModal: ModalDirective;
+  isCollapsed: boolean = true;
 
   constructor(
     private router: Router,

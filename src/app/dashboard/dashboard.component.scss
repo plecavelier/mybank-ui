@@ -2,6 +2,7 @@ $base-color: #EF9813;
 $dark-color: #012F3A;
 $navbar-height: 60px;
 $panel-width: 350px;
+$max-width: 768px;
 
 .navbar {
   position: fixed;
@@ -11,6 +12,7 @@ $panel-width: 350px;
   border-radius: 0;
   border: 0;
   margin: 0;
+  z-index: 150;
 
   &.navbar-inverse {
     background-color: $dark-color;
@@ -27,6 +29,11 @@ $panel-width: 350px;
         }
       }
     }
+
+    .navbar-toggle {
+      border-color: white;
+      background-color: $dark-color;
+    }
   }
 
   .navbar-header {
@@ -40,19 +47,26 @@ $panel-width: 350px;
         height: 80%;
       }
     }
+
+    .navbar-toggle {
+      margin-top: 13px;
+    }
   }
 
-  .navbar-nav {
-    > li {
-      > a {
-        padding-top: 0;
-        padding-bottom: 0;
-        height: $navbar-height;
-        line-height: $navbar-height;
-        font-size: 15px;
+  .navbar-collapse {
 
-        &.logout {
-          font-size: 18px;
+    .navbar-nav {
+      > li {
+        > a {
+          padding-top: 0;
+          padding-bottom: 0;
+          height: $navbar-height;
+          line-height: $navbar-height;
+          font-size: 15px;
+
+          &.logout {
+            font-size: 18px;
+          }
         }
       }
     }
@@ -71,6 +85,11 @@ $panel-width: 350px;
   border-left: 0;
   border-bottom: 0;
   border-radius: 0;
+  z-index: 100;
+
+  @media (max-width: $max-width) {
+    display: none;
+  }
 
   > .panel-heading {
     background-color: $dark-color;
@@ -123,4 +142,9 @@ $panel-width: 350px;
   right: 0;
   overflow: auto;
   padding: 20px;
+  z-index: 50;
+
+  @media (max-width: $max-width) {
+    left: 0;
+  }
 }
