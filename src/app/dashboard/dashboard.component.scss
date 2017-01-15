@@ -88,7 +88,12 @@ $max-width: 768px;
   z-index: 100;
 
   @media (max-width: $max-width) {
-    display: none;
+    display: block;
+    width: auto;
+    right: 50px;
+    &.panel-collapse {
+      display: none;
+    }
   }
 
   > .panel-heading {
@@ -132,6 +137,16 @@ $max-width: 768px;
       }
     }
   }
+}
+
+.panel-close {
+  position: fixed;
+  background-color: rgba(225, 225, 225, 0.25);
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 75;
 }
 
 .content {

@@ -24,7 +24,7 @@
       </div>
     </div>
 
-    <div class="input-group search">
+    <div class="input-group search hidden-xs hidden-sm hidden-md">
       <input type="text" class="form-control" placeholder="Rechercher..." (keyup.enter)="search()" [(ngModel)]="searchValue">
       <div class="input-group-btn">
           <button class="btn btn-default" (click)="search()"><i class="glyphicon glyphicon-search"></i></button>
@@ -34,9 +34,9 @@
   </div>
   <div class="pull-right btn-toolbar">
 
-    <span class="label label-default total-number">{{ total }}<br>opérations</span>
+    <span class="label label-default total-number visible-md visible-lg">{{ total }}<br>opérations</span>
 
-    <span class="label total-amount" [class.label-success]="totalAmount >= 0" [class.label-danger]="totalAmount < 0">{{ totalAmount | amount }}</span>
+    <span class="label total-amount visible-md visible-lg" [class.label-success]="totalAmount >= 0" [class.label-danger]="totalAmount < 0">{{ totalAmount | amount }}</span>
 
     <div class="btn-group" role="group">
       <button type="button" class="btn btn-default" [disabled]="!previousPage" (click)="changePage(previousPage)"><span class="glyphicon glyphicon-chevron-left"></span></button>
@@ -46,38 +46,40 @@
   </div>
 </div>
 
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th class="col-xs-1">Date</th>
-      <th class="col-xs-6">Libellé</th>
-      <th class="col-xs-3">Compte bancaire</th>
-      <th class="col-xs-1">Montant</th>
-      <th class="col-xs-1"></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let operation of operations">
-      <td>{{ operation.date | date:'dd/MM/yyyy' }}</td>
-      <td>
-        <span class="badge" *ngIf="operation.tag" [style.background]="operation.tag.color ? operation.tag.color : '#AAAAAA'">
-          <span class="app-icon glyphicon glyphicon-{{ operation.tag.icon ? operation.tag.icon : 'tag' }}"></span>
-          {{ operation.tag.name }}
-        </span>
-        {{ operation.name }}
-      </td>
-      <td>{{ operation.account.name }}</td>
-      <td [style.color]="operation.amount >= 0 ? 'green' : 'red'">{{ operation.amount | amount }}</td>
-      <td class="option">
-        <span dropdown>
-          <a href="javascript:void(0)" dropdownToggle><span class="glyphicon glyphicon-option-vertical"></span></a>
-          <ul class="dropdown-menu dropdown-menu-right" dropdownMenu>
-            <li><a href="javascript:void(0)" (click)="editOperation(operation)"><span class="glyphicon glyphicon-pencil"></span> Modifier opération</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="javascript:void(0)" (click)="deleteOperation(operation)"><span class="glyphicon glyphicon-trash"></span> Supprimer opération</a></li>
-          </ul>
-        </span>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th class="col-xs-1">Date</th>
+        <th class="col-xs-6">Libellé</th>
+        <th class="col-xs-3">Compte</th>
+        <th class="col-xs-1">Montant</th>
+        <th class="col-xs-1"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let operation of operations">
+        <td>{{ operation.date | date:'dd/MM/yyyy' }}</td>
+        <td>
+          <span class="badge" *ngIf="operation.tag" [style.background]="operation.tag.color ? operation.tag.color : '#AAAAAA'">
+            <span class="app-icon glyphicon glyphicon-{{ operation.tag.icon ? operation.tag.icon : 'tag' }}"></span>
+            {{ operation.tag.name }}
+          </span>
+          {{ operation.name }}
+        </td>
+        <td>{{ operation.account.name }}</td>
+        <td [style.color]="operation.amount >= 0 ? 'green' : 'red'">{{ operation.amount | amount }}</td>
+        <td class="option">
+          <span dropdown>
+            <a href="javascript:void(0)" dropdownToggle><span class="glyphicon glyphicon-option-vertical"></span></a>
+            <ul class="dropdown-menu dropdown-menu-right" dropdownMenu>
+              <li><a href="javascript:void(0)" (click)="editOperation(operation)"><span class="glyphicon glyphicon-pencil"></span> Modifier opération</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="javascript:void(0)" (click)="deleteOperation(operation)"><span class="glyphicon glyphicon-trash"></span> Supprimer opération</a></li>
+            </ul>
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

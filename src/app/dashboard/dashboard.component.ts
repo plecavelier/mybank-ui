@@ -40,7 +40,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   operation: Operation;
   openOperationFormSubscription: Subscription;
   @ViewChild('operationModal') operationModal: ModalDirective;
-  isCollapsed: boolean = true;
+  isNavCollapsed: boolean = true;
+  isPanelCollapsed: boolean = true;
 
   constructor(
     private router: Router,
