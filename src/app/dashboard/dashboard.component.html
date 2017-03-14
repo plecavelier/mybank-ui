@@ -30,30 +30,6 @@
   </div>
 </nav>
 
-<div class="panel panel-default" [class.panel-collapse]="isPanelCollapsed">
-  <div class="panel-heading clearfix">
-    <div class="panel-title">Comptes bancaires</div>
-    <div dropdown>
-      <a href="javascript:void(0)" dropdownToggle><span class="glyphicon glyphicon-option-vertical"></span></a>
-      <ul class="dropdown-menu dropdown-menu-right" dropdownMenu>
-        <li><a href="javascript:void(0)" (click)="accountModal.show()"><span class="glyphicon glyphicon-plus"></span> Créer compte</a></li>
-      </ul>
-    </div>
-  </div>
-  <ul class="list-group" app-account-list [accounts]="accounts" (alertEventEmitter)="displayAlert($event)"></ul>
-  <div class="panel-heading clearfix">
-    <div class="panel-title pull-left">Catégories</div>
-    <div dropdown>
-      <a href="javascript:void(0)" dropdownToggle><span class="glyphicon glyphicon-option-vertical"></span></a>
-      <ul class="dropdown-menu dropdown-menu-right" dropdownMenu>
-        <li><a href="javascript:void(0)" (click)="tagModal.show()"><span class="glyphicon glyphicon-plus"></span> Créer catégorie</a></li>
-      </ul>
-    </div>
-  </div>
-  <ul class="list-group" app-tag-list [tags]="tags" (alertEventEmitter)="displayAlert($event)"></ul>
-</div>
-<div class="panel-close" (click)="isPanelCollapsed = true" [collapse]="isPanelCollapsed"></div>
-
 <div bsModal #accountModal="bs-modal" class="modal fade" tabindex="-1" role="dialog">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -124,3 +100,27 @@
   </p>
   <router-outlet></router-outlet>
 </main>
+
+<div class="panel-close" (click)="isPanelCollapsed = true" [collapse]="isPanelCollapsed"></div>
+<div class="panel panel-default" [class.panel-collapse]="isPanelCollapsed">
+  <div class="panel-heading clearfix">
+    <div class="panel-title">Comptes bancaires</div>
+    <div dropdown>
+      <a href="javascript:void(0)" dropdownToggle><span class="glyphicon glyphicon-option-vertical"></span></a>
+      <ul class="dropdown-menu dropdown-menu-right" dropdownMenu>
+        <li><a href="javascript:void(0)" (click)="accountModal.show()"><span class="glyphicon glyphicon-plus"></span> Créer compte</a></li>
+      </ul>
+    </div>
+  </div>
+  <ul class="list-group" app-account-list [accounts]="accounts" (alertEventEmitter)="displayAlert($event)"></ul>
+  <div class="panel-heading clearfix">
+    <div class="panel-title pull-left">Catégories</div>
+    <div dropdown>
+      <a href="javascript:void(0)" dropdownToggle><span class="glyphicon glyphicon-option-vertical"></span></a>
+      <ul class="dropdown-menu dropdown-menu-right" dropdownMenu>
+        <li><a href="javascript:void(0)" (click)="tagModal.show()"><span class="glyphicon glyphicon-plus"></span> Créer catégorie</a></li>
+      </ul>
+    </div>
+  </div>
+  <ul class="list-group" app-tag-list [tags]="tags" (alertEventEmitter)="displayAlert($event)"></ul>
+</div>
