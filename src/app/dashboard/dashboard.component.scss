@@ -163,3 +163,58 @@ $max-width: 768px;
     left: 0;
   }
 }
+
+.modal-body.list {
+  padding: 0;
+
+  .list-group {
+    margin: 0;
+
+    .list-group-item {
+      position: relative;
+      padding: 0;
+      height: 44px;
+      line-height: 44px;
+      border-left: 0;
+      border-right: 0;
+      border-bottom: 0;
+
+      &:first-child {
+        border-top: 0;
+      }
+
+      > a {
+        display: block;
+        position: relative;
+        text-decoration: none;
+
+        &:hover {
+          background: #EEEEEE;
+        }
+
+        .glyphicon {
+          position: absolute;
+          left: 5px;
+          top: 50%;
+          margin-top: -15px;
+          width: 30px;
+          height: 30px;
+          line-height: 30px;
+          font-size: 14px;
+          text-align: center;
+          color: white;
+          border-radius: 5px;
+        }
+
+        .name {
+          display: block;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          margin-left: 40px;
+          color: #333333;
+        }
+      }
+    }
+  }
+}

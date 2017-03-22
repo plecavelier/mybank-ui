@@ -26,6 +26,9 @@ export class OperationService extends RestService<Operation, OperationType> {
   protected openFormSubject = new Subject<Operation>();
   openForm$ = this.openFormSubject.asObservable();
 
+  protected openTagsListSubject = new Subject<Operation>();
+  openTagsList$ = this.openTagsListSubject.asObservable();
+
   getModelType(): OperationType {
     return new OperationType();
   }
@@ -169,6 +172,10 @@ export class OperationService extends RestService<Operation, OperationType> {
 
   openForm(operation: Operation) {
     this.openFormSubject.next(operation);
+  }
+
+  openTagsList(operation: Operation) {
+    this.openTagsListSubject.next(operation);
   }
 
   private getFromTo(year: number, month: number): {from: string, to: string} {

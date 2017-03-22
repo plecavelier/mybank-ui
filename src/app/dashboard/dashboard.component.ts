@@ -42,6 +42,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   @ViewChild('operationModal') operationModal: ModalDirective;
   isNavCollapsed: boolean = true;
   isPanelCollapsed: boolean = true;
+  openOperationTagsListSubscription: Subscription;
+  @ViewChild('tagsListModal') tagsListModal: ModalDirective;
 
   constructor(
     private router: Router,
@@ -72,6 +74,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.openOperationFormSubscription = this.operationService.openForm$.subscribe(
       operation => this.openOperationForm(operation)
     );
+    this.openOperationTagsListSubscription = this.operationService.openTagsList$.subscribe(
+      operation => this.openOperationTagsList(operation)
+    );
   }
 
   ngOnDestroy() {
@@ -80,6 +85,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.operationChangedSubscription.unsubscribe();
     this.alertEmittedSubscription.unsubscribe();
     this.openOperationFormSubscription.unsubscribe();
+    this.openOperationTagsListSubscription.unsubscribe();
   }
 
   openOperationForm(operation?: Operation) {
@@ -87,9 +93,28 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.operationModal.show();
   }
 
+  openOperationTagsList(operation: Operation) {
+    this.operation = operation;
+    this.tagsListModal.show();
+  }
+
   closeAlert(alert: Alert) {
     let index: number = this.alerts.indexOf(alert);
     this.alerts.splice(index, 1);
+  }
+
+  changeOperationTag(tag: Tag) {
+    let oldTag = this.operation.tag;
+    this.operation.tag = tag;
+    this.operationService.update(this.operation)
+      .subscribe(
+        response => {
+          this.alertService.emit(new Alert('success', 'La modification a bien été enregistrée'));
+        }, error => {
+          this.alerts.push(new Alert('danger', 'Une erreur est survenue durant l\'enregistrement'));
+          this.operation.tag = oldTag;
+        }
+      );
   }
 
   logout() {

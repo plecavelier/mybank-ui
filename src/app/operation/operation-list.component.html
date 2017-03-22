@@ -61,10 +61,13 @@
       <tr *ngFor="let operation of operations">
         <td>{{ operation.date | date:'dd/MM/yyyy' }}</td>
         <td>
-          <span class="badge" *ngIf="operation.tag" [style.background]="operation.tag.color ? operation.tag.color : '#AAAAAA'">
-            <span class="app-icon glyphicon glyphicon-{{ operation.tag.icon ? operation.tag.icon : 'tag' }}"></span>
-            {{ operation.tag.name }}
-          </span>
+          <a href="javascript:void(0)" (click)="changeOperationTag(operation)">
+            <span class="badge" *ngIf="operation.tag" [style.background]="operation.tag.color ? operation.tag.color : '#AAAAAA'">
+              <span class="app-icon glyphicon glyphicon-{{ operation.tag.icon ? operation.tag.icon : 'tag' }}"></span>
+              {{ operation.tag.name }}
+            </span>
+            <span *ngIf="!operation.tag" class="no-tag glyphicon glyphicon-tag"></span>
+          </a>
           {{ operation.name }}
         </td>
         <td>{{ operation.account.name }}</td>

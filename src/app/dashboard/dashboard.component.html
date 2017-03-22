@@ -69,10 +69,33 @@
         <button type="button" class="close" (click)="operationModal.hide()">
           <span>&times;</span>
         </button>
-        <h4 class="modal-title">Création catégorie</h4>
+        <h4 class="modal-title">Création opération</h4>
       </div>
       <div class="modal-body">
         <app-form [type]="operationType" [model]="operation" [service]="operationService" [models]="models" (success)="operationModal.hide()"></app-form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div bsModal #tagsListModal="bs-modal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" (click)="tagsListModal.hide()">
+          <span>&times;</span>
+        </button>
+        <h4 class="modal-title">Modification catégorie</h4>
+      </div>
+      <div class="modal-body list">
+        <ul class="list-group">
+          <div class="list-group-item" *ngFor="let tag of tags">
+            <a href="javascript:void(0)" (click)="changeOperationTag(tag); tagsListModal.hide()">
+              <span class="glyphicon glyphicon-{{ tag.icon ? tag.icon : 'tag' }}" [style.background-color]="tag.color ? tag.color : '#AAAAAA'"></span>
+              <span class="name">{{ tag.name }}</span>
+            </a>
+          </div>
+        </ul>
       </div>
     </div>
   </div>

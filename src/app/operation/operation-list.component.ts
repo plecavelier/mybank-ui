@@ -137,6 +137,10 @@ export class OperationListComponent implements OnInit, OnDestroy {
     this.refreshList();
   }
 
+  changeOperationTag(operation: Operation) {
+    this.operationService.openTagsList(operation);
+  }
+
   editOperation(operation: Operation) {
     this.operationService.openForm(operation);
   }
