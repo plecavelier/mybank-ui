@@ -45,6 +45,9 @@ export class AccountType implements ModelType<Account> {
         validators: [ Validators.required, Validators.pattern('^-?[0-9]+([.][0-9]{0,2})?$') ],
         required: true,
         onlyNew: true
+      }, {
+        key: 'disabled',
+        type: 'boolean'
       }
     ];
   }

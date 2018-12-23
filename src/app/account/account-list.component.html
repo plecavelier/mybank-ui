@@ -1,20 +1,24 @@
-<div class="list-group-item" [class.large]="account.number" [class.selected]="isSelected(account)" *ngFor="let account of accounts">
-  <a href="javascript:void(0)" (click)="toggleAccount(account)">
-    <h4 class="list-group-item-heading">{{ account.name }}</h4>
-    <p class="list-group-item-text">{{ account.number }}</p>
-    <div class="balance">
-      <span class="badge" [class.positive]="account.balance >= 0" [class.negative]="account.balance < 0">{{ account.balance | amount }}</span>
+<ng-container *ngFor="let account of accounts">
+  <div *ngIf="isShown(account)" class="list-group-item" [class.large]="account.number" [class.selected]="isSelected(account)">
+    <a href="javascript:void(0)" (click)="toggleAccount(account)" [class.disabled]="account.disabled">
+      <h4 class="list-group-item-heading">{{ account.name }}</h4>
+      <p class="list-group-item-text">{{ account.number }}</p>
+      <div class="balance">
+        <span class="badge" [class.positive]="account.balance >= 0" [class.negative]="account.balance < 0">{{ account.balance | amount }}</span>
+      </div>
+    </a>
+    <div dropdown>
+      <a href="javascript:void(0)" dropdownToggle><span class="glyphicon glyphicon-option-vertical"></span></a>
+      <ul class="dropdown-menu dropdown-menu-right" dropdownMenu>
+        <li><a href="javascript:void(0)" (click)="editAccount(account)"><span class="glyphicon glyphicon-pencil"></span> Modifier compte</a></li>
+        <li *ngIf="!account.disabled"><a href="javascript:void(0)" (click)="disableAccount(account)"><span class="glyphicon glyphicon-remove-circle"></span> Désactiver compte</a></li>
+        <li *ngIf="account.disabled"><a href="javascript:void(0)" (click)="enableAccount(account)"><span class="glyphicon glyphicon-ok-circle"></span> Réactiver compte</a></li>
+        <li role="separator" class="divider"></li>
+        <li><a href="javascript:void(0)" (click)="deleteAccount(account)"><span class="glyphicon glyphicon-trash"></span> Supprimer compte</a></li>
+      </ul>
     </div>
-  </a>
-  <div dropdown>
-    <a href="javascript:void(0)" dropdownToggle><span class="glyphicon glyphicon-option-vertical"></span></a>
-    <ul class="dropdown-menu dropdown-menu-right" dropdownMenu>
-      <li><a href="javascript:void(0)" (click)="editAccount(account)"><span class="glyphicon glyphicon-pencil"></span> Modifier compte</a></li>
-      <li role="separator" class="divider"></li>
-      <li><a href="javascript:void(0)" (click)="deleteAccount(account)"><span class="glyphicon glyphicon-trash"></span> Supprimer compte</a></li>
-    </ul>
   </div>
-</div>
+</ng-container>
  
 <div bsModal #editModal="bs-modal" class="modal fade" tabindex="-1" role="dialog">
   <div class="modal-dialog modal-lg">

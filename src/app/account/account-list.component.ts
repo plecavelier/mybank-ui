@@ -50,6 +50,22 @@ export class AccountListComponent {
     this.editModal.show();
   }
 
+  disableAccount(account: Account) {
+    account.disabled = true;
+    this.accountService.update(account).subscribe(
+        response => this.alertService.emit(new Alert('success', 'Le compte bancaire a bien été désactivé')),
+        error =>  this.alertService.emit(new Alert('danger', 'Une erreur est survenue durant la désactivation du compte bancaire'))
+    );
+  }
+
+  enableAccount(account: Account) {
+    account.disabled = false;
+    this.accountService.update(account).subscribe(
+        response => this.alertService.emit(new Alert('success', 'Le compte bancaire a bien été réactivé')),
+        error =>  this.alertService.emit(new Alert('danger', 'Une erreur est survenue durant la réactivation du compte bancaire'))
+    );
+  }
+
   deleteAccount(account: Account) {
     if (confirm('Souhaitez-vous vraiment supprimer ce compte bancaire ?')) {
       this.accountService.delete(account).subscribe(
@@ -57,5 +73,9 @@ export class AccountListComponent {
         error =>  this.alertService.emit(new Alert('danger', 'Une erreur est survenue durant la suppression du compte bancaire'))
       );
     }
+  }
+
+  isShown(account: Account): boolean {
+    return this.accountService.isShown(account);
   }
 }

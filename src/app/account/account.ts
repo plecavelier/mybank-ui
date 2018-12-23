@@ -6,5 +6,5 @@ export class Account {
   number: string = '';
   balance: number = 0;
   description: string  = '';
-  
+  disabled: boolean = false;
 }

@@ -117,6 +117,18 @@ export class DashboardComponent implements OnInit, OnDestroy {
       );
   }
 
+  showDisabledAccounts() {
+    this.accountService.showDisabled();
+  }
+
+  hideDisabledAccounts() {
+    this.accountService.hideDisabled();
+  }
+
+  isDisabledAccountsShown() {
+    return this.accountService.disabledShown;
+  }
+
   logout() {
     this.authService.logout();
     this.router.navigate(['login']);
@@ -124,7 +136,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   private setAccounts(accounts: Account[]) {
     this.accounts = accounts;
-    this.models['account'] = accounts;
+    let accountModels = this.accounts.filter((account: Account) => {
+      return !account.disabled;
+    });
+    this.models['account'] = accountModels;
   }
 
   private setTags(tags: Tag[]) {

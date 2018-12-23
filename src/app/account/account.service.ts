@@ -13,7 +13,21 @@ import { AccountType } from './account-type';
 @Injectable()
 export class AccountService extends RestService<Account, AccountType> {
 
+  disabledShown: boolean = false;
+
   getModelType(): AccountType {
     return new AccountType();
+  }
+
+  showDisabled() {
+    this.disabledShown = true;
+  }
+
+  hideDisabled() {
+    this.disabledShown = false;
+  }
+
+  isShown(account: Account): boolean {
+    return this.disabledShown || !account.disabled;
   }
 }

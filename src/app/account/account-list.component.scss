@@ -36,6 +36,10 @@ $dark-color: #012F3A;
       background: #EEEEEE;
     }
 
+    &.disabled {
+      opacity: 0.5;
+    }
+
     .balance {
       position: absolute;
       right: 35px;

@@ -132,6 +132,9 @@
       <a href="javascript:void(0)" dropdownToggle><span class="glyphicon glyphicon-option-vertical"></span></a>
       <ul class="dropdown-menu dropdown-menu-right" dropdownMenu>
         <li><a href="javascript:void(0)" (click)="accountModal.show()"><span class="glyphicon glyphicon-plus"></span> Créer compte</a></li>
+        <li role="separator" class="divider"></li>
+        <li *ngIf="!isDisabledAccountsShown()"><a href="javascript:void(0)" (click)="showDisabledAccounts()"><span class="glyphicon glyphicon-eye-open"></span> Voir comptes inactifs</a></li>
+        <li *ngIf="isDisabledAccountsShown()"><a href="javascript:void(0)" (click)="hideDisabledAccounts()"><span class="glyphicon glyphicon-eye-close"></span> Masquer comptes inactifs</a></li>
       </ul>
     </div>
   </div>
