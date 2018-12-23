@@ -12,9 +12,9 @@ Cette application s'appuie sur [Angular 2][2].
 Pré-requis
 ----------
 
-* NPM
-* PHP (pour le déploiement)
-* Composer (pour le déploiement)
+Installer :
+* Docker
+* Docker Compose
 
 Installation
 ------------
@@ -24,20 +24,20 @@ Faire un clone du dépôt et se positionner dans le répertoire créé :
     $ git clone https://github.com/plecavelier/mybank-ui.git
     $ cd mybank-ui
 
-Lancer l'installation avec NPM :
+Lancer le build de l'image Docker :
 
-    $ npm install
+    $ docker-compose build
 
-Faire une copie du fichier `src/environments/environment.ts.dist` dans `src/environments/environment.ts` et modifier les paramètres si nécessaire.
+Démarrer le conteneur Docker :
 
-Lancer le serveur HTTP avec la commande suivante :
-
-    $ npm run ng serve
+    $ docker-compose up -d
 
 Tests
 -----
 
-Accéder à l'URL `http://127.0.0.1:4200` à partir de votre navigateur, la page de connexion devrait s'afficher.
+Accéder à l'URL `http://localhost:4200` à partir de votre navigateur, la page de connexion devrait s'afficher.
+
+*Remplacer localhost par l'IP ou le nom de l'hôte si le conteneur n'a pas été lancé sur la machine locale.*
 
 Tentez de vous connecter avec un utilisateur enregistré sur l'[API MyBank][1]. Si une erreur inattendue survient, assurez-vous que l'API est bien démarrée et que l'URL est correctement spécifiée dans le fichier `src/environments/environment.ts`.
 
