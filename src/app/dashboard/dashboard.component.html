@@ -145,6 +145,9 @@
       <a href="javascript:void(0)" dropdownToggle><span class="glyphicon glyphicon-option-vertical"></span></a>
       <ul class="dropdown-menu dropdown-menu-right" dropdownMenu>
         <li><a href="javascript:void(0)" (click)="tagModal.show()"><span class="glyphicon glyphicon-plus"></span> Créer catégorie</a></li>
+        <li role="separator" class="divider"></li>
+        <li *ngIf="!isDisabledTagsShown()"><a href="javascript:void(0)" (click)="showDisabledTags()"><span class="glyphicon glyphicon-eye-open"></span> Voir catégories inactives</a></li>
+        <li *ngIf="isDisabledTagsShown()"><a href="javascript:void(0)" (click)="hideDisabledTags()"><span class="glyphicon glyphicon-eye-close"></span> Masquer catégories inactives</a></li>
       </ul>
     </div>
   </div>

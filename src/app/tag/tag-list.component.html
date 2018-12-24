@@ -1,17 +1,21 @@
-<div class="list-group-item" *ngFor="let tag of tags" [class.selected]="isSelected(tag)">
-  <a href="javascript:void(0)" (click)="toggleTag(tag)">
-    <span class="glyphicon glyphicon-{{ tag.icon ? tag.icon : 'tag' }}" [style.background-color]="tag.color ? tag.color : '#AAAAAA'"></span>
-    <span class="name">{{ tag.name }}</span>
-  </a>
-  <div dropdown>
-    <a href="javascript:void(0)" dropdownToggle><span class="glyphicon glyphicon-option-vertical"></span></a>
-    <ul class="dropdown-menu dropdown-menu-right" dropdownMenu>
-      <li><a href="javascript:void(0)" (click)="editTag(tag)"><span class="glyphicon glyphicon-pencil"></span> Modifier catégorie</a></li>
-      <li role="separator" class="divider"></li>
-      <li><a href="javascript:void(0)" (click)="deleteTag(tag)"><span class="glyphicon glyphicon-trash"></span> Supprimer catégorie</a></li>
-    </ul>
+<ng-container *ngFor="let tag of tags">
+  <div *ngIf="isShown(tag)" class="list-group-item" [class.selected]="isSelected(tag)">
+    <a href="javascript:void(0)" (click)="toggleTag(tag)" [class.disabled]="tag.disabled">
+      <span class="glyphicon glyphicon-{{ tag.icon ? tag.icon : 'tag' }}" [style.background-color]="tag.color ? tag.color : '#AAAAAA'"></span>
+      <span class="name">{{ tag.name }}</span>
+    </a>
+    <div dropdown>
+      <a href="javascript:void(0)" dropdownToggle><span class="glyphicon glyphicon-option-vertical"></span></a>
+      <ul class="dropdown-menu dropdown-menu-right" dropdownMenu>
+        <li><a href="javascript:void(0)" (click)="editTag(tag)"><span class="glyphicon glyphicon-pencil"></span> Modifier catégorie</a></li>
+        <li *ngIf="!tag.disabled"><a href="javascript:void(0)" (click)="disableTag(tag)"><span class="glyphicon glyphicon-remove-circle"></span> Désactiver catégorie</a></li>
+        <li *ngIf="tag.disabled"><a href="javascript:void(0)" (click)="enableTag(tag)"><span class="glyphicon glyphicon-ok-circle"></span> Réactiver catégorie</a></li>
+        <li role="separator" class="divider"></li>
+        <li><a href="javascript:void(0)" (click)="deleteTag(tag)"><span class="glyphicon glyphicon-trash"></span> Supprimer catégorie</a></li>
+      </ul>
+    </div>
   </div>
-</div>
+</ng-container>
  
 <div bsModal #editModal="bs-modal" class="modal fade" tabindex="-1" role="dialog">
   <div class="modal-dialog modal-lg">

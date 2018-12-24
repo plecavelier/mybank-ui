@@ -9,6 +9,7 @@ import { FilterService } from '../dashboard/filter.service';
 import { Tag } from './tag';
 import { TagService } from './tag.service';
 import { TagType } from './tag-type';
+import {Account} from '../account/account';
 
 @Component({
   selector: 'ul[app-tag-list]',
@@ -49,6 +50,22 @@ export class TagListComponent {
     this.editModal.show();
   }
 
+  disableTag(tag: Tag) {
+    tag.disabled = true;
+    this.tagService.update(tag).subscribe(
+        response => this.alertService.emit(new Alert('success', 'La catégorie bien été désactivée')),
+        error =>  this.alertService.emit(new Alert('danger', 'Une erreur est survenue durant la désactivation de la catégorie'))
+    );
+  }
+
+  enableTag(tag: Tag) {
+    tag.disabled = false;
+    this.tagService.update(tag).subscribe(
+        response => this.alertService.emit(new Alert('success', 'La catégorie a bien été réactivée')),
+        error =>  this.alertService.emit(new Alert('danger', 'Une erreur est survenue durant la réactivation de la catégorie'))
+    );
+  }
+
   deleteTag(tag: Tag) {
     if (confirm('Souhaitez-vous vraiment supprimer cette catégorie ?')) {
       this.tagService.delete(tag).subscribe(
@@ -56,5 +73,9 @@ export class TagListComponent {
         error =>  this.alertService.emit(new Alert('danger', 'Une erreur est survenue durant la suppression de la catégorie'))
       );
     }
+  }
+
+  isShown(tag: Tag): boolean {
+    return this.tagService.isShown(tag);
   }
 }

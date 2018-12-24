@@ -98,6 +98,9 @@ export class TagType implements ModelType<Tag> {
         label: 'Couleur',
         validators: Validators.required,
         required: true
+      }, {
+        key: 'disabled',
+        type: 'boolean'
       }
     ];
   }

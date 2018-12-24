@@ -6,4 +6,5 @@ export class Tag {
   description: string = '';
   icon: string;
   color: string;
+  disabled: boolean = false;
 }

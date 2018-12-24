@@ -129,6 +129,18 @@ export class DashboardComponent implements OnInit, OnDestroy {
     return this.accountService.disabledShown;
   }
 
+  showDisabledTags() {
+    this.tagService.showDisabled();
+  }
+
+  hideDisabledTags() {
+    this.tagService.hideDisabled();
+  }
+
+  isDisabledTagsShown() {
+    return this.tagService.disabledShown;
+  }
+
   logout() {
     this.authService.logout();
     this.router.navigate(['login']);
@@ -144,7 +156,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   private setTags(tags: Tag[]) {
     this.tags = tags;
-    this.models['tag'] = tags;
+    let tagModels = this.tags.filter((tag: Tag) => {
+      return !tag.disabled;
+    });
+    this.models['tag'] = tagModels;
   }
 
   private refreshAccounts() {
