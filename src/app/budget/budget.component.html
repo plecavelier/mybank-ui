@@ -1,0 +1,62 @@
+<div class="container-fluid container-no-padding toolbar">
+    <div class="pull-left btn-toolbar">
+
+        <div class="btn-group" role="group">
+            <div class="btn-group" role="group" dropdown>
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" dropdownToggle>
+                    {{ year }}
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" dropdownMenu>
+                    <li *ngFor="let year of years"><a href="javascript:void(0)" (click)="changeYear(year)">{{ year }}</a></li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+    <div class="pull-right btn-toolbar">
+
+        <span class="label label-default total visible-md visible-lg">Budget<br>{{ getBudget() | amount }}</span>
+
+        <span class="label label-default total visible-md visible-lg">Total<br>{{ getTotal() | amount }}</span>
+
+        <span class="label total visible-md visible-lg" [class.label-success]="getGap() >= 0" [class.label-danger]="getGap() < 0">Ecart<br>{{ getGap() | amount }}</span>
+
+    </div>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th class="col-xs-6">Catégorie</th>
+                <th class="col-xs-2">Budget</th>
+                <th class="col-xs-2">Total</th>
+                <th class="col-xs-2">Ecart</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let budget of budgets">
+                <td>
+                    <span class="badge"[style.background]="budget.color ? budget.color : '#AAAAAA'">
+                        <span class="app-icon glyphicon glyphicon-{{ budget.icon ? budget.icon : 'tag' }}"></span>
+                        {{ budget.name }}
+                    </span>
+                </td>
+                <td>
+                    <span class="budget-amount" *ngIf="!isInputShown(budget)" (click)="changeBudget(budget)">
+                        {{ budget.budgetAmount | amount }}
+                        <span class="app-icon glyphicon glyphicon-pencil"></span>
+                    </span>
+                    <input *ngIf="isInputShown(budget)" type="number" [(ngModel)]="budget.budgetAmountInput" (change)="saveBudget(budget)" />
+                </td>
+                <td>{{ budget.totalAmount | amount }}</td>
+                <td [style.color]="budget.gap >= 0 ? 'green' : 'red'">
+                    {{ budget.gap | amount }}
+                    &#160;
+                    <span *ngIf="getPercentTag(budget) !== null" class="badge" [class.positive]="budget.gap >= 0" [class.negative]="budget.gap < 0">{{ getPercentTag(budget) > 0 ? '+' : '' }}{{ getPercentTag(budget) }}%</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

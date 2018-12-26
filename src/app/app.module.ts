@@ -36,6 +36,9 @@ import { AuthGuard } from './auth/auth.guard';
 import { KeysPipe } from './shared/keys.pipe';
 import { MonthNamePipe } from './shared/month-name.pipe';
 import { AmountPipe } from './shared/amount.pipe';
+import {BudgetComponent} from './budget/budget.component';
+import {YearResolver} from './budget/year.resolver';
+import {BudgetListResolver} from './budget/budget-list.resolver';
 
 export function authFactory(http: Http, options: RequestOptions) {
   return new AuthHttp(new AuthConfig(AppConfig.JWT_CONFIG), http, options);
@@ -65,6 +68,7 @@ export const authProvider = {
   declarations: [
     AccountListComponent,
     AppComponent,
+    BudgetComponent,
     ChartComponent,
     DashboardComponent,
     FormComponent,
@@ -92,12 +96,14 @@ export const authProvider = {
 
     AccountByIdResolver,
     AccountListResolver,
+    BudgetListResolver,
     ChartDataListResolver,
     OperationByIdResolver,
     OperationPaginatedListResolver,
     TagByIdResolver,
     TagListResolver,
-    YearMonthResolver
+    YearMonthResolver,
+    YearResolver
   ],
   bootstrap: [ AppComponent ]
 })

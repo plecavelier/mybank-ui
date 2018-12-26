@@ -159,6 +159,31 @@ export class OperationService extends RestService<Operation, OperationType> {
       .catch(this.handleError);
   }
 
+  getYears() {
+    return this.authHttp.get(environment['apiUrl'] + '/operation_year_months')
+      .map(response => {
+        let jsonResponse = response.json();
+
+        let today: Date = new Date();
+        jsonResponse.push({year: String(today.getFullYear()), month: String(1)});
+        jsonResponse.push({year: String(today.getFullYear() + 1), month: String(1)});
+
+        jsonResponse.sort(function(item1, item2) {
+          return item1.year - item2.year;
+        });
+
+        let years = [];
+        for (let item of jsonResponse) {
+          if (years.indexOf(item.year) === -1) {
+            years.push(item.year);
+          }
+        }
+
+        return years;
+      })
+      .catch(this.handleError);
+  }
+
   // TODO : export in dedicated service
   import(ofxContent: string) {
     let params = {

@@ -14,6 +14,9 @@ import { OperationPaginatedListResolver } from './operation/operation-paginated-
 import { TagByIdResolver } from './tag/tag-by-id.resolver';
 import { TagListResolver } from './tag/tag-list.resolver';
 import { YearMonthResolver } from './operation/year-month.resolver';
+import {BudgetComponent} from './budget/budget.component';
+import {YearResolver} from './budget/year.resolver';
+import {BudgetListResolver} from './budget/budget-list.resolver';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -21,6 +24,7 @@ const appRoutes: Routes = [
     { path: '', redirectTo: '/operations', pathMatch: 'full' },
     { path: 'operations', component: OperationListComponent, resolve: { operations: OperationPaginatedListResolver, yearMonths: YearMonthResolver } },
     { path: 'import-form', component: ImportFormComponent },
+    { path: 'budget', component: BudgetComponent, resolve: { years: YearResolver, budgets: BudgetListResolver } },
     { path: 'statistics', component: ChartComponent, resolve: { chartDatas: ChartDataListResolver } }
   ] },
 ];

@@ -7,4 +7,9 @@ export class Tag {
   icon: string;
   color: string;
   disabled: boolean = false;
+  budgetYear: number;
+  budgetAmount: number;
+  budgetAmountInput: number = null;
+  totalAmount: number;
+  gap: number;
 }

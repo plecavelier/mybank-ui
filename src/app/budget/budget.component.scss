@@ -1,0 +1,32 @@
+.toolbar {
+  margin-bottom: 20px;
+
+  .total {
+    font-size: 12px;
+    line-height: 18px;
+    padding: 7px 10px;
+  }
+}
+
+.budget-amount {
+  cursor: pointer;
+
+  .app-icon {
+    display: none;
+  }
+
+  &:hover {
+    .app-icon {
+      display: inline;
+    }
+  }
+}
+
+.badge {
+  &.positive {
+    background: #5cb85c;
+  }
+  &.negative {
+    background: #d9534f;
+  }
+}

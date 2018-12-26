@@ -101,6 +101,18 @@ export class TagType implements ModelType<Tag> {
       }, {
         key: 'disabled',
         type: 'boolean'
+      }, {
+        key: 'budgetAmount',
+        type: 'number'
+      }, {
+        key: 'budgetYear',
+        type: 'number'
+      }, {
+        key: 'totalAmount',
+        type: 'number'
+      }, {
+        key: 'gap',
+        type: 'number'
       }
     ];
   }
